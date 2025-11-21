@@ -6,31 +6,26 @@
   <title>Word Puzzle Game for Prospect 3</title>
   <style>
     body { font-family: sans-serif; text-align: center; background: linear-gradient(135deg,#e3f2fd,#bbdefb); color: #0d47a1; font-size: 20px; }
-    .container { max-width: 960px; margin: 24px auto; padding: 36px; background: #fff; border-radius: 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.12); transition: transform 0.3s ease; }
-    .container:hover { transform: scale(1.02); }
-    h2 { font-size: 40px; margin: 8px 0 16px; background: linear-gradient(90deg,#ff4081,#7c4dff,#448aff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: glow 2s infinite alternate; }
-    @keyframes glow { from { text-shadow: 0 0 5px #7c4dff; } to { text-shadow: 0 0 20px #ff4081; } }
+    .container { max-width: 960px; margin: 24px auto; padding: 36px; background: #fff; border-radius: 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
+    h2 { font-size: 40px; margin: 8px 0 16px; background: linear-gradient(90deg,#ff4081,#7c4dff,#448aff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
     .subject-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 20px; }
     .subject-buttons button { padding: 14px 22px; border: none; border-radius: 12px; color: #fff; font-weight: bold; cursor: pointer; font-size: 18px; transition: transform 0.2s, box-shadow 0.2s; }
     .subject-buttons button:hover { transform: scale(1.1); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
     .btn-red { background: #f44336; } .btn-green { background: #4caf50; } .btn-blue { background: #2196f3; }
     .btn-orange { background: #ff9800; } .btn-purple { background: #9c27b0; } .btn-teal { background: #009688; }
-    button.action { margin: 12px; padding: 14px 26px; border: none; border-radius: 12px; background: #1565c0; color: #fff; font-weight: bold; cursor: pointer; font-size: 18px; transition: background 0.3s; }
+    button.action { margin: 12px; padding: 14px 26px; border: none; border-radius: 12px; background: #1565c0; color: #fff; font-weight: bold; cursor: pointer; font-size: 18px; }
     button.action:hover { background: #0d47a1; }
     #progressBar { height: 16px; background: #ddd; border-radius: 8px; overflow: hidden; margin: 14px 0; }
     #progressFill { height: 100%; width: 0%; background: linear-gradient(90deg,#4caf50,#81c784); transition: width 0.4s ease; }
     #letters { font-size: 42px; margin: 14px 0; font-weight: bold; color: #1565c0; min-height: 48px; letter-spacing: 2px; }
-    #feedback { min-height: 28px; font-weight: bold; transition: all 0.3s ease; }
+    #feedback { min-height: 28px; font-weight: bold; }
     .correct { color: #2e7d32; animation: pulse 0.6s; }
     .wrong { color: #d32f2f; animation: shake 0.6s; }
-    @keyframes shake { 0%{transform:translateX(0);} 25%{transform:translateX(-5px);} 50%{transform:translateX(5px);} 75%{transform:translateX(-5px);} 100%{transform:translateX(0);} }
-    @keyframes pulse { 0%{transform:scale(1);} 50%{transform:scale(1.2);} 100%{transform:scale(1);} }
+    @keyframes shake { 25%{transform:translateX(-5px);} 50%{transform:translateX(5px);} 75%{transform:translateX(-5px);} }
+    @keyframes pulse { 50%{transform:scale(1.2);} }
+    #answersList { margin-top: 20px; text-align: left; font-size: 18px; }
     footer { font-size: 16px; color: #555; margin-top: 16px; }
     .profile-photo { width:48px; height:48px; border-radius:50%; border:2px solid #2196f3; object-fit:cover; margin:10px auto; }
-    .volume-controls { display: flex; justify-content: center; gap: 16px; align-items: center; margin-top: 10px; }
-    .volume-controls label { font-weight: bold; color: #0d47a1; }
-    .volume-slider { width: 220px; }
-    input#word { font-size: 18px; padding: 10px 12px; width: 60%; max-width: 420px; border: 2px solid #2196f3; border-radius: 8px; }
   </style>
 </head>
 <body>
@@ -40,17 +35,9 @@
 <div id="subjectMenu" class="container">
   <h3>Choose a subject</h3>
   <div class="subject-buttons">
-    <button class="btn-red" data-subject="Personality">Personality</button>
-    <button class="btn-green" data-subject="Travel">Travel</button>
-    <button class="btn-blue" data-subject="Festivals">Festivals</button>
-    <button class="btn-orange" data-subject="Services">Services</button>
-    <button class="btn-purple" data-subject="Media">Media</button>
-    <button class="btn-teal" data-subject="Health">Health</button>
-  </div>
-  <button id="musicBtnHome" class="action">🎵 Play Music</button>
-  <div class="volume-controls">
-    <label for="musicVolume">Music:</label>
-    <input id="musicVolume" type="range" min="0" max="1" step="0.1" value="0.3" class="volume-slider">
+    <button class="btn-red" data-subject="Services">Services</button>
+    <button class="btn-green" data-subject="Media">Media</button>
+    <button class="btn-blue" data-subject="Health">Health</button>
   </div>
 </div>
 
@@ -61,17 +48,11 @@
   <p id="remainingWords">Remaining: 0 words</p>
   <div id="letters"></div>
   <div id="feedback"></div>
-  <input id="word" type="text" placeholder="ترجمه فارسی را بنویسید">
+  <input id="word" type="text" placeholder="Type the English word">
   <button id="submitBtn" class="action">Submit</button>
-  <button id="musicBtnGame" class="action">🎵 Play Music</button>
-  <div class="volume-controls">
-    <label for="volumeSlider">Music:</label>
-    <input id="volumeSlider" type="range" min="0" max="1" step="0.1" value="0.3" class="volume-slider">
-  </div>
   <button id="homeBtn" class="action" style="background:#f44336">🏠 Home</button>
+  <div id="answersList"></div>
 </div>
-
-<audio id="bgmusic" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" loop></audio>
 
 <footer>
   <img src="https://s34.picofile.com/file/8488183492/2.png" alt="My Photo" class="profile-photo">
@@ -80,17 +61,47 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-  const music = document.getElementById('bgmusic');
-  music.volume = 0.3;
-
-  function setupMusic(btn){
-    btn.addEventListener('click',()=>{
-      if(music.paused){ music.play(); btn.textContent='🎵 Pause Music'; }
-      else { music.pause(); btn.textContent='🎵 Play Music'; }
-    });
+  function shuffleWord(word) {
+    return word.split('').sort(() => Math.random() - 0.5).join('');
   }
-  setupMusic(document.getElementById('musicBtnHome'));
-  setupMusic(document.getElementById('musicBtnGame'));
 
-  function setupVolumeSlider(id){
-    const
+  const subjects = {
+    Services: {
+      firefighter:"آتش‌نشان", hospital:"بیمارستان", police:"پلیس", postoffice:"اداره پست", bank:"بانک",
+      school:"مدرسه", shop:"فروشگاه", market:"بازار", stamp:"تمبر", envelope:"پاکت نامه",
+      emergency:"اورژانس", employee:"کارمند", firestation:"ایستگاه آتش‌نشانی", gasstation:"پمپ بنزین", charity:"خیریه",
+      donate:"اهدا کردن", info:"اطلاعات", call:"تماس گرفتن", service:"خدمت", bus:"اتوبوس"
+    },
+    Media: {
+      media:"رسانه", message:"پیام", movie:"فیلم", report:"گزارش", dictionary:"فرهنگ لغت",
+      radio:"رادیو", interview:"مصاحبه", blog:"وبلاگ", tv:"تلویزیون", video:"ویدئو",
+      photo:"عکس", article:"مقاله", headline:"تیتر", internet:"اینترنت", phone:"تلفن",
+      surf:"گشت‌زنی اینترنتی", download:"دانلود", text:"پیامک", newsstand:"دکه روزنامه", quiz:"مسابقه تلویزیونی"
+    },
+    Health: {
+      advice:"توصیه", ankle:"مچ پا", knee:"زانو", bleed:"خونریزی", bruise:"کبودی",
+      burn:"سوختگی", cut:"برش", firstaid:"کمک‌های اولیه", wound:"زخم", health:"سلامتی",
+      heartattack:"حمله قلبی", injury:"آسیب‌دیدگی", scar:"جای زخم", hurt:"آسیب زدن", doctor:"پزشک",
+      nurse:"پرستار", medicine:"دارو", pill:"قرص", pain:"درد", hospital:"بیمارستان"
+    }
+  };
+
+  const subjectButtons = document.querySelectorAll('.subject-buttons button');
+  const subjectMenu = document.getElementById('subjectMenu');
+  const gameArea = document.getElementById('gameArea');
+  const scoreEl = document.getElementById('score');
+  const levelEl = document.getElementById('level');
+  const remainingEl = document.getElementById('remainingWords');
+  const lettersEl = document.getElementById('letters');
+  const feedbackEl = document.getElementById('feedback');
+  const inputEl = document.getElementById('word');
+  const submitBtn = document.getElementById('submitBtn');
+  const homeBtn = document.getElementById('homeBtn');
+  const progressFill = document.getElementById('progressFill');
+  const answersList = document.getElementById('answersList');
+
+  let currentSubjectKey = null;
+  let words = [];
+  let total = 0;
+  let score = 0;
+  let index = 
