@@ -87,22 +87,41 @@ document.addEventListener("DOMContentLoaded", () => {
   setupVolumeSlider(document.getElementById('volumeSliderGame'));
 
   const subjects = {
-    Personality: { kind:"مهربان", brave:"شجاع", polite:"با ادب", rude:"بی ادب", selfish:"خودخواه",
-      serious:"جدی", shy:"خجالتی", clever:"باهوش", talkative:"پرحرف", friendly:"دوستانه",
-      funny:"بامزه", lazy:"تنبل", helpful:"یاری رسان", hardworking:"سخت‌کوش", honest:"صادق",
-      calm:"آرام", angry:"عصبانی", patient:"صبور", neat:"مرتب", nervous:"نگران" },
-    Travel: { airport:"فرودگاه", passport:"گذرنامه", ticket:"بلیط", train:"قطار", travel:"سفر کردن",
-      timetable:"جدول زمانی", reservation:"رزرو", room:"اتاق", checkin:"ورود هتل", checkout:"خروج هتل",
-      luggage:"چمدان", guidebook:"کتاب راهنما", board:"سوار شدن", land:"فرود آمدن", map:"نقشه",
-      bus:"اتوبوس", car:"ماشین", ship:"کشتی", hotel:"هتل", station:"ایستگاه" },
-    Festivals: { festival:"جشن", gift:"هدیه", sing:"خواندن", food:"غذا", holiday:"تعطیلات",
-      firework:"آتش‌بازی", ceremony:"مراسم", recite:"قرائت قرآن", pray:"نماز خواندن", fast:"روزه گرفتن",
-      special:"مخصوص", spring:"بهار", grandparents:"پدربزرگ و مادربزرگ", party:"مهمانی", music:"موسیقی",
-      parade:"رژه", tradition:"سنت", joy:"شادی", celebrate:"جشن گرفتن", crowd:"جمعیت" },
-    Services: { postoffice:"اداره پست", call:"تماس گرفتن", service:"خدمت", emergency:"اورژانس", employee:"کارمند",
-      firestation:"ایستگاه آتش‌نشانی", firefighter:"آتش‌نشان", gasstation:"پمپ بنزین", charity:"خیریه", donate:"اهدا کردن",
-      info:"اطلاعات", bank:"بانک", hospital:"بیمارستان", school:"مدرسه", shop:"فروشگاه",
-      police:"پلیس", market:"بازار", stamp:"تمبر", envelope:"پاکت نامه", bus:"اتوبوس" },
-    Media: { media:"رسانه", message:"پیام", movie:"فیلم", report:"گزارش", dictionary:"فرهنگ لغت",
-      surf:"گشت‌زدن اینترنت", download:"دانلود", text:"پیامک", newsstand:"دکه روزنامه", quiz:"مسابقه تلویزیونی",
-      radio:"ر
+  Personality: {
+    kind:"مهربان", brave:"شجاع", polite:"با ادب", rude:"بی‌ادب", selfish:"خودخواه",
+    serious:"جدی", shy:"خجالتی", clever:"باهوش", talkative:"پرحرف", friendly:"دوستانه",
+    funny:"بامزه", lazy:"تنبل", helpful:"یاری‌رسان", hardworking:"سخت‌کوش", honest:"صادق",
+    calm:"آرام", angry:"عصبانی", patient:"صبور", neat:"مرتب", nervous:"نگران"
+  },
+  Travel: {
+    airport:"فرودگاه", passport:"گذرنامه", ticket:"بلیط", train:"قطار", travel:"سفر کردن",
+    timetable:"جدول زمانی", reservation:"رزرو", room:"اتاق", checkin:"ورود", checkout:"خروج",
+    luggage:"چمدان", guidebook:"کتاب راهنما", board:"سوار شدن", land:"فرود آمدن", map:"نقشه",
+    bus:"اتوبوس", car:"ماشین", ship:"کشتی", hotel:"هتل", station:"ایستگاه"
+  },
+  Festivals: {
+    festival:"جشن", gift:"هدیه", sing:"خواندن", food:"غذا", holiday:"تعطیلات",
+    firework:"آتش‌بازی", ceremony:"مراسم", recite:"قرائت", pray:"نماز خواندن", fast:"روزه گرفتن",
+    special:"ویژه", spring:"بهار", grandparents:"پدربزرگ و مادربزرگ", party:"مهمانی", music:"موسیقی",
+    parade:"رژه", tradition:"سنت", joy:"شادی", celebrate:"جشن گرفتن", crowd:"جمعیت"
+  },
+  Services: {
+    postoffice:"اداره پست", call:"تماس گرفتن", service:"خدمت", emergency:"اورژانس", employee:"کارمند",
+    firestation:"ایستگاه آتش‌نشانی", firefighter:"آتش‌نشان", gasstation:"پمپ بنزین", charity:"خیریه", donate:"اهدا کردن",
+    info:"اطلاعات", bank:"بانک", hospital:"بیمارستان", school:"مدرسه", shop:"فروشگاه",
+    police:"پلیس", market:"بازار", stamp:"تمبر", envelope:"پاکت نامه", bus:"اتوبوس"
+  },
+  Media: {
+    media:"رسانه", message:"پیام", movie:"فیلم", report:"گزارش", dictionary:"فرهنگ لغت",
+    surf:"گشت‌زنی اینترنتی", download:"دانلود", text:"پیامک", newsstand:"دکه روزنامه", quiz:"مسابقه تلویزیونی",
+    radio:"رادیو", interview:"مصاحبه", blog:"وبلاگ", tv:"تلویزیون", video:"ویدئو",
+    photo:"عکس", article:"مقاله", headline:"تیتر", internet:"اینترنت", phone:"تلفن"
+  },
+  Health: {
+    advice:"توصیه", ankle:"مچ پا", knee:"زانو", bleed:"خونریزی", bruise:"کبودی",
+    burn:"سوختگی", cut:"برش", firstaid:"کمک‌های اولیه", wound:"زخم", health:"سلامتی",
+    heartattack:"حمله قلبی", injury:"آسیب‌دیدگی", scar:"جای زخم", hurt:"آسیب زدن", doctor:"پزشک",
+    nurse:"پرستار", medicine:"دارو", pill:"قرص", pain:"درد", hospital:"بیمارستان"
+  }
+};
+
