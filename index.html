@@ -21,7 +21,9 @@
     #feedback { min-height: 28px; font-weight: bold; }
     #timer { font-size: 24px; color: #d32f2f; margin: 10px 0; }
     #answersList { margin-top: 20px; text-align: left; font-size: 18px; }
-    .profile-photo { width:80px; height:80px; border-radius:50%; border:2px solid #2196f3; object-fit:cover; margin-top:20px; }
+    .profile-photo { width:60px; height:60px; border-radius:50%; border:2px solid #2196f3; object-fit:cover; margin-top:20px; }
+    .answer-item { margin: 6px 0; }
+    .answer-item button { margin-left: 10px; padding: 4px 10px; font-size: 14px; }
   </style>
 </head>
 <body>
@@ -69,7 +71,12 @@ document.addEventListener("DOMContentLoaded", () => {
     Services: { firefighter:"آتش‌نشان", hospital:"بیمارستان", police:"پلیس", bank:"بانک", teacher:"معلم", student:"دانش‌آموز", driver:"راننده", shop:"فروشگاه", waiter:"پیشخدمت", farmer:"کشاورز", soldier:"سرباز", worker:"کارگر", barber:"آرایشگر", nurse:"پرستار", doctor:"پزشک", engineer:"مهندس", lawyer:"وکیل", judge:"قاضی", pilot:"خلبان", guard:"نگهبان" },
     Festivals: { nowruz:"نوروز", eid:"عید", ceremony:"مراسم", lantern:"فانوس", party:"مهمانی", birthday:"تولد", wedding:"عروسی", gift:"هدیه", cake:"کیک", dance:"رقص", song:"آهنگ", holiday:"تعطیلات", christmas:"کریسمس", halloween:"هالووین", festival:"جشنواره", firework:"آتش‌بازی", parade:"رژه", costume:"لباس", tradition:"سنت", celebration:"جشن" },
     Travel: { train:"قطار", hotel:"هتل", ticket:"بلیط", airport:"فرودگاه", bus:"اتوبوس", car:"ماشین", ship:"کشتی", plane:"هواپیما", luggage:"چمدان", passport:"گذرنامه", map:"نقشه", guide:"راهنما", journey:"سفر", trip:"مسافرت", adventure:"ماجراجویی", mountain:"کوه", beach:"ساحل", desert:"بیابان", city:"شهر", village:"روستا" },
-    Personality: { brave:"شجاع", kind:"مهربان", honest:"صادق", polite:"مودب", lazy:"تنبل", smart:"باهوش", shy:"خجالتی", funny:"خنده‌دار", serious:"جدی", friendly:"دوستانه", angry:"عصبانی", happy:"خوشحال", sad:"غمگین", patient:"صبور", generous:"سخاوتمند", creative:"خلاق", curious    :"کنجکاو" }
+        Personality: {
+      brave:"شجاع", kind:"مهربان", honest:"صادق", polite:"مودب", lazy:"تنبل", smart:"باهوش",
+      shy:"خجالتی", funny:"خنده‌دار", serious:"جدی", friendly:"دوستانه", angry:"عصبانی",
+      happy:"خوشحال", sad:"غمگین", patient:"صبور", generous:"سخاوتمند", creative:"خلاق",
+      curious:"کنجکاو", unique:"منحصر به فرد", wise:"خردمند", strong:"قوی"
+    }
   };
 
   const music = new Audio("https://www.bensound.com/bensound-music/bensound-happyrock.mp3");
@@ -85,6 +92,22 @@ document.addEventListener("DOMContentLoaded", () => {
   let timer = null;
   let timeLeft = 30;
 
+  const scoreEl = document.getElementById("score");
+  const remainingEl = document.getElementById("remainingWords");
+  const progressFill = document.getElementById("progressFill");
+  const lettersEl = document.getElementById("letters");
+  const inputEl = document.getElementById("word");
+  const feedbackEl = document.getElementById("feedback");
+  const timerEl = document.getElementById("timer");
+  const answersList = document.getElementById("answersList");
+  const startScreen = document.getElementById("startScreen");
+  const gameArea = document.getElementById("gameArea");
+  const musicBtn = document.getElementById("musicBtn");
+  const volumeSlider = document.getElementById("volumeSlider");
+  const soundCorrect = document.getElementById("soundCorrect");
+  const soundWrong = document.getElementById("soundWrong");
+  const soundFinish = document.getElementById("soundFinish");
+
   function shuffleWord(word) {
     return word.split('').sort(() => Math.random() - 0.5).join('');
   }
@@ -92,7 +115,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function startGame(subjectKey) {
     currentSubjectKey = subjectKey;
     const dict = subjects[subjectKey];
-    words = Object.keys(dict).slice(0, 20); // فقط ۲۰ کلمه اول
+    words = Object.keys(dict).slice(0, 20);
     total = words.length;
     score = 0;
     index = 0;
@@ -139,7 +162,8 @@ document.addEventListener("DOMContentLoaded", () => {
       score += 10;
       feedbackEl.textContent = "✅ عالی! درست گفتی.";
       soundCorrect.play();
-      answersList.innerHTML += `<div>✔ ${correctAns} — ${subjects[currentSubjectKey][correctAns]}</div>`;
+      const fa = subjects[currentSubjectKey][correctAns];
+      answersList.innerHTML += `<div class="answer-item">✔ ${correctAns} — ${fa} <button onclick="new Audio('https://dict.youdao.com/dictvoice?audio=${correctAns}&type=2').play()">🔊</button></div>`;
       goNextWord();
     } else {
       attempts++;
@@ -175,8 +199,7 @@ document.addEventListener("DOMContentLoaded", () => {
     musicBtn.textContent = "🎵 Play Music";
   }
 
-  // رویدادها
-  document.getElementById('musicBtn').addEventListener("click", () => {
+  musicBtn.addEventListener("click", () => {
     if (music.paused) {
       music.play();
       musicBtn.textContent = "⏸ Pause Music";
@@ -186,7 +209,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  document.getElementById('volumeSlider').addEventListener("input", () => {
+  volumeSlider.addEventListener("input", () => {
     music.volume = volumeSlider.value;
   });
 
