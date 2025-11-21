@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Word Puzzle Game Simple</title>
+  <title>Word Puzzle Game</title>
   <style>
     body { font-family: sans-serif; text-align: center; background: linear-gradient(135deg,#e3f2fd,#bbdefb); color: #0d47a1; font-size: 20px; }
     .container { max-width: 960px; margin: 24px auto; padding: 36px; background: #fff; border-radius: 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
@@ -16,13 +16,21 @@
     #feedback { min-height: 28px; font-weight: bold; }
     #timer { font-size: 24px; color: #d32f2f; margin: 10px 0; }
     #answersList { margin-top: 20px; text-align: left; font-size: 18px; }
+    .profile-photo { width:80px; border-radius:50%; border:2px solid #2196f3; margin:12px; }
   </style>
 </head>
 <body>
 
-<h2>🎯 Word Puzzle Game</h2>
+<!-- صفحه ابتدایی -->
+<div id="startScreen" class="container">
+  <h2>🎯 Word Puzzle Game</h2>
+  <img src="https://s34.picofile.com/file/8488183492/2.png" alt="My Photo" class="profile-photo">
+  <p>طراح: A.R. Yousefzadeh</p>
+  <button id="startBtn" class="action">شروع بازی</button>
+</div>
 
-<div id="gameArea" class="container">
+<!-- صفحه بازی -->
+<div id="gameArea" class="container" style="display:none;">
   <p id="score">Score: 0</p>
   <div id="progressBar"><div id="progressFill"></div></div>
   <p id="remainingWords">Remaining: 0 words</p>
@@ -51,6 +59,9 @@ document.addEventListener("DOMContentLoaded", () => {
     doctor:"پزشک", nurse:"پرستار", medicine:"دارو", pill:"قرص"
   };
 
+  const startScreen = document.getElementById('startScreen');
+  const startBtn = document.getElementById('startBtn');
+  const gameArea = document.getElementById('gameArea');
   const scoreEl = document.getElementById('score');
   const remainingEl = document.getElementById('remainingWords');
   const lettersEl = document.getElementById('letters');
@@ -151,13 +162,17 @@ document.addEventListener("DOMContentLoaded", () => {
   function finishGame() {
     feedbackEl.textContent = "🎉 بازی تمام شد! آفرین 👏";
     soundFinish.play();
+    gameArea.style.display = "none";
+    startScreen.style.display = "block";
   }
 
   submitBtn.addEventListener("click", checkAnswer);
   restartBtn.addEventListener("click", startGame);
-
-  // شروع بازی
-  startGame();
+  startBtn.addEventListener("click", () => {
+    startScreen.style.display = "none";
+    gameArea.style.display = "block";
+    startGame();
+  });
 });
 </script>
 </body>
