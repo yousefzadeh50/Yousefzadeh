@@ -21,58 +21,65 @@
       background: #fff;
       border-radius: 16px;
       box-shadow: 0 8px 24px rgba(0,0,0,0.12);
-      animation: fadeIn 1s ease;
+      animation: fadeIn 0.8s ease;
     }
     h2 {
-      font-size: 32px;
-      margin-bottom: 12px;
+      font-size: 32px; margin-bottom: 12px;
       background: linear-gradient(90deg,#ff4081,#7c4dff,#448aff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     }
     h3 { font-size: 22px; margin: 10px 0; color:#1565c0; }
-    .subject-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 10px; }
+    .subject-buttons { display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin-top:10px; }
     .subject-buttons button {
       padding: 12px 18px; border: none; border-radius: 12px;
       color: #fff; font-weight: bold; cursor: pointer; font-size: 16px;
       transition: transform 0.2s, box-shadow 0.2s;
     }
     .subject-buttons button:hover { transform: scale(1.08); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
-    .btn-green { background: #4caf50; } .btn-purple { background: #9c27b0; }
-    .btn-orange { background: #ff9800; } .btn-blue { background: #2196f3; }
-    .btn-teal { background: #009688; } .btn-red { background: #f44336; }
+    .btn-green { background:#4caf50; } .btn-purple { background:#9c27b0; }
+    .btn-orange { background:#ff9800; } .btn-blue { background:#2196f3; }
+    .btn-teal { background:#009688; } .btn-red { background:#f44336; }
+
     button.action {
       margin: 10px; padding: 10px 18px; border: none; border-radius: 10px;
       background: #1565c0; color: #fff; font-weight: bold; cursor: pointer; font-size: 16px;
       transition: all 0.3s ease;
     }
-    button.action:hover { background: #0d47a1; transform: scale(1.05); }
-    button.action:active { transform: scale(1.1); }
+    button.action:hover { background:#0d47a1; transform:scale(1.05); }
+    button.action:active { transform:scale(1.1); }
+
     #progressBar { height: 14px; background: #ddd; border-radius: 8px; overflow: hidden; margin: 12px 0; }
     #progressFill { height: 100%; width: 0%; background: linear-gradient(90deg,#4caf50,#81c784,#2196f3); transition: width 0.4s ease; }
+
     #letters { font-size: 36px; margin: 10px 0; font-weight: bold; color: #1565c0; min-height: 42px; letter-spacing: 2px; }
     #letters.shake { animation: shake 0.4s; }
-    #feedback { min-height: 28px; font-weight: bold; animation: fadeIn 0.8s; }
+
+    #feedback { min-height: 28px; font-weight: bold; animation: fadeIn 0.6s ease; }
     #timer { font-size: 22px; color: #d32f2f; margin: 8px 0; }
+
     #answersList, #wrongList { margin-top: 16px; text-align: left; font-size: 16px; }
-    .answer-item, .wrong-item { margin: 6px 0; animation: slideIn 0.5s ease; }
+    .answer-item, .wrong-item { margin: 6px 0; animation: slideIn 0.4s ease; }
     .answer-item button, .wrong-item button { margin-left: 8px; padding: 4px 10px; font-size: 13px; }
+
     .profile-photo { width: 44px; height: 44px; border-radius: 50%; border: 2px solid #2196f3; object-fit: cover; margin-top: 6px; }
     .footer { margin-top: 16px; font-size: 14px; color: #444; }
-    .row { display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; }
-    .stat { font-weight: bold; margin: 4px 10px; }
-    input[type="text"] { padding: 10px; font-size: 16px; border: 1px solid #90caf9; border-radius: 8px; width: 260px; }
-    .btn-home { background: #6d4c41; }
+
+    .row { display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap; }
+    .stat { font-weight:bold; margin:4px 10px; }
+    input[type="text"] { padding:10px; font-size:16px; border:1px solid #90caf9; border-radius:8px; width:260px; }
+    .btn-home { background:#6d4c41; }
+
     .highlight {
       display:inline-block; padding:12px 24px; margin-top:10px;
       background:linear-gradient(90deg,#4caf50,#81c784);
       color:#fff; font-weight:bold; border-radius:12px;
-      animation:glow 1s infinite alternate;
+      box-shadow: 0 0 14px rgba(76,175,80,0.6);
+      animation: glow 1s infinite alternate;
     }
 
     @keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
     @keyframes shake { 0%{transform:translateX(0);} 25%{transform:translateX(-5px);} 50%{transform:translateX(5px);} 75%{transform:translateX(-5px);} 100%{transform:translateX(0);} }
-    @keyframes slideIn { from {transform:translateX(-20px); opacity:0;} to {transform:translateX(0); opacity:1;} }
+    @keyframes slideIn { from {transform:translateX(-16px); opacity:0;} to {transform:translateX(0); opacity:1;} }
     @keyframes glow { from { box-shadow:0 0 10px #4caf50; } to { box-shadow:0 0 20px #81c784; } }
     @keyframes gradientMove { 0%{background-position:0% 50%;} 50%{background-position:100% 50%;} 100%{background-position:0% 50%;} }
   </style>
@@ -82,6 +89,7 @@
 <div id="startScreen" class="container">
   <h2>🎯 Word Puzzle Game for Prospect 3</h2>
   <h3>Choose a subject</h3>
+
   <div class="subject-buttons">
     <button class="btn-green" data-subject="Health">Health</button>
     <button class="btn-purple" data-subject="Media">Media</button>
@@ -92,7 +100,7 @@
   </div>
 
   <div class="row">
-    <button id="musicToggle" class="action">🔊 Music: On</button>
+    <button id="musicToggle" class="action">🔇 Music: Off</button>
     <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.6" style="width:200px;">
   </div>
 
@@ -112,15 +120,63 @@
   </div>
 
   <div id="progressBar"><div id="progressFill"></div></div>
-
   <div id="letters"></div>
   <div id="feedback"></div>
 
   <div class="row">
     <input id="word" type="text" placeholder="Type the English word"/>
-    <button id
-        <!-- ادامه اسکریپت -->
-  <script>
+    <button id="submitBtn" class="action">Submit</button>
+    <button id="homeBtn" class="action btn-home">🏠 Back to Home</button>
+  </div>
+
+  <h4 style="margin-top:16px; text-align:left;">Correct answers</h4>
+  <div id="answersList"></div>
+
+  <h4 style="margin-top:12px; text-align:left;">Wrong answers</h4>
+  <div id="wrongList"></div>
+</div>
+
+<!-- Audio elements -->
+<audio id="bgm" preload="auto" loop
+       src="https://files.freemusicarchive.org/storage-freemusicarchive-org/music/WFMU/Crowander/Crowander_-_Spring/Crowander_-_Spring_-_03_Spring.mp3"></audio>
+<audio id="soundCorrect" src="https://www.soundjay.com/button/sounds/button-4.mp3" preload="auto"></audio>
+<audio id="soundWrong" src="https://www.soundjay.com/button/sounds/button-10.mp3" preload="auto"></audio>
+<audio id="soundFinish" src="https://www.soundjay.com/human/sounds/applause-8.mp3" preload="auto"></audio>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  // عناصر پایه
+  const startScreen = document.getElementById("startScreen");
+  const gameArea = document.getElementById("gameArea");
+  const musicToggle = document.getElementById("musicToggle");
+  const volumeSlider = document.getElementById("volumeSlider");
+  const bgm = document.getElementById("bgm");
+
+  const scoreEl = document.getElementById("score");
+  const remainingEl = document.getElementById("remainingWords");
+  const attemptsLeftEl = document.getElementById("attemptsLeft");
+  const progressFill = document.getElementById("progressFill");
+  const lettersEl = document.getElementById("letters");
+  const feedbackEl = document.getElementById("feedback");
+  const timerEl = document.getElementById("timer");
+  const inputEl = document.getElementById("word");
+  const submitBtn = document.getElementById("submitBtn");
+  const homeBtn = document.getElementById("homeBtn");
+  const answersList = document.getElementById("answersList");
+  const wrongList = document.getElementById("wrongList");
+  const soundCorrect = document.getElementById("soundCorrect");
+  const soundWrong = document.getElementById("soundWrong");
+  const soundFinish = document.getElementById("soundFinish");
+
+  // وضعیت بازی
+  let currentSubjectKey = null;
+  let words = [];
+  let total = 0;
+  let score = 0;
+  let index = 0;
+  let attempts = 0;
+  let timer = null;
+  let timeLeft = 30;
+
   // دیکشنری موضوعات (هر موضوع 20 کلمه)
   const subjects = {
     Health: { doctor:"پزشک", nurse:"پرستار", medicine:"دارو", pill:"قرص", dentist:"دندانپزشک", patient:"بیمار", blood:"خون", heart:"قلب", diet:"رژیم", sleep:"خواب", clinic:"کلینیک", virus:"ویروس", pain:"درد", skin:"پوست", bone:"استخوان", brain:"مغز", eye:"چشم", ear:"گوش", mouth:"دهان", hand:"دست" },
@@ -137,12 +193,11 @@
     const audio = new Audio(`https://dict.youdao.com/dictvoice?audio=${encodeURIComponent(word)}&type=2`);
     audio.play();
   }
-
   // شروع بازی
   function startGame(subjectKey) {
     currentSubjectKey = subjectKey;
     const dict = subjects[subjectKey];
-    words = Object.keys(dict).slice(0, 20); // نمایش 20 کلمه
+    words = Object.keys(dict).slice(0, 20); // 20 کلمه
     total = words.length;
     score = 0; index = 0; attempts = 0;
     scoreEl.textContent = "Score: 0";
@@ -173,6 +228,7 @@
       if (timeLeft <= 0) { clearInterval(timer); handleTimeout(); }
     }, 1000);
   }
+
   function handleTimeout() {
     const correct = words[index];
     const fa = subjects[currentSubjectKey][correct];
@@ -228,8 +284,7 @@
     clearInterval(timer); index++;
     progressFill.style.width = `${(index/total)*100}%`;
     remainingEl.textContent = `Remaining Words: ${Math.max(0, total - index)}`;
-    if (index < total) { showCurrentWord(); }
-    else { finishGame(); }
+    if (index < total) { showCurrentWord(); } else { finishGame(); }
   }
 
   function finishGame() {
@@ -241,18 +296,41 @@
     }
   }
 
-  // رویدادها
+  // اتصال رویدادها — بعد از بارگذاری DOM
   document.querySelectorAll(".subject-buttons button").forEach(btn => {
-    btn.addEventListener("click", () => {
-      startGame(btn.dataset.subject);
-    });
+    btn.addEventListener("click", () => startGame(btn.dataset.subject));
   });
+
   submitBtn.addEventListener("click", checkAnswer);
+  inputEl.addEventListener("keydown", (e) => { if (e.key === "Enter") checkAnswer(); });
+
   homeBtn.addEventListener("click", () => {
-    clearInterval(timer); gameArea.style.display = "none"; startScreen.style.display = "block";
+    clearInterval(timer);
+    gameArea.style.display = "none";
+    startScreen.style.display = "block";
+    inputEl.value = "";
+    feedbackEl.textContent = "";
   });
-  musicToggle.addEventListener("click", () => {
-    if (bgm.paused) {
-      bgm.play();
-      musicToggle.textContent = "🔊 Music: On";
-    } else
+
+  // کنترل موسیقی با کلید (بدون پخش خودکار)
+  bgm.volume = parseFloat(volumeSlider.value);
+  volumeSlider.addEventListener("input", () => { bgm.volume = parseFloat(volumeSlider.value); });
+
+  musicToggle.addEventListener("click", async () => {
+    try {
+      if (bgm.paused) {
+        await bgm.play();
+        musicToggle.textContent = "🔊 Music: On";
+      } else {
+        bgm.pause();
+        musicToggle.textContent = "🔇 Music: Off";
+      }
+    } catch (err) {
+      feedbackEl.textContent = "🔈 Tap again to allow audio.";
+      setTimeout(()=>feedbackEl.textContent="",2000);
+    }
+  });
+});
+</script>
+</body>
+</html>
