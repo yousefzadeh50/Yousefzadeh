@@ -1,27 +1,25 @@
 <!DOCTYPE html>
 <html lang="fa">
 <head>
-<meta charset="UTF-8">
-<title>Word Puzzle Game for Prospect 3</title>
-<style>
-body{font-family:Vazirmatn,sans-serif;text-align:center;background:#e3f2fd;color:#0d47a1}
-.container{max-width:640px;margin:auto;padding:20px;background:#fff;border-radius:12px}
-h2{font-size:28px;background:linear-gradient(90deg,#ff4081,#7c4dff,#448aff);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.profile-photo{width:64px;height:64px;border-radius:50%;border:2px solid #2196f3;object-fit:cover;margin:10px auto}
-.subject-buttons{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:15px}
-.subject-buttons button{padding:10px 16px;border:none;border-radius:10px;color:#fff;font-weight:bold;cursor:pointer}
-.btn-red{background:#f44336}.btn-green{background:#4caf50}.btn-blue{background:#2196f3}
-.btn-orange{background:#ff9800}.btn-purple{background:#9c27b0}.btn-teal{background:#009688}
-button.action{margin:8px;padding:10px 20px;border:none;border-radius:10px;background:#1565c0;color:#fff;font-weight:bold;cursor:pointer}
-button.action:hover{background:#0d47a1}
-#progressBar{height:12px;background:#ddd;border-radius:6px;overflow:hidden;margin:10px 0}
-#progressFill{height:100%;width:0%;background:#4caf50}
-#letters{font-size:32px;margin:10px 0;font-weight:bold;color:#1565c0}
-footer{font-size:12px;color:#555;margin-top:20px}
-.volume-controls{margin-top:10px}
-.volume-slider{width:150px}
-</style>
+  <meta charset="UTF-8">
+  <title>Word Puzzle Game for Prospect 3</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; background: #e3f2fd; color: #0d47a1; }
+    .container { max-width: 640px; margin: auto; padding: 20px; background: #fff; border-radius: 12px; }
+    h2 { font-size: 28px; background: linear-gradient(90deg,#ff4081,#7c4dff,#448aff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .subject-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 15px; }
+    .subject-buttons button { padding: 10px 16px; border: none; border-radius: 10px; color: #fff; font-weight: bold; cursor: pointer; }
+    .btn-red { background: #f44336; } .btn-green { background: #4caf50; } .btn-blue { background: #2196f3; }
+    .btn-orange { background: #ff9800; } .btn-purple { background: #9c27b0; } .btn-teal { background: #009688; }
+    button.action { margin: 8px; padding: 10px 20px; border: none; border-radius: 10px; background: #1565c0; color: #fff; font-weight: bold; cursor: pointer; }
+    button.action:hover { background: #0d47a1; }
+    #progressBar { height: 12px; background: #ddd; border-radius: 6px; overflow: hidden; margin: 10px 0; }
+    #progressFill { height: 100%; width: 0%; background: #4caf50; }
+    #letters { font-size: 32px; margin: 10px 0; font-weight: bold; color: #1565c0; }
+    footer { font-size: 12px; color: #555; margin-top: 20px; }
+    .volume-controls { margin-top: 10px; }
+    .volume-slider { width: 150px; }
+  </style>
 </head>
 <body>
 
@@ -30,14 +28,14 @@ footer{font-size:12px;color:#555;margin-top:20px}
 <div id="subjectMenu" class="container">
   <h3>Choose a subject</h3>
   <div class="subject-buttons">
-    <button class="btn-red"    data-subject="Personality" type="button">Personality</button>
-    <button class="btn-green"  data-subject="Travel"      type="button">Travel</button>
-    <button class="btn-blue"   data-subject="Festivals"   type="button">Festivals</button>
-    <button class="btn-orange" data-subject="Services"    type="button">Services</button>
-    <button class="btn-purple" data-subject="Media"       type="button">Media</button>
-    <button class="btn-teal"   data-subject="Health"      type="button">Health</button>
+    <button class="btn-red" data-subject="Personality">Personality</button>
+    <button class="btn-green" data-subject="Travel">Travel</button>
+    <button class="btn-blue" data-subject="Festivals">Festivals</button>
+    <button class="btn-orange" data-subject="Services">Services</button>
+    <button class="btn-purple" data-subject="Media">Media</button>
+    <button class="btn-teal" data-subject="Health">Health</button>
   </div>
-  <button id="musicBtnHome" class="action" type="button">🎵 Play Music</button>
+  <button id="musicBtnHome" class="action">🎵 Play Music</button>
   <div class="volume-controls">
     <input id="volumeSliderHome" type="range" min="0" max="1" step="0.1" value="0.2" class="volume-slider">
   </div>
@@ -50,58 +48,100 @@ footer{font-size:12px;color:#555;margin-top:20px}
   <p id="remainingWords">Remaining: 0 words</p>
   <div id="letters"></div>
   <input id="word" type="text" placeholder="Type the word here">
-  <button id="submitBtn" class="action" type="button">Submit</button>
-  <button id="musicBtnGame" class="action" type="button">🎵 Play Music</button>
+  <button id="submitBtn" class="action">Submit</button>
+  <button id="musicBtnGame" class="action">🎵 Play Music</button>
   <div class="volume-controls">
     <input id="volumeSliderGame" type="range" min="0" max="1" step="0.1" value="0.2" class="volume-slider">
   </div>
-  <button id="homeBtn" class="action" style="background:#f44336" type="button">🏠 Home</button>
+  <button id="homeBtn" class="action" style="background:#f44336">🏠 Home</button>
 </div>
 
 <audio id="bgmusic" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" loop></audio>
 
 <footer>
-  <img src="https://s34.picofile.com/file/8488183492/2.png" alt="My Photo" class="profile-photo">
-  <div>Designer: A.R. Yousefzadeh</div>
+  <img src="https://s34.picofile.com/file/8488183492/2.png" alt="My Photo" class="profile-photo" style="width:64px;height:64px;border-radius:50%;border:2px solid #2196f3;object-fit:cover;margin:10px auto;">
+  <div>Designer: Ali Yousefadelh</div>
 </footer>
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-  const subjects={
-    Personality:{kind:"مهربان",brave:"شجاع",polite:"با ادب",rude:"بی ادب",selfish:"خودخواه",
-      serious:"جدی",shy:"خجالتی",clever:"باهوش",talkative:"پرحرف",friendly:"دوستانه",
-      funny:"بامزه",lazy:"تنبل",helpful:"یاری رسان",hardworking:"سخت‌کوش",honest:"صادق",
-      calm:"آرام",angry:"عصبانی",patient:"صبور",neat:"مرتب",nervous:"نکران"},
-    Travel:{airport:"فرودگاه",passport:"گذرنامه",ticket:"بلیط",train:"قطار",travel:"سفر کردن",
-      timetable:"جدول زمانی",reservation:"رزرو",room:"اتاق",checkin:"ورود هتل",checkout:"خروج هتل",
-      luggage:"چمدان",guidebook:"کتاب راهنما",board:"سوار شدن هواپیما",land:"فرود آمدن",map:"نقشه",
-      bus:"اتوبوس",car:"ماشین",ship:"کشتی",hotel:"هتل",station:"ایستگاه"},
-    Festivals:{festival:"جشن",gift:"هدیه",sing:"خواندن",food:"غذا",holiday:"تعطیلات",
-      firework:"آتش‌بازی",ceremony:"مراسم",recite:"قرائت قرآن",pray:"نماز خواندن",fast:"روزه گرفتن",
-      special:"مخصوص",spring:"بهار",grandparents:"پدربزرگ و مادربزرگ",party:"مهمانی",music:"موسیقی",
-      parade:"رژه",tradition:"سنت",joy:"شادی",celebrate:"جشن گرفتن",crowd:"جمعیت"},
-    Services:{postoffice:"اداره پست",call:"تماس گرفتن",service:"خدمت",emergency:"اورژانس",employee:"کارمند",
-      firestation:"ایستگاه آتش‌نشانی",firefighter:"آتش‌نشان",gasstation:"پمپ بنزین",charity:"مؤسسه خیریه",donate:"اهدا خون",
-      info:"میز اطلاعات",bank:"بانک",hospital:"بیمارستان",school:"مدرسه",shop:"فروشگاه",
-      police:"پلیس",market:"بازار",stamp:"تمبر",envelope:"پاکت نامه",bus:"اتوبوس"},
-    Media:{media:"رسانه",message:"پیام",movie:"فیلم",report:"گزارش",dictionary:"فرهنگ لغت",
-      surf:"گشت‌زدن اینترنت",download:"دانلود",text:"پیامک",newsstand:"دکه روزنامه",quiz:"مسابقه تلویزیونی",
-      radio:"رادیو",interview:"مصاحبه",blog:"وبلاگ",tv:"تلویزیون",video:"ویدئو",
-      photo:"عکس",article:"مقاله",headline:"تیتر",internet:"اینترنت",phone:"تلفن"},
-    Health:{advice:"توصیه",ankle:"مچ پا",knee:"زانو",bleed:"خونریزی",bruise:"کبودی",
-      burn:"سوختن دست",cut:"بریدن دست",firstaid:"کمک‌های اولیه",wound:"زخم",health:"سلامتی",
-      heartattack:"حمله قلبی",injury:"آسیب‌دیدگی",scar:"اثر زخم",hurt:"آسیب زدن",doctor:"پزشک",
-      nurse:"پرستار",medicine:"دارو",pill:"قرص",pain:"درد",hospital:"بیمارستان"}
+  const music = document.getElementById('bgmusic');
+  music.volume = 0.2;
+
+  function setupMusic(btn){
+    btn.addEventListener('click',()=>{
+      if(music.paused){ music.play(); btn.textContent='🎵 Pause Music'; }
+      else { music.pause(); btn.textContent='🎵 Play Music'; }
+    });
+  }
+  setupMusic(document.getElementById('musicBtnHome'));
+  setupMusic(document.getElementById('musicBtnGame'));
+
+  function setupVolumeSlider(slider){
+    slider.addEventListener('input',()=>{
+      music.volume = parseFloat(slider.value);
+    });
+  }
+  setupVolumeSlider(document.getElementById('volumeSliderHome'));
+  setupVolumeSlider(document.getElementById('volumeSliderGame'));
+
+  const subjects = {
+    Personality: {kind:"مهربان",brave:"شجاع"},
+    Travel: {airport:"فرودگاه",passport:"گذرنامه"},
+    Festivals: {festival:"جشن",gift:"هدیه"},
+    Services: {postoffice:"اداره پست",call:"تماس گرفتن"},
+    Media: {media:"رسانه",message:"پیام"},
+    Health: {advice:"توصیه",ankle:"مچ پا"}
   };
 
-  let words={}, wordKeys=[], wordIndex=0, score=0, attempts=0;
+  let words={}, wordKeys=[], wordIndex=0, score=0;
 
-  const subjectMenu=document.getElementById('subjectMenu');
-  const gameArea=document.getElementById('gameArea');
-  const scoreEl=document.getElementById('score');
-  const levelEl=document.getElementById('level');
-  const progressFill=document.getElementById('progressFill');
-  const remainingWordsEl=document.getElementById('remainingWords');
-  const lettersEl=document.getElementById('letters');
-  const wordInput=document.getElementById('word');
-  const submitBtn=document.getElement
+  document.querySelectorAll('.subject-buttons button').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const subject = btn.dataset.subject;
+      words = subjects[subject];
+      wordKeys = Object.keys(words);
+      wordIndex = 0;
+      score = 0;
+      document.getElementById('score').textContent = 'Score: 0';
+      document.getElementById('level').textContent = subject;
+      document.getElementById('remainingWords').textContent = `Remaining: ${wordKeys.length} words`;
+      document.getElementById('subjectMenu').style.display = 'none';
+      document.getElementById('gameArea').style.display = 'block';
+      showWord();
+    });
+  });
+
+  function showWord(){
+    const key = wordKeys[wordIndex];
+    document.getElementById('letters').textContent = key;
+    document.getElementById('word').value = '';
+    document.getElementById('progressFill').style.width = `${(wordIndex / wordKeys.length) * 100}%`;
+  }
+
+  document.getElementById('submitBtn').addEventListener('click',()=>{
+    const input = document.getElementById('word').value.trim();
+    const correct = words[wordKeys[wordIndex]];
+    if(input === correct){ score++; }
+    wordIndex++;
+    document.getElementById('score').textContent = `Score: ${score}`;
+    document.getElementById('remainingWords').textContent = `Remaining: ${wordKeys.length - wordIndex} words`;
+    if(wordIndex < wordKeys.length){ showWord(); }
+    else{
+      document.getElementById('letters').textContent = '🎉 Finished!';
+      document.getElementById('word').style.display = 'none';
+      document.getElementById('submitBtn').style.display = 'none';
+    }
+  });
+
+  document.getElementById('homeBtn').addEventListener('click',()=>{
+    document.getElementById('gameArea').style.display = 'none';
+    document.getElementById('subjectMenu').style.display = 'block';
+    document.getElementById('word').style.display = 'inline';
+    document.getElementById('submitBtn').style.display = 'inline';
+  });
+});
+</script>
+
+</body>
+</html>
