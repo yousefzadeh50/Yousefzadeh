@@ -1,92 +1,6 @@
-<!DOCTYPE html>
-<html lang="fa">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Word Puzzle Game</title>
-  <style>
-    body { font-family: sans-serif; text-align: center; background: linear-gradient(135deg,#e3f2fd,#bbdefb); color: #0d47a1; font-size: 20px; }
-    .container { max-width: 960px; margin: 24px auto; padding: 36px; background: #fff; border-radius: 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
-    h2 { font-size: 40px; margin: 8px 0 16px; background: linear-gradient(90deg,#ff4081,#7c4dff,#448aff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    button.action { margin: 12px; padding: 14px 26px; border: none; border-radius: 12px; background: #1565c0; color: #fff; font-weight: bold; cursor: pointer; font-size: 18px; }
-    button.action:hover { background: #0d47a1; }
-    #progressBar { height: 16px; background: #ddd; border-radius: 8px; overflow: hidden; margin: 14px 0; }
-    #progressFill { height: 100%; width: 0%; background: linear-gradient(90deg,#4caf50,#81c784); transition: width 0.4s ease; }
-    #letters { font-size: 42px; margin: 14px 0; font-weight: bold; color: #1565c0; min-height: 48px; letter-spacing: 2px; }
-    #feedback { min-height: 28px; font-weight: bold; }
-    #timer { font-size: 24px; color: #d32f2f; margin: 10px 0; }
-    #answersList { margin-top: 20px; text-align: left; font-size: 18px; }
-    .profile-photo { width:80px; border-radius:50%; border:2px solid #2196f3; margin:12px; }
-  </style>
-</head>
-<body>
-
-<!-- صفحه ابتدایی -->
-<div id="startScreen" class="container">
-  <h2>🎯 Word Puzzle Game</h2>
-  <img src="https://s34.picofile.com/file/8488183492/2.png" alt="My Photo" class="profile-photo">
-  <p>طراح: A.R. Yousefzadeh</p>
-  <button id="startBtn" class="action">شروع بازی</button>
-</div>
-
-<!-- صفحه بازی -->
-<div id="gameArea" class="container" style="display:none;">
-  <p id="score">Score: 0</p>
-  <div id="progressBar"><div id="progressFill"></div></div>
-  <p id="remainingWords">Remaining: 0 words</p>
-  <div id="letters"></div>
-  <div id="timer">⏱ 30</div>
-  <div id="feedback"></div>
-  <input id="word" type="text" placeholder="Type the English word">
-  <button id="submitBtn" class="action">Submit</button>
-  <button id="restartBtn" class="action" style="background:#f44336">🔄 Restart</button>
-  <div id="answersList"></div>
-</div>
-
-<audio id="soundCorrect" src="https://www.soundjay.com/button/sounds/button-4.mp3"></audio>
-<audio id="soundWrong" src="https://www.soundjay.com/button/sounds/button-10.mp3"></audio>
-<audio id="soundFinish" src="https://www.soundjay.com/human/sounds/applause-8.mp3"></audio>
-
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  function shuffleWord(word) {
-    return word.split('').sort(() => Math.random() - 0.5).join('');
-  }
-
-  const wordsDict = {
-    firefighter:"آتش‌نشان", hospital:"بیمارستان", police:"پلیس", bank:"بانک",
-    media:"رسانه", movie:"فیلم", tv:"تلویزیون", radio:"رادیو",
-    doctor:"پزشک", nurse:"پرستار", medicine:"دارو", pill:"قرص"
-  };
-
-  const startScreen = document.getElementById('startScreen');
-  const startBtn = document.getElementById('startBtn');
-  const gameArea = document.getElementById('gameArea');
-  const scoreEl = document.getElementById('score');
-  const remainingEl = document.getElementById('remainingWords');
-  const lettersEl = document.getElementById('letters');
-  const feedbackEl = document.getElementById('feedback');
-  const inputEl = document.getElementById('word');
-  const submitBtn = document.getElementById('submitBtn');
-  const restartBtn = document.getElementById('restartBtn');
-  const progressFill = document.getElementById('progressFill');
-  const answersList = document.getElementById('answersList');
-  const timerEl = document.getElementById('timer');
-
-  const soundCorrect = document.getElementById('soundCorrect');
-  const soundWrong = document.getElementById('soundWrong');
-  const soundFinish = document.getElementById('soundFinish');
-
-  let words = [];
-  let total = 0;
-  let score = 0;
-  let index = 0;
-  let attempts = 0;
-  let timer = null;
-  let timeLeft = 30;
-
-  function startGame() {
-    words = Object.keys(wordsDict);
+  function startGame(subjectKey) {
+    const dict = subjects[subjectKey];
+    words = Object.keys(dict);
     total = words.length;
     score = 0;
     index = 0;
@@ -117,7 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
       timerEl.textContent = `⏱ ${timeLeft}`;
       if (timeLeft <= 0) {
         clearInterval(timer);
-        feedbackEl.textContent = `⏱ زمان تمام شد! پاسخ درست: ${words[index]} (${wordsDict[words[index]]})`;
+        feedbackEl.textContent = `⏱ زمان تمام شد! پاسخ درست: ${words[index]} (${subjects[currentSubjectKey][words[index]]})`;
         score = Math.max(0, score - 5);
         soundWrong.play();
         goNextWord();
@@ -132,14 +46,14 @@ document.addEventListener("DOMContentLoaded", () => {
       score += 10;
       feedbackEl.textContent = "✅ عالی! درست گفتی.";
       soundCorrect.play();
-      answersList.innerHTML += `<div>✔ ${correctAns} — ${wordsDict[correctAns]}</div>`;
+      answersList.innerHTML += `<div>✔ ${correctAns} — ${subjects[currentSubjectKey][correctAns]}</div>`;
       goNextWord();
     } else {
       attempts++;
       feedbackEl.textContent = "❌ اشتباه است، دوباره تلاش کن.";
       soundWrong.play();
       if (attempts >= 3) {
-        feedbackEl.textContent = `پاسخ درست: ${correctAns} (${wordsDict[correctAns]})`;
+        feedbackEl.textContent = `پاسخ درست: ${correctAns} (${subjects[currentSubjectKey][correctAns]})`;
         score = Math.max(0, score - 5);
         goNextWord();
       }
@@ -167,11 +81,11 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   submitBtn.addEventListener("click", checkAnswer);
-  restartBtn.addEventListener("click", startGame);
-  startBtn.addEventListener("click", () => {
-    startScreen.style.display = "none";
-    gameArea.style.display = "block";
-    startGame();
+  restartBtn.addEventListener("click", () => {
+    gameArea.style.display = "none";
+    startScreen.style.display = "block";
+    music.pause();
+    musicBtn.textContent = "🎵 Play Music";
   });
 });
 </script>
