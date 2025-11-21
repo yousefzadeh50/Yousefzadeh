@@ -86,62 +86,35 @@ document.addEventListener("DOMContentLoaded", () => {
   setupVolumeSlider(document.getElementById('volumeSliderGame'));
 
   const subjects = {
-    Personality: {kind:"مهربان",brave:"شجاع"},
-    Travel: {airport:"فرودگاه",passport:"گذرنامه"},
-    Festivals: {festival:"جشن",gift:"هدیه"},
-    Services: {postoffice:"اداره پست",call:"تماس گرفتن"},
-    Media: {media:"رسانه",message:"پیام"},
-    Health: {advice:"توصیه",ankle:"مچ پا"}
-  };
-
-  let words={}, wordKeys=[], wordIndex=0, score=0;
-
-  document.querySelectorAll('.subject-buttons button').forEach(btn=>{
-    btn.addEventListener('click',()=>{
-      const subject = btn.dataset.subject;
-      words = subjects[subject];
-      wordKeys = Object.keys(words);
-      wordIndex = 0;
-      score = 0;
-      document.getElementById('score').textContent = 'Score: 0';
-      document.getElementById('level').textContent = subject;
-      document.getElementById('remainingWords').textContent = `Remaining: ${wordKeys.length} words`;
-      document.getElementById('subjectMenu').style.display = 'none';
-      document.getElementById('gameArea').style.display = 'block';
-      showWord();
-    });
-  });
-
-  function showWord(){
-    const key = wordKeys[wordIndex];
-    document.getElementById('letters').textContent = key;
-    document.getElementById('word').value = '';
-    document.getElementById('progressFill').style.width = `${(wordIndex / wordKeys.length) * 100}%`;
-  }
-
-  document.getElementById('submitBtn').addEventListener('click',()=>{
-    const input = document.getElementById('word').value.trim();
-    const correct = words[wordKeys[wordIndex]];
-    if(input === correct){ score++; }
-    wordIndex++;
-    document.getElementById('score').textContent = `Score: ${score}`;
-    document.getElementById('remainingWords').textContent = `Remaining: ${wordKeys.length - wordIndex} words`;
-    if(wordIndex < wordKeys.length){ showWord(); }
-    else{
-      document.getElementById('letters').textContent = '🎉 Finished!';
-      document.getElementById('word').style.display = 'none';
-      document.getElementById('submitBtn').style.display = 'none';
-    }
-  });
-
-  document.getElementById('homeBtn').addEventListener('click',()=>{
-    document.getElementById('gameArea').style.display = 'none';
-    document.getElementById('subjectMenu').style.display = 'block';
-    document.getElementById('word').style.display = 'inline';
-    document.getElementById('submitBtn').style.display = 'inline';
-  });
-});
-</script>
-
-</body>
-</html>
+    Personality: {
+      kind:"مهربان", brave:"شجاع", polite:"با ادب", rude:"بی ادب", selfish:"خودخواه",
+      serious:"جدی", shy:"خجالتی", clever:"باهوش", talkative:"پرحرف", friendly:"دوستانه",
+      funny:"بامزه", lazy:"تنبل", helpful:"یاری رسان", hardworking:"سخت‌کوش", honest:"صادق",
+      calm:"آرام", angry:"عصبانی", patient:"صبور", neat:"مرتب", nervous:"نگران"
+    },
+    Travel: {
+      airport:"فرودگاه", passport:"گذرنامه", ticket:"بلیط", train:"قطار", travel:"سفر کردن",
+      timetable:"جدول زمانی", reservation:"رزرو", room:"اتاق", checkin:"ورود هتل", checkout:"خروج هتل",
+      luggage:"چمدان", guidebook:"کتاب راهنما", board:"سوار شدن", land:"فرود آمدن", map:"نقشه",
+      bus:"اتوبوس", car:"ماشین", ship:"کشتی", hotel:"هتل", station:"ایستگاه"
+    },
+    Festivals: {
+      festival:"جشن", gift:"هدیه", sing:"خواندن", food:"غذا", holiday:"تعطیلات",
+      firework:"آتش‌بازی", ceremony:"مراسم", recite:"قرائت قرآن", pray:"نماز خواندن", fast:"روزه گرفتن",
+      special:"مخصوص", spring:"بهار", grandparents:"پدربزرگ و مادربزرگ", party:"مهمانی", music:"موسیقی",
+      parade:"رژه", tradition:"سنت", joy:"شادی", celebrate:"جشن گرفتن", crowd:"جمعیت"
+    },
+    Services: {
+      postoffice:"اداره پست", call:"تماس گرفتن", service:"خدمت", emergency:"اورژانس", employee:"کارمند",
+      firestation:"ایستگاه آتش‌نشانی", firefighter:"آتش‌نشان", gasstation:"پمپ بنزین", charity:"خیریه", donate:"اهدا کردن",
+      info:"اطلاعات", bank:"بانک", hospital:"بیمارستان", school:"مدرسه", shop:"فروشگاه",
+      police:"پلیس", market:"بازار", stamp:"تمبر", envelope:"پاکت نامه", bus:"اتوبوس"
+    },
+    Media: {
+      media:"رسانه", message:"پیام", movie:"فیلم", report:"گزارش", dictionary:"فرهنگ لغت",
+      surf:"گشت‌زدن اینترنت", download:"دانلود", text:"پیامک", newsstand:"دکه روزنامه", quiz:"مسابقه تلویزیونی",
+      radio:"رادیو", interview:"مصاحبه", blog:"وبلاگ", tv:"تلویزیون", video:"ویدئو",
+      photo:"عکس", article:"مقاله", headline:"تیتر", internet:"اینترنت", phone:"تلفن"
+    },
+    Health: {
+      advice:"توصیه", ankle:"مچ پا", knee:"زانو
