@@ -5,26 +5,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Word Puzzle Game for Prospect 3</title>
   <style>
-    html, body { height: 100%; }
-    body { font-family: sans-serif; text-align: center; background: #e3f2fd; color: #0d47a1; font-size: 20px; }
-    .container { max-width: 960px; margin: 24px auto; padding: 36px; background: #fff; border-radius: 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
-    h2 { font-size: 40px; margin: 8px 0 16px; background: linear-gradient(90deg,#ff4081,#7c4dff,#448aff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    body { font-family: sans-serif; text-align: center; background: linear-gradient(135deg,#e3f2fd,#bbdefb); color: #0d47a1; font-size: 20px; }
+    .container { max-width: 960px; margin: 24px auto; padding: 36px; background: #fff; border-radius: 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.12); transition: transform 0.3s ease; }
+    .container:hover { transform: scale(1.02); }
+    h2 { font-size: 40px; margin: 8px 0 16px; background: linear-gradient(90deg,#ff4081,#7c4dff,#448aff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: glow 2s infinite alternate; }
+    @keyframes glow { from { text-shadow: 0 0 5px #7c4dff; } to { text-shadow: 0 0 20px #ff4081; } }
     .subject-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 20px; }
-    .subject-buttons button { padding: 14px 22px; border: none; border-radius: 12px; color: #fff; font-weight: bold; cursor: pointer; font-size: 18px; }
+    .subject-buttons button { padding: 14px 22px; border: none; border-radius: 12px; color: #fff; font-weight: bold; cursor: pointer; font-size: 18px; transition: transform 0.2s, box-shadow 0.2s; }
+    .subject-buttons button:hover { transform: scale(1.1); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
     .btn-red { background: #f44336; } .btn-green { background: #4caf50; } .btn-blue { background: #2196f3; }
     .btn-orange { background: #ff9800; } .btn-purple { background: #9c27b0; } .btn-teal { background: #009688; }
-    button.action { margin: 12px; padding: 14px 26px; border: none; border-radius: 12px; background: #1565c0; color: #fff; font-weight: bold; cursor: pointer; font-size: 18px; }
+    button.action { margin: 12px; padding: 14px 26px; border: none; border-radius: 12px; background: #1565c0; color: #fff; font-weight: bold; cursor: pointer; font-size: 18px; transition: background 0.3s; }
     button.action:hover { background: #0d47a1; }
     #progressBar { height: 16px; background: #ddd; border-radius: 8px; overflow: hidden; margin: 14px 0; }
-    #progressFill { height: 100%; width: 0%; background: #4caf50; transition: width 0.25s ease; }
+    #progressFill { height: 100%; width: 0%; background: linear-gradient(90deg,#4caf50,#81c784); transition: width 0.4s ease; }
     #letters { font-size: 42px; margin: 14px 0; font-weight: bold; color: #1565c0; min-height: 48px; letter-spacing: 2px; }
-    #feedback { min-height: 24px; color: #d32f2f; font-weight: bold; }
+    #feedback { min-height: 28px; font-weight: bold; transition: all 0.3s ease; }
+    .correct { color: #2e7d32; animation: pulse 0.6s; }
+    .wrong { color: #d32f2f; animation: shake 0.6s; }
+    @keyframes shake { 0%{transform:translateX(0);} 25%{transform:translateX(-5px);} 50%{transform:translateX(5px);} 75%{transform:translateX(-5px);} 100%{transform:translateX(0);} }
+    @keyframes pulse { 0%{transform:scale(1);} 50%{transform:scale(1.2);} 100%{transform:scale(1);} }
     footer { font-size: 16px; color: #555; margin-top: 16px; }
     .profile-photo { width:48px; height:48px; border-radius:50%; border:2px solid #2196f3; object-fit:cover; margin:10px auto; }
     .volume-controls { display: flex; justify-content: center; gap: 16px; align-items: center; margin-top: 10px; }
     .volume-controls label { font-weight: bold; color: #0d47a1; }
     .volume-slider { width: 220px; }
-    input#word { font-size: 18px; padding: 10px 12px; width: 60%; max-width: 420px; }
+    input#word { font-size: 18px; padding: 10px 12px; width: 60%; max-width: 420px; border: 2px solid #2196f3; border-radius: 8px; }
   </style>
 </head>
 <body>
@@ -87,188 +93,4 @@ document.addEventListener("DOMContentLoaded", () => {
   setupMusic(document.getElementById('musicBtnGame'));
 
   function setupVolumeSlider(id){
-    const slider = document.getElementById(id);
-    if (slider) slider.addEventListener("input", (e) => { music.volume = parseFloat(e.target.value); });
-  }
-  setupVolumeSlider("musicVolume");
-  setupVolumeSlider("volumeSlider");
-
-  function shuffleWord(word) {
-    return word.split('').sort(() => Math.random() - 0.5).join('');
-  }
-
-  const subjects = {
-    Personality: {
-      kind:"مهربان", brave:"شجاع", polite:"با ادب", rude:"بی‌ادب", selfish:"خودخواه",
-      serious:"جدی", shy:"خجالتی", clever:"باهوش", talkative:"پرحرف", friendly:"دوستانه",
-      funny:"بامزه", lazy:"تنبل", helpful:"یاری‌رسان", hardworking:"سخت‌کوش", honest:"صادق",
-      calm:"آرام", angry:"عصبانی", patient:"صبور", neat:"مرتب", nervous:"نگران"
-    },
-    Travel: {
-      airport:"فرودگاه", passport:"گذرنامه", ticket:"بلیط", train:"قطار", travel:"سفر کردن",
-      timetable:"جدول زمانی", reservation:"رزرو", room:"اتاق", checkin:"ورود", checkout:"خروج",
-      luggage:"چمدان", guidebook:"کتاب راهنما", board:"سوار شدن", land:"فرود آمدن", map:"نقشه",
-      bus:"اتوبوس", car:"ماشین", ship:"کشتی", hotel:"هتل", station:"ایستگاه"
-    },
-    Festivals: {
-      festival:"جشن", gift:"هدیه", sing:"خواندن", food:"غذا", holiday:"تعطیلات",
-      firework:"آتش‌بازی", ceremony:"مراسم", recite:"قرائت", pray:"نماز خواندن", fast:"روزه گرفتن",
-      special:"ویژه", spring:"بهار", grandparents:"پدربزرگ و مادربزرگ", party:"مهمانی", music:"موسیقی",
-      parade:"رژه", tradition:"سنت", joy:"شادی", celebrate:"جشن گرفتن", crowd:"جمعیت"
-    },
-    Services: {
-      postoffice:"اداره پست", call:"تماس گرفتن", service:"خدمت", emergency:"اورژانس", employee:"کارمند",
-      firestation:"ایستگاه آتش‌نشانی", firefighter:"آتش‌نشان", gasstation:"پمپ بنزین", charity:"خیریه", donate:"اهدا کردن",
-      info:"اطلاعات", bank:"بانک", hospital:"بیمارستان", school:"مدرسه", shop:"فروشگاه",
-      police:"پلیس", market:"بازار", stamp:"تمبر", envelope:"پاکت نامه", bus:"اتوبوس"
-    },
-    Media: {
-      media:"رسانه", message:"پیام", movie:"فیلم", report:"گزارش", dictionary:"فرهنگ لغت",
-      surf:"گشت‌زنی اینترنتی", download:"دانلود", text:"پیامک", newsstand:"دکه روزنامه", quiz:"مسابقه تلویزیونی",
-      radio:"رادیو", interview:"مصاحبه", blog:"وبلاگ", tv:"تلویزیون", video:"ویدئو",
-      photo:"عکس", article:"مقاله", headline:"تیتر", internet:"اینترنت", phone:"تلفن"
-    },
-    Health: {
-      advice:"توصیه", ankle:"مچ پا", knee:"زانو", bleed:"خونریزی", bruise:"کبودی",
-      burn:"سوختگی", cut:"برش", firstaid:"کمک‌های اولیه", wound:"زخم", health:"سلامتی",
-      heartattack:"حمله قلبی", injury:"آسیب‌دیدگی", scar:"جای زخم", hurt:"آسیب زدن", doctor:"پزشک",
-      nurse:"پرستار", medicine:"دارو", pill:"قرص", pain:"درد", hospital:"بیمارستان"
-    }
-  }; // subjects closed
-
-  const subjectButtons = document.querySelectorAll('.subject-buttons button');
-  const subjectMenu = document.getElementById('subjectMenu');
-  const gameArea = document.getElementById('gameArea');
-  const scoreEl = document.getElementById('score');
-  const levelEl = document.getElementById('level');
-  const remainingEl = document.getElementById('remainingWords');
-  const lettersEl = document.getElementById('letters');
-  const feedbackEl = document.getElementById('feedback');
-  const inputEl = document.getElementById('word');
-  const submitBtn = document.getElementById('submitBtn');
-  const homeBtn = document.getElementById('homeBtn');
-  const progressFill = document.getElementById('progressFill');
-
-  let currentSubjectKey = null;
-  let words = [];
-  let total = 0;
-  let score = 0;
-  let index = 0;
-  let attempts = 0; // تعداد تلاش برای کلمه‌ی جاری
-  let currentShuffled = '';
-
-  function startSubject(subjectKey) {
-    currentSubjectKey = subjectKey;
-    const dict = subjects[subjectKey];
-    words = Object.keys(dict);
-    total = words.length;
-    score = 0;
-    index = 0;
-    attempts = 0;
-
-    subjectMenu.style.display = 'none';
-    gameArea.style.display = 'block';
-
-    scoreEl.textContent = 'Score: 0';
-    levelEl.textContent = subjectKey;
-    remainingEl.textContent = `Remaining: ${total} words`;
-    progressFill.style.width = '0%';
-    feedbackEl.textContent = '';
-
-    showCurrentWord();
-  }
-
-  function showCurrentWord() {
-    const en = words[index];
-    currentShuffled = shuffleWord(en);
-    lettersEl.textContent = currentShuffled;
-    inputEl.value = '';
-    inputEl.focus();
-    attempts = 0;
-    feedbackEl.textContent = '';
-  }
-
-  function updateProgress() {
-    const done = index;
-    const percent = Math.round((done / total) * 100);
-    progressFill.style.width = percent + '%';
-    remainingEl.textContent = `Remaining: ${total - done} words`;
-    scoreEl.textContent = `Score: ${score}`;
-  }
-
-  function goNextWord() {
-    index += 1;
-    updateProgress();
-    if (index < total) {
-      showCurrentWord();
-    } else {
-      lettersEl.textContent = 'آفرین! درس تمام شد';
-      remainingEl.textContent = 'Remaining: 0 words';
-      progressFill.style.width = '100%';
-      submitBtn.disabled = true;
-      inputEl.disabled = true;
-      feedbackEl.textContent = '';
-    }
-  }
-
-  function submitAnswer() {
-    if (!currentSubjectKey) return;
-    const dict = subjects[currentSubjectKey];
-    const en = words[index];
-    const correctFa = (dict[en] || '').trim();
-    const userFa = inputEl.value.trim();
-    if (!userFa) { feedbackEl.textContent = 'لطفاً پاسخ را بنویسید.'; return; }
-
-    if (userFa === correctFa) {
-      score += 1;
-      feedbackEl.textContent = 'عالی! پاسخ درست بود.';
-      goNextWord();
-      return;
-    }
-
-    // پاسخ اشتباه
-    attempts += 1;
-    if (attempts < 3) {
-      feedbackEl.textContent = `اشتباه است. تلاش ${attempts} از 3. دوباره امتحان کن.`;
-      inputEl.focus();
-      return;
-    }
-
-    // بار سوم: نمایش پاسخ و کسر نیم‌امتیاز
-    feedbackEl.textContent = `پاسخ درست: ${correctFa}`;
-    score = Math.max(0, score - 0.5);
-    goNextWord();
-  }
-
-  subjectButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const subjectKey = btn.getAttribute('data-subject');
-      if (subjects[subjectKey]) {
-        submitBtn.disabled = false;
-        inputEl.disabled = false;
-        startSubject(subjectKey);
-      }
-    });
-  });
-
-  submitBtn.addEventListener('click', submitAnswer);
-  inputEl.addEventListener('keydown', (e) => { if (e.key === 'Enter') submitAnswer(); });
-
-  homeBtn.addEventListener('click', () => {
-    currentSubjectKey = null;
-    subjectMenu.style.display = 'block';
-    gameArea.style.display = 'none';
-    lettersEl.textContent = '';
-    feedbackEl.textContent = '';
-    inputEl.value = '';
-    submitBtn.disabled = false;
-    inputEl.disabled = false;
-    progressFill.style.width = '0%';
-    scoreEl.textContent = 'Score: 0';
-    levelEl.textContent = 'Subject';
-    remainingEl.textContent = 'Remaining: 0 words';
-  });
-});
-</script>
-</body>
-</html>
+    const
