@@ -10,17 +10,16 @@
     .subject-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 20px; }
     .subject-buttons button { padding: 12px 18px; border: none; border-radius: 10px; color: #fff; font-weight: bold; cursor: pointer; font-size: 16px; }
     .btn-red { background: #f44336; } .btn-green { background: #4caf50; } .btn-blue { background: #2196f3; }
-    .btn-teal { background: #009688; } .btn-purple { background: #9c27b0; } .btn-orange { background: #ff9800; }
+    .btn-orange { background: #ff9800; } .btn-purple { background: #9c27b0; } .btn-teal { background: #009688; }
     button.action { margin: 10px; padding: 12px 24px; border: none; border-radius: 10px; background: #1565c0; color: #fff; font-weight: bold; cursor: pointer; font-size: 16px; }
     button.action:hover { background: #0d47a1; }
     #progressBar { height: 14px; background: #ddd; border-radius: 6px; overflow: hidden; margin: 12px 0; }
-    #progressFill { height: 100%; width: 0%; background: #4caf50; transition: width 0.2s ease; }
-    #letters { font-size: 36px; margin: 12px 0; font-weight: bold; color: #1565c0; min-height: 44px; }
+    #progressFill { height: 100%; width: 0%; background: #4caf50; }
+    #letters { font-size: 36px; margin: 12px 0; font-weight: bold; color: #1565c0; }
     footer { font-size: 14px; color: #555; margin-top: 20px; }
-    .profile-photo { width:48px; height:48px; border-radius:50%; border:2px solid #2196f3; object-fit:cover; margin:10px auto; }
-    .volume-controls { display: flex; justify-content: center; gap: 14px; align-items: center; margin-top: 8px; }
-    .volume-controls label { font-weight: bold; color: #0d47a1; }
+    .volume-controls { margin-top: 10px; }
     .volume-slider { width: 180px; }
+    .profile-photo { width:48px; height:48px; border-radius:50%; border:2px solid #2196f3; object-fit:cover; margin:10px auto; }
   </style>
 </head>
 <body>
@@ -31,12 +30,15 @@
   <h3>Choose a subject</h3>
   <div class="subject-buttons">
     <button class="btn-red" data-subject="Personality">Personality</button>
+    <button class="btn-green" data-subject="Travel">Travel</button>
+    <button class="btn-blue" data-subject="Festivals">Festivals</button>
+    <button class="btn-orange" data-subject="Services">Services</button>
+    <button class="btn-purple" data-subject="Media">Media</button>
     <button class="btn-teal" data-subject="Health">Health</button>
   </div>
   <button id="musicBtnHome" class="action">🎵 Play Music</button>
   <div class="volume-controls">
-    <label for="musicVolume">Music:</label>
-    <input id="musicVolume" type="range" min="0" max="1" step="0.1" value="0.2" class="volume-slider">
+    <input id="volumeSliderHome" type="range" min="0" max="1" step="0.1" value="0.2" class="volume-slider">
   </div>
 </div>
 
@@ -50,8 +52,7 @@
   <button id="submitBtn" class="action">Submit</button>
   <button id="musicBtnGame" class="action">🎵 Play Music</button>
   <div class="volume-controls">
-    <label for="volumeSlider">Music:</label>
-    <input id="volumeSlider" type="range" min="0" max="1" step="0.1" value="0.2" class="volume-slider">
+    <input id="volumeSliderGame" type="range" min="0" max="1" step="0.1" value="0.2" class="volume-slider">
   </div>
   <button id="homeBtn" class="action" style="background:#f44336">🏠 Home</button>
 </div>
@@ -74,155 +75,34 @@ document.addEventListener("DOMContentLoaded", () => {
       else { music.pause(); btn.textContent='🎵 Play Music'; }
     });
   }
-
-  function setupMusicSlider(){
-    const musicVolume = document.getElementById("musicVolume");
-    if (musicVolume) {
-      musicVolume.addEventListener("input", (e) => {
-        music.volume = parseFloat(e.target.value);
-      });
-    }
-  }
-
-  function setupVolumeSlider(){
-    const volumeSlider = document.getElementById("volumeSlider");
-    if (volumeSlider) {
-      volumeSlider.addEventListener("input", (e) => {
-        music.volume = parseFloat(e.target.value);
-      });
-    }
-  }
-
   setupMusic(document.getElementById('musicBtnHome'));
   setupMusic(document.getElementById('musicBtnGame'));
-  setupMusicSlider();
-  setupVolumeSlider();
 
-  // English -> Persian dictionary with 20 words per subject
-  const subjects = {
-    Personality: {
-      kind:"مهربان", brave:"شجاع", polite:"با ادب", rude:"بی‌ادب", selfish:"خودخواه",
-      serious:"جدی", shy:"خجالتی", clever:"باهوش", talkative:"پرحرف", friendly:"دوستانه",
-      funny:"بامزه", lazy:"تنبل", helpful:"یاری‌رسان", hardworking:"سخت‌کوش", honest:"صادق",
-      calm:"آرام", angry:"عصبانی", patient:"صبور", neat:"مرتب", nervous:"نگران"
-    },
-    Health: {
-      advice:"توصیه", ankle:"مچ پا", knee:"زانو", bleed:"خونریزی", bruise:"کبودی",
-      burn:"سوختگی", cut:"برش/بریدگی", firstaid:"کمک‌های اولیه", wound:"زخم", health:"سلامتی",
-      heartattack:"حمله قلبی", injury:"آسیب‌دیدگی", scar:"جای زخم", hurt:"آسیب زدن", doctor:"پزشک",
-      nurse:"پرستار", medicine:"دارو", pill:"قرص", pain:"درد", hospital:"بیمارستان"
-    }
-  }; // subjects closed
-
-  // Elements
-  const subjectButtons = document.querySelectorAll('.subject-buttons button');
-  const subjectMenu = document.getElementById('subjectMenu');
-  const gameArea = document.getElementById('gameArea');
-  const scoreEl = document.getElementById('score');
-  const levelEl = document.getElementById('level');
-  const remainingEl = document.getElementById('remainingWords');
-  const lettersEl = document.getElementById('letters');
-  const inputEl = document.getElementById('word');
-  const submitBtn = document.getElementById('submitBtn');
-  const homeBtn = document.getElementById('homeBtn');
-  const progressFill = document.getElementById('progressFill');
-
-  let currentSubjectKey = null;
-  let words = [];
-  let total = 0;
-  let score = 0;
-  let index = 0;
-
-  function startSubject(subjectKey) {
-    currentSubjectKey = subjectKey;
-    const dict = subjects[subjectKey];
-    words = Object.keys(dict);
-    total = words.length;
-    score = 0;
-    index = 0;
-
-    subjectMenu.style.display = 'none';
-    gameArea.style.display = 'block';
-
-    scoreEl.textContent = 'Score: 0';
-    levelEl.textContent = subjectKey;
-    remainingEl.textContent = `Remaining: ${total} words`;
-    progressFill.style.width = '0%';
-
-    showCurrentWord();
-  }
-
-  function showCurrentWord() {
-    const en = words[index];
-    lettersEl.textContent = en;
-    inputEl.value = '';
-    inputEl.focus();
-  }
-
-  function updateProgress() {
-    const done = index;
-    const percent = Math.round((done / total) * 100);
-    progressFill.style.width = percent + '%';
-    remainingEl.textContent = `Remaining: ${total - done} words`;
-    scoreEl.textContent = `Score: ${score}`;
-  }
-
-  function submitAnswer() {
-    if (!currentSubjectKey) return;
-    const dict = subjects[currentSubjectKey];
-    const en = words[index];
-    const correctFa = (dict[en] || '').trim();
-    const userFa = inputEl.value.trim();
-    if (!userFa) return;
-
-    if (userFa === correctFa) {
-      score += 1;
-    }
-
-    index += 1;
-    updateProgress();
-
-    if (index < total) {
-      showCurrentWord();
-    } else {
-      lettersEl.textContent = 'آفرین! درس تمام شد';
-      remainingEl.textContent = 'Remaining: 0 words';
-      progressFill.style.width = '100%';
-      submitBtn.disabled = true;
-      inputEl.disabled = true;
-    }
-  }
-
-  subjectButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const subjectKey = btn.getAttribute('data-subject');
-      if (subjects[subjectKey]) {
-        submitBtn.disabled = false;
-        inputEl.disabled = false;
-        startSubject(subjectKey);
-      }
+  function setupVolumeSlider(slider){
+    slider.addEventListener('input',()=>{
+      music.volume = parseFloat(slider.value);
     });
-  });
+  }
+  setupVolumeSlider(document.getElementById('volumeSliderHome'));
+  setupVolumeSlider(document.getElementById('volumeSliderGame'));
 
-  submitBtn.addEventListener('click', submitAnswer);
-  inputEl.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') submitAnswer();
-  });
-
-  homeBtn.addEventListener('click', () => {
-    currentSubjectKey = null;
-    subjectMenu.style.display = 'block';
-    gameArea.style.display = 'none';
-    lettersEl.textContent = '';
-    inputEl.value = '';
-    submitBtn.disabled = false;
-    inputEl.disabled = false;
-    progressFill.style.width = '0%';
-    scoreEl.textContent = 'Score: 0';
-    levelEl.textContent = 'Subject';
-    remainingEl.textContent = 'Remaining: 0 words';
-  });
-});
-</script>
-</body>
-</html>
+  const subjects = {
+    Personality: { kind:"مهربان", brave:"شجاع", polite:"با ادب", rude:"بی ادب", selfish:"خودخواه",
+      serious:"جدی", shy:"خجالتی", clever:"باهوش", talkative:"پرحرف", friendly:"دوستانه",
+      funny:"بامزه", lazy:"تنبل", helpful:"یاری رسان", hardworking:"سخت‌کوش", honest:"صادق",
+      calm:"آرام", angry:"عصبانی", patient:"صبور", neat:"مرتب", nervous:"نگران" },
+    Travel: { airport:"فرودگاه", passport:"گذرنامه", ticket:"بلیط", train:"قطار", travel:"سفر کردن",
+      timetable:"جدول زمانی", reservation:"رزرو", room:"اتاق", checkin:"ورود هتل", checkout:"خروج هتل",
+      luggage:"چمدان", guidebook:"کتاب راهنما", board:"سوار شدن", land:"فرود آمدن", map:"نقشه",
+      bus:"اتوبوس", car:"ماشین", ship:"کشتی", hotel:"هتل", station:"ایستگاه" },
+    Festivals: { festival:"جشن", gift:"هدیه", sing:"خواندن", food:"غذا", holiday:"تعطیلات",
+      firework:"آتش‌بازی", ceremony:"مراسم", recite:"قرائت قرآن", pray:"نماز خواندن", fast:"روزه گرفتن",
+      special:"مخصوص", spring:"بهار", grandparents:"پدربزرگ و مادربزرگ", party:"مهمانی", music:"موسیقی",
+      parade:"رژه", tradition:"سنت", joy:"شادی", celebrate:"جشن گرفتن", crowd:"جمعیت" },
+    Services: { postoffice:"اداره پست", call:"تماس گرفتن", service:"خدمت", emergency:"اورژانس", employee:"کارمند",
+      firestation:"ایستگاه آتش‌نشانی", firefighter:"آتش‌نشان", gasstation:"پمپ بنزین", charity:"خیریه", donate:"اهدا کردن",
+      info:"اطلاعات", bank:"بانک", hospital:"بیمارستان", school:"مدرسه", shop:"فروشگاه",
+      police:"پلیس", market:"بازار", stamp:"تمبر", envelope:"پاکت نامه", bus:"اتوبوس" },
+    Media: { media:"رسانه", message:"پیام", movie:"فیلم", report:"گزارش", dictionary:"فرهنگ لغت",
+      surf:"گشت‌زدن اینترنت", download:"دانلود", text:"پیامک", newsstand:"دکه روزنامه", quiz:"مسابقه تلویزیونی",
+      radio:"ر
