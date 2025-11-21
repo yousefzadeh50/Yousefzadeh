@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+<meta charset="UTF-8">
+<title>Word Puzzle Game for Prospect 3</title>
+<style>
+body{font-family:Vazirmatn,sans-serif;text-align:center;background:#e3f2fd;color:#0d47a1}
+.container{max-width:640px;margin:auto;padding:20px;background:#fff;border-radius:12px}
+h2{font-size:28px;background:linear-gradient(90deg,#ff4081,#7c4dff,#448aff);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.profile-photo{width:64px;height:64px;border-radius:50%;border:2px solid #2196f3;object-fit:cover;margin:10px auto}
+.subject-buttons{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:15px}
+.subject-buttons button{padding:10px 16px;border:none;border-radius:10px;color:#fff;font-weight:bold;cursor:pointer}
+.btn-red{background:#f44336}.btn-green{background:#4caf50}.btn-blue{background:#2196f3}
+.btn-orange{background:#ff9800}.btn-purple{background:#9c27b0}.btn-teal{background:#009688}
+button.action{margin:8px;padding:10px 20px;border:none;border-radius:10px;background:#1565c0;color:#fff;font-weight:bold;cursor:pointer}
+button.action:hover{background:#0d47a1}
+#progressBar{height:12px;background:#ddd;border-radius:6px;overflow:hidden;margin:10px 0}
+#progressFill{height:100%;width:0%;background:#4caf50}
+#letters{font-size:32px;margin:10px 0;font-weight:bold;color:#1565c0}
+footer{font-size:12px;color:#555;margin-top:20px}
+.volume-controls{margin-top:10px}
+.volume-slider{width:150px}
+</style>
+</head>
+<body>
+
+<h2>🎯 Word Puzzle Game for Prospect 3</h2>
+
+<div id="subjectMenu" class="container">
+  <h3>Choose a subject</h3>
+  <div class="subject-buttons">
+    <button class="btn-red"    data-subject="Personality" type="button">Personality</button>
+    <button class="btn-green"  data-subject="Travel"      type="button">Travel</button>
+    <button class="btn-blue"   data-subject="Festivals"   type="button">Festivals</button>
+    <button class="btn-orange" data-subject="Services"    type="button">Services</button>
+    <button class="btn-purple" data-subject="Media"       type="button">Media</button>
+    <button class="btn-teal"   data-subject="Health"      type="button">Health</button>
+  </div>
+  <button id="musicBtnHome" class="action" type="button">🎵 Play Music</button>
+  <div class="volume-controls">
+    <input id="volumeSliderHome" type="range" min="0" max="1" step="0.1" value="0.2" class="volume-slider">
+  </div>
+</div>
+
+<div id="gameArea" class="container" style="display:none;">
+  <p id="score">Score: 0</p>
+  <p id="level">Subject</p>
+  <div id="progressBar"><div id="progressFill"></div></div>
+  <p id="remainingWords">Remaining: 0 words</p>
+  <div id="letters"></div>
+  <input id="word" type="text" placeholder="Type the word here">
+  <button id="submitBtn" class="action" type="button">Submit</button>
+  <button id="musicBtnGame" class="action" type="button">🎵 Play Music</button>
+  <div class="volume-controls">
+    <input id="volumeSliderGame" type="range" min="0" max="1" step="0.1" value="0.2" class="volume-slider">
+  </div>
+  <button id="homeBtn" class="action" style="background:#f44336" type="button">🏠 Home</button>
+</div>
+
+<audio id="bgmusic" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" loop></audio>
+
+<footer>
+  <img src="https://s34.picofile.com/file/8488183492/2.png" alt="My Photo" class="profile-photo">
+  <div>Designer: A.R. Yousefzadeh</div>
+</footer>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const subjects={
+    Personality:{kind:"مهربان",brave:"شجاع",polite:"با ادب",rude:"بی ادب",selfish:"خودخواه",
+      serious:"جدی",shy:"خجالتی",clever:"باهوش",talkative:"پرحرف",friendly:"دوستانه",
+      funny:"بامزه",lazy:"تنبل",helpful:"یاری رسان",hardworking:"سخت‌کوش",honest:"صادق",
+      calm:"آرام",angry:"عصبانی",patient:"صبور",neat:"مرتب",nervous:"نکران"},
+    Travel:{airport:"فرودگاه",passport:"گذرنامه",ticket:"بلیط",train:"قطار",travel:"سفر کردن",
+      timetable:"جدول زمانی",reservation:"رزرو",room:"اتاق",checkin:"ورود هتل",checkout:"خروج هتل",
+      luggage:"چمدان",guidebook:"کتاب راهنما",board:"سوار شدن هواپیما",land:"فرود آمدن",map:"نقشه",
+      bus:"اتوبوس",car:"ماشین",ship:"کشتی",hotel:"هتل",station:"ایستگاه"},
+    Festivals:{festival:"جشن",gift:"هدیه",sing:"خواندن",food:"غذا",holiday:"تعطیلات",
+      firework:"آتش‌بازی",ceremony:"مراسم",recite:"قرائت قرآن",pray:"نماز خواندن",fast:"روزه گرفتن",
+      special:"مخصوص",spring:"بهار",grandparents:"پدربزرگ و مادربزرگ",party:"مهمانی",music:"موسیقی",
+      parade:"رژه",tradition:"سنت",joy:"شادی",celebrate:"جشن گرفتن",crowd:"جمعیت"},
+    Services:{postoffice:"اداره پست",call:"تماس گرفتن",service:"خدمت",emergency:"اورژانس",employee:"کارمند",
+      firestation:"ایستگاه آتش‌نشانی",firefighter:"آتش‌نشان",gasstation:"پمپ بنزین",charity:"مؤسسه خیریه",donate:"اهدا خون",
+      info:"میز اطلاعات",bank:"بانک",hospital:"بیمارستان",school:"مدرسه",shop:"فروشگاه",
+      police:"پلیس",market:"بازار",stamp:"تمبر",envelope:"پاکت نامه",bus:"اتوبوس"},
+    Media:{media:"رسانه",message:"پیام",movie:"فیلم",report:"گزارش",dictionary:"فرهنگ لغت",
+      surf:"گشت‌زدن اینترنت",download:"دانلود",text:"پیامک",newsstand:"دکه روزنامه",quiz:"مسابقه تلویزیونی",
+      radio:"رادیو",interview:"مصاحبه",blog:"وبلاگ",tv:"تلویزیون",video:"ویدئو",
+      photo:"عکس",article:"مقاله",headline:"تیتر",internet:"اینترنت",phone:"تلفن"},
+    Health:{advice:"توصیه",ankle:"مچ پا",knee:"زانو",bleed:"خونریزی",bruise:"کبودی",
+      burn:"سوختن دست",cut:"بریدن دست",firstaid:"کمک‌های اولیه",wound:"زخم",health:"سلامتی",
+      heartattack:"حمله قلبی",injury:"آسیب‌دیدگی",scar:"اثر زخم",hurt:"آسیب زدن",doctor:"پزشک",
+      nurse:"پرستار",medicine:"دارو",pill:"قرص",pain:"درد",hospital:"بیمارستان"}
+  };
+
+  let words={}, wordKeys=[], wordIndex=0, score=0, attempts=0;
+
+  const subjectMenu=document.getElementById('subjectMenu');
+  const gameArea=document.getElementById('gameArea');
+  const scoreEl=document.getElementById('score');
+  const levelEl=document.getElementById('level');
+  const progressFill=document.getElementById('progressFill');
+  const remainingWordsEl=document.getElementById('remainingWords');
+  const lettersEl=document.getElementById('letters');
+  const wordInput=document.getElementById('word');
+  const submitBtn=document.getElement
