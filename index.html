@@ -78,7 +78,6 @@
   </style>
 </head>
 <body>
-
 <!-- Start screen -->
 <div id="startScreen" class="container">
   <h2>🎯 Word Puzzle Game for Prospect 3</h2>
@@ -119,54 +118,9 @@
 
   <div class="row">
     <input id="word" type="text" placeholder="Type the English word"/>
-    <button id="submitBtn" class="action">Submit</button>
-    <button id="homeBtn" class="action btn-home">🏠 Back to Home</button>
-  </div>
-
-  <h4 style="margin-top:16px; text-align:left;">Correct answers</h4>
-  <div id="answers
-    <audio id="soundCorrect" src="https://www.soundjay.com/button/sounds/button-4.mp3" preload="auto"></audio>
-<audio id="soundWrong" src="https://www.soundjay.com/button/sounds/button-10.mp3" preload="auto"></audio>
-<audio id="soundFinish" src="https://www.soundjay.com/human/sounds/applause-8.mp3" preload="auto"></audio>
-
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  // موسیقی صفحه ابتدایی (شروع پس از اولین کلیک کاربر)
-  const bgm = new Audio("https://files.freemusicarchive.org/storage-freemusicarchive-org/music/WFMU/Crowander/Crowander_-_Spring/Crowander_-_Spring_-_03_Spring.mp3");
-  bgm.loop = true;
-  bgm.volume = 0.6;
-
-  const startScreen = document.getElementById("startScreen");
-  const gameArea = document.getElementById("gameArea");
-  const musicToggle = document.getElementById("musicToggle");
-  const volumeSlider = document.getElementById("volumeSlider");
-
-  // عناصر بازی
-  const scoreEl = document.getElementById("score");
-  const remainingEl = document.getElementById("remainingWords");
-  const progressFill = document.getElementById("progressFill");
-  const lettersEl = document.getElementById("letters");
-  const inputEl = document.getElementById("word");
-  const feedbackEl = document.getElementById("feedback");
-  const timerEl = document.getElementById("timer");
-  const answersList = document.getElementById("answersList");
-  const wrongList = document.getElementById("wrongList");
-  const submitBtn = document.getElementById("submitBtn");
-  const homeBtn = document.getElementById("homeBtn");
-  const soundCorrect = document.getElementById("soundCorrect");
-  const soundWrong = document.getElementById("soundWrong");
-  const soundFinish = document.getElementById("soundFinish");
-  const attemptsLeftEl = document.getElementById("attemptsLeft");
-
-  // وضعیت بازی
-  let currentSubjectKey = null;
-  let words = [];
-  let total = 0;
-  let score = 0;
-  let index = 0;
-  let attempts = 0;
-  let timer = null;
-  let timeLeft = 30;
+    <button id
+        <!-- ادامه اسکریپت -->
+  <script>
   // دیکشنری موضوعات (هر موضوع 20 کلمه)
   const subjects = {
     Health: { doctor:"پزشک", nurse:"پرستار", medicine:"دارو", pill:"قرص", dentist:"دندانپزشک", patient:"بیمار", blood:"خون", heart:"قلب", diet:"رژیم", sleep:"خواب", clinic:"کلینیک", virus:"ویروس", pain:"درد", skin:"پوست", bone:"استخوان", brain:"مغز", eye:"چشم", ear:"گوش", mouth:"دهان", hand:"دست" },
@@ -199,7 +153,6 @@ document.addEventListener("DOMContentLoaded", () => {
     feedbackEl.textContent = ""; lettersEl.textContent = "";
     inputEl.value = "";
     startScreen.style.display = "none"; gameArea.style.display = "block";
-    bgm.pause(); musicToggle.textContent = "🔇 Music: Off";
     showCurrentWord();
   }
 
@@ -220,7 +173,6 @@ document.addEventListener("DOMContentLoaded", () => {
       if (timeLeft <= 0) { clearInterval(timer); handleTimeout(); }
     }, 1000);
   }
-
   function handleTimeout() {
     const correct = words[index];
     const fa = subjects[currentSubjectKey][correct];
@@ -251,4 +203,56 @@ document.addEventListener("DOMContentLoaded", () => {
   function checkAnswer() {
     const userAns = inputEl.value.trim().toLowerCase();
     const correctAns = words[index].toLowerCase();
-    const fa = subjects
+    const fa = subjects[currentSubjectKey][correctAns];
+    if (userAns === correctAns) {
+      score += 10;
+      feedbackEl.innerHTML = `<div class="highlight">✅ Correct: ${correctAns} — ${fa}</div>`;
+      soundCorrect.play(); addCorrect(correctAns, fa);
+      setTimeout(goNextWord, 3000);
+    } else {
+      attempts++; const remaining = Math.max(0, 3 - attempts);
+      attemptsLeftEl.textContent = `Remaining Attempts: ${remaining}`;
+      feedbackEl.textContent = "❌ Wrong. Try again."; soundWrong.play();
+      lettersEl.classList.add("shake"); setTimeout(()=>lettersEl.classList.remove("shake"),400);
+      if (attempts >= 3) {
+        feedbackEl.innerHTML = `<div class="highlight">❌ Wrong. Correct: ${correctAns} — ${fa}</div>`;
+        addWrong(correctAns, userAns); score = Math.max(0, score - 5);
+        pronounce(correctAns);
+        setTimeout(goNextWord, 3000);
+      }
+    }
+    scoreEl.textContent = `Score: ${score}`;
+  }
+
+  function goNextWord() {
+    clearInterval(timer); index++;
+    progressFill.style.width = `${(index/total)*100}%`;
+    remainingEl.textContent = `Remaining Words: ${Math.max(0, total - index)}`;
+    if (index < total) { showCurrentWord(); }
+    else { finishGame(); }
+  }
+
+  function finishGame() {
+    if (score >= (total * 10) / 2) {
+      feedbackEl.textContent = "🎉 Great job! Game finished.";
+      soundFinish.play();
+    } else {
+      feedbackEl.textContent = "Game finished. Try again!";
+    }
+  }
+
+  // رویدادها
+  document.querySelectorAll(".subject-buttons button").forEach(btn => {
+    btn.addEventListener("click", () => {
+      startGame(btn.dataset.subject);
+    });
+  });
+  submitBtn.addEventListener("click", checkAnswer);
+  homeBtn.addEventListener("click", () => {
+    clearInterval(timer); gameArea.style.display = "none"; startScreen.style.display = "block";
+  });
+  musicToggle.addEventListener("click", () => {
+    if (bgm.paused) {
+      bgm.play();
+      musicToggle.textContent = "🔊 Music: On";
+    } else
