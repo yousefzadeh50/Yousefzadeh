@@ -42,7 +42,6 @@
 <!-- Start screen -->
 <div id="startScreen" class="container">
   <h2>🎯 Word Puzzle Game for Prospect 3</h2>
-  <p class="small">Select a subject to start. Music plays only on this screen.</p>
   <div class="subject-buttons">
     <button class="btn-green" data-subject="Health">Health</button>
     <button class="btn-purple" data-subject="Media">Media</button>
@@ -94,10 +93,9 @@
 <audio id="soundCorrect" src="https://www.soundjay.com/button/sounds/button-4.mp3" preload="auto"></audio>
 <audio id="soundWrong" src="https://www.soundjay.com/button/sounds/button-10.mp3" preload="auto"></audio>
 <audio id="soundFinish" src="https://www.soundjay.com/human/sounds/applause-8.mp3" preload="auto"></audio>
-
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-  // Music (only for start screen)
+  // موسیقی فقط در صفحه ابتدایی
   const bgm = new Audio("https://files.freemusicarchive.org/storage-freemusicarchive-org/music/WFMU/Crowander/Crowander_-_Spring/Crowander_-_Spring_-_03_Spring.mp3");
   bgm.loop = true;
   bgm.volume = 0.6;
@@ -107,21 +105,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const musicToggle = document.getElementById("musicToggle");
   const volumeSlider = document.getElementById("volumeSlider");
 
-  // autoplay music on start screen
-  bgm.play().catch(()=>{});
-
-  musicToggle.addEventListener("click", () => {
-    if (bgm.paused) {
-      bgm.play();
-      musicToggle.textContent = "🔊 Music: On";
-    } else {
-      bgm.pause();
-      musicToggle.textContent = "🔇 Music: Off";
-    }
-  });
-  volumeSlider.addEventListener("input", () => { bgm.volume = parseFloat(volumeSlider.value); });
-
-  // Elements
+  // عناصر بازی
   const scoreEl = document.getElementById("score");
   const remainingEl = document.getElementById("remainingWords");
   const progressFill = document.getElementById("progressFill");
@@ -138,7 +122,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const soundFinish = document.getElementById("soundFinish");
   const attemptsLeftEl = document.getElementById("attemptsLeft");
 
-  // State
+  // وضعیت بازی
   let currentSubjectKey = null;
   let words = [];
   let total = 0;
@@ -148,14 +132,24 @@ document.addEventListener("DOMContentLoaded", () => {
   let timer = null;
   let timeLeft = 30;
 
-  // Helpers
+  // دیکشنری موضوعات
+  const subjects = {
+    Health: { doctor:"پزشک", nurse:"پرستار", medicine:"دارو", pill:"قرص", dentist:"دندانپزشک", patient:"بیمار" },
+    Media: { media:"رسانه", movie:"فیلم", tv:"تلویزیون", radio:"رادیو", news:"خبر" },
+    Services: { firefighter:"آتش‌نشان", hospital:"بیمارستان", police:"پلیس", bank:"بانک", teacher:"معلم" },
+    Festivals: { nowruz:"نوروز", eid:"عید", ceremony:"مراسم", lantern:"فانوس", party:"مهمانی" },
+    Travel: { train:"قطار", hotel:"هتل", ticket:"بلیط", airport:"فرودگاه", bus:"اتوبوس" },
+    Personality: { brave:"شجاع", kind:"مهربان", honest:"صادق", polite:"مودب", lazy:"تنبل" }
+  };
+
+  // توابع کمکی
   function shuffleWord(word) { return word.split('').sort(() => Math.random() - 0.5).join(''); }
   function pronounce(word) {
     const audio = new Audio(`https://dict.youdao.com/dictvoice?audio=${encodeURIComponent(word)}&type=2`);
     audio.play();
   }
 
-  // Start game
+  // شروع بازی
   function startGame(subjectKey) {
     currentSubjectKey = subjectKey;
     const dict = subjects[subjectKey];
@@ -253,9 +247,12 @@ document.addEventListener("DOMContentLoaded", () => {
     soundFinish.play();
   }
 
-  // Events
+  // رویدادها
   document.querySelectorAll(".subject-buttons button").forEach(btn => {
-    btn.addEventListener("click", () => startGame(btn.dataset.subject));
+    btn.addEventListener("click", () => {
+      if (bgm.paused) bgm.play();
+      startGame(btn.dataset.subject);
+    });
   });
   submitBtn.addEventListener("click", checkAnswer);
   homeBtn.addEventListener("click", () => {
