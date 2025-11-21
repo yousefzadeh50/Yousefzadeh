@@ -1,6 +1,98 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Word Puzzle Game for Prospect 3</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; background: linear-gradient(135deg,#e3f2fd,#bbdefb); color: #0d47a1; font-size: 20px; }
+    .container { max-width: 960px; margin: 24px auto; padding: 36px; background: #fff; border-radius: 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
+    h2 { font-size: 36px; margin-bottom: 16px; background: linear-gradient(90deg,#ff4081,#7c4dff,#448aff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .subject-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 20px; }
+    .subject-buttons button { padding: 14px 22px; border: none; border-radius: 12px; color: #fff; font-weight: bold; cursor: pointer; font-size: 18px; transition: transform 0.2s, box-shadow 0.2s; }
+    .subject-buttons button:hover { transform: scale(1.1); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+    .btn-green { background: #4caf50; } .btn-purple { background: #9c27b0; } .btn-orange { background: #ff9800; }
+    .btn-blue { background: #2196f3; } .btn-teal { background: #009688; } .btn-red { background: #f44336; }
+    button.action { margin: 12px; padding: 14px 26px; border: none; border-radius: 12px; background: #1565c0; color: #fff; font-weight: bold; cursor: pointer; font-size: 18px; }
+    button.action:hover { background: #0d47a1; }
+    #progressBar { height: 16px; background: #ddd; border-radius: 8px; overflow: hidden; margin: 14px 0; }
+    #progressFill { height: 100%; width: 0%; background: linear-gradient(90deg,#4caf50,#81c784); transition: width 0.4s ease; }
+    #letters { font-size: 42px; margin: 14px 0; font-weight: bold; color: #1565c0; min-height: 48px; letter-spacing: 2px; }
+    #feedback { min-height: 28px; font-weight: bold; }
+    #timer { font-size: 24px; color: #d32f2f; margin: 10px 0; }
+    #answersList { margin-top: 20px; text-align: left; font-size: 18px; }
+    .profile-photo { width:80px; height:80px; border-radius:50%; border:2px solid #2196f3; object-fit:cover; margin-top:20px; }
+  </style>
+</head>
+<body>
+
+<!-- صفحه ابتدایی -->
+<div id="startScreen" class="container">
+  <h2>🎯 Word Puzzle Game for Prospect 3</h2>
+  <div class="subject-buttons">
+    <button class="btn-green" data-subject="Health">Health</button>
+    <button class="btn-purple" data-subject="Media">Media</button>
+    <button class="btn-orange" data-subject="Services">Services</button>
+    <button class="btn-blue" data-subject="Festivals">Festivals</button>
+    <button class="btn-teal" data-subject="Travel">Travel</button>
+    <button class="btn-red" data-subject="Personality">Personality</button>
+  </div>
+  <button id="musicBtn" class="action">🎵 Play Music</button>
+  <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.5" style="width:200px; margin-top:10px;">
+  <img src="https://s34.picofile.com/file/8488183492/2.png" alt="Designer Photo" class="profile-photo">
+  <p>Designer: A.R. Yousefzadeh</p>
+</div>
+
+<!-- صفحه بازی -->
+<div id="gameArea" class="container" style="display:none;">
+  <p id="score">Score: 0</p>
+  <div id="progressBar"><div id="progressFill"></div></div>
+  <p id="remainingWords">Remaining: 0 words</p>
+  <div id="letters"></div>
+  <div id="timer">⏱ 30</div>
+  <div id="feedback"></div>
+  <input id="word" type="text" placeholder="Type the English word">
+  <button id="submitBtn" class="action">Submit</button>
+  <button id="restartBtn" class="action" style="background:#f44336">🔄 Restart</button>
+  <div id="answersList"></div>
+</div>
+
+<audio id="soundCorrect" src="https://www.soundjay.com/button/sounds/button-4.mp3"></audio>
+<audio id="soundWrong" src="https://www.soundjay.com/button/sounds/button-10.mp3"></audio>
+<audio id="soundFinish" src="https://www.soundjay.com/human/sounds/applause-8.mp3"></audio>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const subjects = {
+    Health: { doctor:"پزشک", nurse:"پرستار", medicine:"دارو", pill:"قرص", dentist:"دندانپزشک", patient:"بیمار", blood:"خون", heart:"قلب", diet:"رژیم", sleep:"خواب", clinic:"کلینیک", virus:"ویروس", pain:"درد", skin:"پوست", bone:"استخوان", brain:"مغز", eye:"چشم", ear:"گوش", mouth:"دهان", hand:"دست" },
+    Media: { media:"رسانه", movie:"فیلم", tv:"تلویزیون", radio:"رادیو", news:"خبر", camera:"دوربین", photo:"عکس", internet:"اینترنت", magazine:"مجله", newspaper:"روزنامه", reporter:"خبرنگار", channel:"کانال", program:"برنامه", music:"موسیقی", actor:"بازیگر", actress:"هنرپیشه", director:"کارگردان", cartoon:"کارتون", drama:"نمایش", series:"سریال" },
+    Services: { firefighter:"آتش‌نشان", hospital:"بیمارستان", police:"پلیس", bank:"بانک", teacher:"معلم", student:"دانش‌آموز", driver:"راننده", shop:"فروشگاه", waiter:"پیشخدمت", farmer:"کشاورز", soldier:"سرباز", worker:"کارگر", barber:"آرایشگر", nurse:"پرستار", doctor:"پزشک", engineer:"مهندس", lawyer:"وکیل", judge:"قاضی", pilot:"خلبان", guard:"نگهبان" },
+    Festivals: { nowruz:"نوروز", eid:"عید", ceremony:"مراسم", lantern:"فانوس", party:"مهمانی", birthday:"تولد", wedding:"عروسی", gift:"هدیه", cake:"کیک", dance:"رقص", song:"آهنگ", holiday:"تعطیلات", christmas:"کریسمس", halloween:"هالووین", festival:"جشنواره", firework:"آتش‌بازی", parade:"رژه", costume:"لباس", tradition:"سنت", celebration:"جشن" },
+    Travel: { train:"قطار", hotel:"هتل", ticket:"بلیط", airport:"فرودگاه", bus:"اتوبوس", car:"ماشین", ship:"کشتی", plane:"هواپیما", luggage:"چمدان", passport:"گذرنامه", map:"نقشه", guide:"راهنما", journey:"سفر", trip:"مسافرت", adventure:"ماجراجویی", mountain:"کوه", beach:"ساحل", desert:"بیابان", city:"شهر", village:"روستا" },
+    Personality: { brave:"شجاع", kind:"مهربان", honest:"صادق", polite:"مودب", lazy:"تنبل", smart:"باهوش", shy:"خجالتی", funny:"خنده‌دار", serious:"جدی", friendly:"دوستانه", angry:"عصبانی", happy:"خوشحال", sad:"غمگین", patient:"صبور", generous:"سخاوتمند", creative:"خلاق", curious    :"کنجکاو" }
+  };
+
+  const music = new Audio("https://www.bensound.com/bensound-music/bensound-happyrock.mp3");
+  music.loop = true;
+  music.volume = 0.5;
+
+  let currentSubjectKey = null;
+  let words = [];
+  let total = 0;
+  let score = 0;
+  let index = 0;
+  let attempts = 0;
+  let timer = null;
+  let timeLeft = 30;
+
+  function shuffleWord(word) {
+    return word.split('').sort(() => Math.random() - 0.5).join('');
+  }
+
   function startGame(subjectKey) {
+    currentSubjectKey = subjectKey;
     const dict = subjects[subjectKey];
-    words = Object.keys(dict);
+    words = Object.keys(dict).slice(0, 20); // فقط ۲۰ کلمه اول
     total = words.length;
     score = 0;
     index = 0;
@@ -31,7 +123,8 @@
       timerEl.textContent = `⏱ ${timeLeft}`;
       if (timeLeft <= 0) {
         clearInterval(timer);
-        feedbackEl.textContent = `⏱ زمان تمام شد! پاسخ درست: ${words[index]} (${subjects[currentSubjectKey][words[index]]})`;
+        const correct = words[index];
+        feedbackEl.textContent = `⏱ زمان تمام شد! پاسخ درست: ${correct} (${subjects[currentSubjectKey][correct]})`;
         score = Math.max(0, score - 5);
         soundWrong.play();
         goNextWord();
@@ -78,10 +171,35 @@
     soundFinish.play();
     gameArea.style.display = "none";
     startScreen.style.display = "block";
+    music.pause();
+    musicBtn.textContent = "🎵 Play Music";
   }
 
-  submitBtn.addEventListener("click", checkAnswer);
-  restartBtn.addEventListener("click", () => {
+  // رویدادها
+  document.getElementById('musicBtn').addEventListener("click", () => {
+    if (music.paused) {
+      music.play();
+      musicBtn.textContent = "⏸ Pause Music";
+    } else {
+      music.pause();
+      musicBtn.textContent = "🎵 Play Music";
+    }
+  });
+
+  document.getElementById('volumeSlider').addEventListener("input", () => {
+    music.volume = volumeSlider.value;
+  });
+
+  document.querySelectorAll('.subject-buttons button').forEach(btn => {
+    btn.addEventListener("click", () => {
+      startScreen.style.display = "none";
+      gameArea.style.display = "block";
+      startGame(btn.dataset.subject);
+    });
+  });
+
+  document.getElementById('submitBtn').addEventListener("click", checkAnswer);
+  document.getElementById('restartBtn').addEventListener("click", () => {
     gameArea.style.display = "none";
     startScreen.style.display = "block";
     music.pause();
