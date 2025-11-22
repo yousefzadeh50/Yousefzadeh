@@ -11,78 +11,209 @@
   <link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&family=Orbitron:wght@500;700&family=Rubik:wght@400;600;700&display=swap" rel="stylesheet">
 
   <style>
-    body{
-      margin:0;
-      font-family:'Rubik',sans-serif;
-      background:radial-gradient(circle at top left,#e3f2fd,#bbdefb,#90caf9);
-      color:#0d47a1;
+    body {
+      margin: 0;
+      font-family: 'Rubik', sans-serif;
+      background: radial-gradient(circle at top left, #e3f2fd, #bbdefb, #90caf9);
+      color: #0d47a1;
     }
-    .container{max-width:1000px;margin:0 auto;padding:24px;text-align:center;}
-
-    .title-main{
-      font-family:'Bungee Shade','Orbitron',sans-serif;
-      font-size:58px;margin:0;
-      background:linear-gradient(90deg,#ff4081,#7c4dff,#448aff);
-      -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-      filter:drop-shadow(0 2px 6px rgba(68,138,255,0.45));
-      animation:glowTitle 3.5s ease-in-out infinite;
-    }
-    .title-sub{
-      font-family:'Orbitron',sans-serif;
-      font-size:40px;margin:8px 0 28px;
-      color:#1565c0;
-      text-shadow:0 1px 0 #fff,0 3px 10px rgba(21,101,192,0.2);
-    }
-    @keyframes glowTitle{
-      0%{filter:drop-shadow(0 2px 6px rgba(68,138,255,0.35));}
-      50%{filter:drop-shadow(0 2px 12px rgba(124,77,255,0.55));}
-      100%{filter:drop-shadow(0 2px 6px rgba(68,138,255,0.35));}
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 24px;
+      text-align: center;
     }
 
-    .subject-area{display:flex;flex-direction:column;align-items:center;gap:18px;}
-    .subject-title{font-size:24px;color:#ef6c00;font-weight:700;}
-    .subject-buttons{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;}
-    .btn{
-      border:none;cursor:pointer;border-radius:14px;
-      padding:14px 22px;color:#fff;font-weight:bold;font-size:18px;
-      transition:transform .18s ease,box-shadow .18s ease;
-      font-family:'Orbitron',sans-serif;
+    .title-main {
+      font-family: 'Bungee Shade', 'Orbitron', sans-serif;
+      font-size: 58px;
+      margin: 0;
+      background: linear-gradient(90deg, #ff4081, #7c4dff, #448aff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 2px 6px rgba(68,138,255,0.45));
+      animation: glowTitle 3.5s ease-in-out infinite;
     }
-    .btn:hover{transform:translateY(-2px) scale(1.05);box-shadow:0 8px 16px rgba(0,0,0,0.22);}
-    .btn-green{background:linear-gradient(135deg,#43a047,#66bb6a);}
-    .btn-teal{background:linear-gradient(135deg,#00897b,#26a69a);}
-    .btn-blue{background:linear-gradient(135deg,#1e88e5,#42a5f5);}
-    .btn-orange{background:linear-gradient(135deg,#fb8c00,#ffa726);}
-    .btn-purple{background:linear-gradient(135deg,#7e57c2,#ab47bc);}
-    .btn-red{background:linear-gradient(135deg,#e53935,#ef5350);}
-    .controls{
-      display:flex;justify-content:center;align-items:center;
-      gap:14px;flex-wrap:wrap;margin-top:6px;margin-bottom:24px;
+    .title-sub {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 40px;
+      margin: 8px 0 28px;
+      color: #1565c0;
+      text-shadow: 0 1px 0 #fff, 0 3px 10px rgba(21,101,192,0.2);
     }
-    .btn-music{
-      display:inline-flex;align-items:center;gap:8px;
-      background:linear-gradient(90deg,#ff9800,#f57c00);
-      border:none;padding:10px 16px;border-radius:12px;
-      color:#fff;font-weight:bold;cursor:pointer;
-      box-shadow:0 6px 14px rgba(245,124,0,0.35);
+    @keyframes glowTitle {
+      0% { filter: drop-shadow(0 2px 6px rgba(68,138,255,0.35)); }
+      50% { filter: drop-shadow(0 2px 12px rgba(124,77,255,0.55)); }
+      100% { filter: drop-shadow(0 2px 6px rgba(68,138,255,0.35)); }
     }
-    .btn-music:hover{transform:translateY(-1px) scale(1.03);filter:brightness(1.06);}
-    .range{width:220px;accent-color:#f57c00;}
 
-    .designer{
-      margin-top:20px;padding:10px;border-radius:12px;
-      background:#f7f9ff;box-shadow:0 6px 16px rgba(68,138,255,0.25);
-      position:relative;overflow:hidden;
+    .subject-area {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
     }
-    .designer::before{
-      content:"";position:absolute;inset:-4px;border-radius:14px;
-      background:conic-gradient(from 180deg,#7c4dff,#448aff,#00bcd4,#7c4dff);
-      filter:blur(12px);opacity:.12;animation:spin 6s linear infinite;
+    .subject-title {
+      font-size: 24px;
+      color: #ef6c00;
+      font-weight: 700;
     }
-    @keyframes spin{0%{transform:rotate(0);}100%{transform:rotate(360deg);}}
-    .designer-content{position:relative;display:flex;flex-direction:column;align-items:center;gap:6px;}
-    .designer-text{font-weight:800;color:#1565c0;}
-    .profile{width:50px;height:50px;border-radius:50%;border:2px solid #2196f3;object-fit:cover;}
+    .subject-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+    }
+    .btn {
+      border: none;
+      cursor: pointer;
+      border-radius: 14px;
+      padding: 14px 22px;
+      color: #fff;
+      font-weight: bold;
+      font-size: 18px;
+      transition: transform .18s ease, box-shadow .18s ease;
+      font-family: 'Orbitron', sans-serif;
+    }
+    .btn:hover {
+      transform: translateY(-2px) scale(1.05);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.22);
+    }
+    .btn-green { background: linear-gradient(135deg, #43a047, #66bb6a); }
+    .btn-teal { background: linear-gradient(135deg, #00897b, #26a69a); }
+    .btn-blue { background: linear-gradient(135deg, #1e88e5, #42a5f5); }
+    .btn-orange { background: linear-gradient(135deg, #fb8c00, #ffa726); }
+    .btn-purple { background: linear-gradient(135deg, #7e57c2, #ab47bc); }
+    .btn-red { background: linear-gradient(135deg, #e53935, #ef5350); }
+
+    .controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 6px;
+      margin-bottom: 24px;
+    }
+    .btn-music {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(90deg, #ff9800, #f57c00);
+      border: none;
+      padding: 10px 16px;
+      border-radius: 12px;
+      color: #fff;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 6px 14px rgba(245,124,0,0.35);
+    }
+    .btn-music:hover {
+      transform: translateY(-1px) scale(1.03);
+      filter: brightness(1.06);
+    }
+    .range {
+      width: 220px;
+      accent-color: #f57c00;
+    }
+
+    .stat {
+      display: inline-block;
+      margin: 8px 12px;
+      padding: 10px 18px;
+      font-size: 18px;
+      font-weight: bold;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+      color: #0d47a1;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      transition: transform 0.3s ease;
+    }
+    .stat:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 16px rgba(33,150,243,0.3);
+    }
+
+    @keyframes shake {
+      0% { transform: translateX(0); }
+      25% { transform: translateX(-4px); }
+      50% { transform: translateX(4px); }
+      75% { transform: translateX(-4px); }
+      100% { transform: translateX(0); }
+    }
+    .shake {
+      animation: shake 0.4s ease;
+    }
+
+    @keyframes glow {
+      0% { text-shadow: 0 0 4px #42a5f5; }
+      50% { text-shadow: 0 0 12px #42a5f5; }
+      100% { text-shadow: 0 0 4px #42a5f5; }
+    }
+    #letters {
+      font-size: 34px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      margin: 10px 0;
+      animation: glow 2s infinite;
+    }
+    .lists {
+      display: flex;
+      justify-content: space-around;
+      gap: 24px;
+      margin-top: 30px;
+      flex-wrap: wrap;
+    }
+    .list {
+      width: 45%;
+      background: #ffffff;
+      border-radius: 14px;
+      padding: 16px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+    }
+    .item {
+      margin: 6px 0;
+      padding: 8px;
+      border-bottom: 1px solid #e0e0e0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .label-good { color: #2e7d32; font-weight: bold; }
+    .label-bad { color: #c62828; font-weight: bold; }
+    .speaker {
+      background: none;
+      border: none;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    .designer {
+      margin-top: 40px;
+      padding: 10px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #e1f5fe, #b3e5fc);
+      box-shadow: 0 6px 16px rgba(0,188,212,0.3);
+      position: relative;
+      overflow: hidden;
+      width: fit-content;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .designer::before {
+      content: "";
+      position: absolute;
+      inset: -6px;
+      border-radius: 18px;
+      background: conic-gradient(from 180deg, #00bcd4, #2196f3, #00bcd4);
+      filter: blur(14px);
+      opacity: 0.12;
+      animation: spin 6s linear infinite;
+    }
+    @keyframes spin { 0% { transform: rotate(0);} 100% { transform: rotate(360deg);} }
+    .designer-content { position: relative; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+    .designer-text { font-weight: 700; color: #0277bd; font-size: 14px; }
+    .profile { width: 44px; height: 44px; border-radius: 50%; border: 2px solid #0288d1; object-fit: cover; }
   </style>
 </head>
 <body>
@@ -118,6 +249,7 @@
     </div>
   </div>
 </div>
+
 <!-- صفحه بازی -->
 <div class="container" id="game" style="display:none;">
   <div class="stats">
@@ -132,7 +264,7 @@
   </div>
 
   <!-- کلمه بهم ریخته -->
-  <div id="letters" style="font-size:34px;font-weight:800;letter-spacing:1px;margin:10px 0;"></div>
+  <div id="letters"></div>
   <div id="feedback"></div>
 
   <!-- کادر پاسخ -->
@@ -334,7 +466,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     <button class="speaker" data-word="${correct}">🔊</button>`;
     listBad.appendChild(el);
   }
-
   function check() {
     const user = (inputEl.value || '').trim().toLowerCase().replace(/\s+/g,'');
     const en = words[index];
