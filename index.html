@@ -5,160 +5,155 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Word Puzzle Game for Prospect 3</title>
   <style>
-    :root {
-      --brand1:#ff4081; --brand2:#7c4dff; --brand3:#448aff; --accent:#ef6c00; --blue:#1565c0;
+    body {
+      margin: 0;
+      font-family: 'Trebuchet MS', sans-serif;
+      background: radial-gradient(circle at top left, #e3f2fd, #bbdefb, #90caf9);
+      color: #0d47a1;
     }
-    body { margin:0; font-family:'Trebuchet MS', sans-serif; background:radial-gradient(1200px 600px at 10% 10%, #e3f2fd 0%, #bbdefb 40%, #90caf9 100%); color:#0d47a1; }
-    .shell { max-width:980px; margin:24px auto; padding:0 16px; }
-    .card { background:#fff; border-radius:16px; box-shadow:0 10px 28px rgba(0,0,0,0.15); overflow:hidden; }
-    .card-header { padding:28px 24px; background:linear-gradient(135deg, rgba(124,77,255,0.08), rgba(68,138,255,0.08)); }
-    .title-main { font-size:56px; margin:0; background:linear-gradient(90deg,var(--brand1),var(--brand2),var(--brand3)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
-    .title-sub { font-size:42px; margin:6px 0 36px 0; color:var(--blue); }
-    .subtitle { font-size:26px; color:var(--accent); margin-top:34px; font-weight:bold; }
-
-    /* دکمه‌های موضوع با افکت‌های متفاوت */
-    .subjects { display:flex; flex-wrap:wrap; gap:10px; }
-    .btn { border:none; cursor:pointer; border-radius:12px; padding:12px 16px; color:#fff; font-weight:bold; font-size:16px; transition:transform .18s ease, box-shadow .18s ease, filter .18s ease; }
-    .btn:hover { transform:translateY(-2px) scale(1.03); filter:brightness(1.06); box-shadow:0 8px 16px rgba(0,0,0,0.2); }
-    .btn-green{ background:linear-gradient(135deg,#43a047,#66bb6a); }
-    .btn-purple{ background:linear-gradient(135deg,#7e57c2,#ab47bc); }
-    .btn-orange{ background:linear-gradient(135deg,#fb8c00,#ffa726); }
-    .btn-blue{ background:linear-gradient(135deg,#1e88e5,#42a5f5); }
-    .btn-teal{ background:linear-gradient(135deg,#00897b,#26a69a); }
-    .btn-red{ background:linear-gradient(135deg,#e53935,#ef5350); }
-
-    .controls { display:flex; align-items:center; gap:12px; margin-top:14px; flex-wrap:wrap; }
-    .btn-music { background:linear-gradient(90deg,#ff9800,#f57c00); border:none; padding:10px 16px; border-radius:10px; color:#fff; font-weight:bold; cursor:pointer; }
-    .btn-music:hover { transform:translateY(-2px) scale(1.03); filter:brightness(1.06); box-shadow:0 8px 16px rgba(0,0,0,0.2); }
-    .range { width:200px; accent-color:#f57c00; }
-
-    /* کارت طراح با افکت و بهینه‌سازی تصویر */
-    .designer { margin:18px 24px 26px; border-radius:14px; position:relative; overflow:hidden; background:linear-gradient(135deg,#f7f9ff,#eaf3ff); box-shadow:0 10px 26px rgba(68,138,255,0.25); }
-    .designer::before { content:""; position:absolute; inset:-4px; border-radius:16px; pointer-events:none; background:conic-gradient(from 180deg at 50% 50%, #7c4dff, #448aff, #00bcd4, #7c4dff); filter:blur(16px); opacity:.2; animation:spin 6s linear infinite; }
-    .designer-content { position:relative; padding:14px 16px; display:flex; flex-direction:column; align-items:center; gap:10px; }
-    .designer-text { font-weight:bold; color:#1565c0; }
-    .profile { width:64px; height:64px; border-radius:50%; border:2px solid #2196f3; object-fit:cover; image-rendering:auto; filter:contrast(1.08) saturate(1.06) brightness(1.03); }
-
-    /* گیم */
-    .stats { display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin:12px 0; }
-    .stat { background:#f6fbff; color:#0d47a1; border-radius:12px; padding:8px 12px; font-weight:bold; box-shadow:0 6px 18px rgba(21,101,192,0.18); }
-    .progress { height:12px; background:#e0e0e0; border-radius:8px; overflow:hidden; margin:10px 24px; }
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 24px;
+      text-align: center;
+    }
+    h1 {
+      font-size: 56px;
+      background: linear-gradient(90deg, #ff4081, #7c4dff, #448aff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0;
+    }
+    h2 {
+      font-size: 42px;
+      color: #1565c0;
+      margin-top: 6px;
+      margin-bottom: 36px;
+    }
+    h3 {
+      font-size: 26px;
+      color: #ef6c00;
+      margin-top: 34px;
+      font-weight: bold;
+    }
+    .subject-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 20px;
+    }
+    .subject-buttons button {
+      padding: 12px 18px;
+      border: none;
+      border-radius: 12px;
+      color: #fff;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .subject-buttons button:hover {
+      transform: scale(1.08);
+      box-shadow: 0 6px 14px rgba(0,0,0,0.2);
+    }
+    .btn-green { background: linear-gradient(135deg,#43a047,#66bb6a); }
+    .btn-purple { background: linear-gradient(135deg,#7e57c2,#ab47bc); }
+    .btn-orange { background: linear-gradient(135deg,#fb8c00,#ffa726); }
+    .btn-blue { background: linear-gradient(135deg,#1e88e5,#42a5f5); }
+    .btn-teal { background: linear-gradient(135deg,#00897b,#26a69a); }
+    .btn-red { background: linear-gradient(135deg,#e53935,#ef5350); }
+    .designer {
+      margin-top: 30px;
+      padding: 16px;
+      border-radius: 14px;
+      background: linear-gradient(135deg,#f7f9ff,#eaf3ff);
+      box-shadow: 0 10px 26px rgba(68,138,255,0.25);
+    }
+    .designer-text { font-weight: bold; color: #1565c0; margin-bottom: 10px; }
+    .profile { width:64px; height:64px; border-radius:50%; border:2px solid #2196f3; object-fit:cover; filter:contrast(1.08) saturate(1.06) brightness(1.03); }
+    .stats { display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-bottom:10px; }
+    .progress { height:12px; background:#e0e0e0; border-radius:8px; overflow:hidden; margin:10px 0; }
     .progress-fill { height:100%; width:0%; background:linear-gradient(90deg,#4caf50,#81c784,#2196f3); transition:width .3s ease; }
-
-    .letters { font-size:34px; font-weight:800; color:#1565c0; letter-spacing:1px; min-height:42px; text-align:center; } /* فاصله کمتر */
-    .feedback { min-height:38px; font-weight:bold; text-align:center; }
+    #letters { font-size:34px; font-weight:800; letter-spacing:1px; margin:10px 0; }
+    #feedback { min-height:38px; font-weight:bold; }
     .pill { display:inline-block; padding:10px 18px; border-radius:999px; color:#fff; font-weight:bold; box-shadow:0 10px 22px rgba(0,0,0,0.2); }
     .pill-good{ background:linear-gradient(90deg,#4caf50,#81c784); }
     .pill-bad{ background:linear-gradient(90deg,#ef5350,#e57373); }
     .pill-neutral{ background:linear-gradient(90deg,#ffa000,#ffcc80); }
-
-    .answer-box { display:flex; justify-content:center; gap:10px; margin-top:8px; flex-wrap:wrap; }
-    .input { padding:8px 10px; border:1px solid #90caf9; border-radius:10px; font-size:15px; width:220px; } /* کادر تایپ کوچکتر */
+    .answer-box { display:flex; justify-content:center; gap:10px; margin-top:10px; flex-wrap:wrap; }
+    .input { padding:8px 10px; border:1px solid #90caf9; border-radius:10px; font-size:15px; width:220px; }
     .btn-action { background:linear-gradient(90deg,#1565c0,#0d47a1); border:none; color:#fff; padding:10px 16px; border-radius:10px; font-weight:bold; cursor:pointer; }
-    .btn-action:hover { transform:translateY(-2px) scale(1.03); filter:brightness(1.06); box-shadow:0 8px 16px rgba(0,0,0,0.2); }
-
-    /* لیست‌های چندستونه */
-    .lists { display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap:10px; padding:10px 24px; }
-    @media (max-width: 900px) { .lists { grid-template-columns: repeat(2, minmax(0,1fr)); } }
-    @media (max-width: 560px) { .lists { grid-template-columns: 1fr; } }
-    .list { border-radius:12px; padding:10px; min-height:120px; }
+    .lists { display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:12px; margin-top:20px; }
+    .list { border-radius:12px; padding:10px; max-height:180px; overflow:auto; }
     .list.good { background:#f1f8e9; border:1px solid #c5e1a5; }
     .list.bad { background:#fff3f0; border:1px solid #ffccbc; }
     .item { display:flex; align-items:center; gap:8px; margin:6px 0; }
     .label-good{ color:#2e7d32; font-weight:bold; }
     .label-bad{ color:#c62828; font-weight:bold; }
     .speaker { border:none; background:#fff; color:#1565c0; border-radius:8px; padding:5px 9px; cursor:pointer; }
-
-    @keyframes spin { 0%{transform:rotate(0deg);}100%{transform:rotate(360deg);} }
     @keyframes shake { 0%{transform:translateX(0);} 25%{transform:translateX(-5px);} 50%{transform:translateX(5px);} 75%{transform:translateX(-5px);} 100%{transform:translateX(0);} }
   </style>
 </head>
 <body>
-<div class="shell">
-  <!-- Start screen -->
-  <div id="start" class="card">
-    <div class="card-header">
-      <h1 class="title-main">Word Puzzle Game</h1>
-      <h2 class="title-sub">for Prospect 3</h2>
-      <div class="subtitle">Choose a subject</div>
-    </div>
-    <div class="card-body">
-      <div class="subjects">
-        <button class="btn btn-green" data-subject="Health">Health</button>
-        <button class="btn btn-purple" data-subject="Media">Media</button>
-        <button class="btn btn-orange" data-subject="Services">Services</button>
-        <button class="btn btn-blue" data-subject="Festivals">Festivals</button>
-        <button class="btn btn-teal" data-subject="Travel">Travel</button>
-        <button class="btn btn-red" data-subject="Personality">Personality</button>
-      </div>
-      <div class="controls">
-        <button id="music" class="btn-music">🔇 Music: Off</button>
-        <input id="volume" class="range" type="range" min="0" max="1" step="0.01" value="0.6">
-      </div>
-      <div class="designer">
-        <div class="designer-content">
-          <div class="designer-text">Designer: A.R. Yousefzadeh</div>
-          <img class="profile" src="https://s34.picofile.com/file/8488183492/2.png" alt="Designer">
-        </div>
-      </div>
-    </div>
+<div class="container" id="start">
+  <h1>Word Puzzle Game</h1>
+  <h2>for Prospect 3</h2>
+  <h3>Choose a subject</h3>
+  <div class="subject-buttons">
+    <button class="btn-green" data-subject="Health">Health</button>
+    <button class="btn-purple" data-subject="Media">Media</button>
+    <button class="btn-orange" data-subject="Services">Services</button>
+    <button class="btn-blue" data-subject="Festivals">Festivals</button>
+    <button class="btn-teal" data-subject="Travel">Travel</button>
+    <button class="btn-red" data-subject="Personality">Personality</button>
+  </div>
+  <div class="controls">
+    <button id="music" class="btn-music">🔇 Music: Off</button>
+    <input id="volume" class="range" type="range" min="0" max="1" step="0.01" value="0.6">
+  </div>
+  <div class="designer">
+    <div class="designer-text">Designer: A.R. Yousefzadeh</div>
+    <img class="profile" src="https://s34.picofile.com/file/8488183492/2.png" alt="Designer">
+  </div>
+</div>
+<div class="container" id="game" style="display:none;">
+  <div class="stats">
+    <div id="score">Score: 0</div>
+    <div id="remain">Remaining Words: 0</div>
+    <div id="tries">Remaining Attempts: 3</div>
+    <div id="clock">⏱ 30</div>
+  </div>
+  <div class="progress">
+    <div id="bar" class="progress-fill"></div>
+  </div>
+  <div id="letters"></div>
+  <div id="feedback"></div>
+
+  <div class="answer-box">
+    <input id="input" class="input" type="text" placeholder="Type the English word">
+    <button id="submit" class="btn-action">Submit</button>
+    <button id="home" class="btn-action">🏠 Back to Home</button>
   </div>
 
-  <!-- Game screen -->
-  <div id="game" class="card" style="display:none;">
-    <div class="card-header">
-      <div class="stats">
-        <div id="score" class="stat">Score: 0</div>
-        <div id="remain" class="stat">Remaining Words: 0</div>
-        <div id="tries" class="stat">Remaining Attempts: 3</div>
-        <div id="clock" class="stat">⏱ 30</div>
-      </div>
-      <div class="progress"><div id="bar" class="progress-fill"></div></div>
-      <div id="letters" class="letters"></div>
-      <div id="feedback" class="feedback"></div>
+  <div class="lists">
+    <div>
+      <h4>Correct answers</h4>
+      <div id="listGood" class="list good"></div>
     </div>
-    <div class="card-body">
-      <div class="answer-box">
-        <input id="input" class="input" type="text" placeholder="Type the English word">
-        <button id="submit" class="btn-action">Submit</button>
-        <button id="home" class="btn-action">🏠 Back to Home</button>
-      </div>
-
-      <div class="lists">
-        <div>
-          <h4 style="margin:6px 0; text-align:left;">Correct answers</h4>
-          <div id="listGood" class="list good"></div>
-        </div>
-        <div>
-          <h4 style="margin:6px 0; text-align:left;">Wrong answers</h4>
-          <div id="listBad" class="list bad"></div>
-        </div>
-        <div>
-          <h4 style="margin:6px 0; text-align:left;">Notes</h4>
-          <div class="list" style="background:#f9fbff; border:1px solid #dbe9ff;">Keep going!</div>
-        </div>
-      </div>
-
-      <div class="designer">
-        <div class="designer-content">
-          <div class="designer-text">Designer: A.R. Yousefzadeh</div>
-          <img class="profile" src="https://s34.picofile.com/file/8488183492/2.png" alt="Designer">
-        </div>
-      </div>
+    <div>
+      <h4>Wrong answers</h4>
+      <div id="listBad" class="list bad"></div>
     </div>
   </div>
 </div>
-
 <!-- Audio -->
 <audio id="bgm" preload="auto" loop src="https://files.freemusicarchive.org/storage-freemusicarchive-org/music/WFMU/Crowander/Crowander_-_Spring/Crowander_-_Spring_-_03_Spring.mp3"></audio>
-<!-- صدای تشویق روی پاسخ درست -->
 <audio id="sndGood" preload="auto" src="https://www.soundjay.com/human/sounds/applause-8.mp3"></audio>
-<!-- صدای buzz روی پاسخ غلط یا اتمام زمان -->
 <audio id="sndBad" preload="auto" src="https://www.soundjay.com/button/sounds/button-10.mp3"></audio>
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-  // Elements
   const start = document.getElementById('start');
   const game = document.getElementById('game');
   const musicBtn = document.getElementById('music');
@@ -180,7 +175,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const listGood = document.getElementById('listGood');
   const listBad = document.getElementById('listBad');
 
-  // State
   let subjectKey = null;
   let words = [];
   let total = 0;
@@ -190,7 +184,6 @@ document.addEventListener('DOMContentLoaded', () => {
   let timerId = null;
   let timeLeft = 30;
 
-  // Data
   const subjects = {
     Health: { doctor:"پزشک", nurse:"پرستار", medicine:"دارو", pill:"قرص", dentist:"دندانپزشک", patient:"بیمار", blood:"خون", heart:"قلب", diet:"رژیم", sleep:"خواب", clinic:"کلینیک", virus:"ویروس", pain:"درد", skin:"پوست", bone:"استخوان", brain:"مغز", eye:"چشم", ear:"گوش", mouth:"دهان", hand:"دست" },
     Media: { media:"رسانه", movie:"فیلم", tv:"تلویزیون", radio:"رادیو", news:"خبر", camera:"دوربین", photo:"عکس", internet:"اینترنت", magazine:"مجله", newspaper:"روزنامه", reporter:"خبرنگار", channel:"کانال", program:"برنامه", music:"موسیقی", actor:"بازیگر", actress:"هنرپیشه", director:"کارگردان", cartoon:"کارتون", drama:"نمایش", series:"سریال" },
@@ -200,27 +193,21 @@ document.addEventListener('DOMContentLoaded', () => {
     Personality: { brave:"شجاع", kind:"مهربان", honest:"صادق", polite:"مودب", lazy:"تنبل", smart:"باهوش", shy:"خجالتی", funny:"خنده‌دار", serious:"جدی", friendly:"دوستانه", angry:"عصبانی", happy:"خوشحال", sad:"غمگین", patient:"صبور", generous:"سخاوتمند", creative:"خلاق", curious:"کنجکاو", unique:"منحصر به فرد", wise:"خردمند", strong:"قوی" }
   };
 
-  // Helpers
   const shuffle = w => w.split('').sort(() => Math.random()-0.5).join('');
   const speak = w => { const a = new Audio(`https://dict.youdao.com/dictvoice?audio=${encodeURIComponent(w)}&type=2`); a.play().catch(()=>{}); };
 
-  /* موسیقی با فرم اولیه (ساده و مطمئن) */
+  // موسیقی با فرم ساده و قابل اعتماد
   bgm.volume = parseFloat(volume.value || '0.6');
   volume.addEventListener('input', () => { bgm.volume = parseFloat(volume.value || '0.6'); });
-  musicBtn.addEventListener('click', async () => {
-    try {
-      if (bgm.paused) {
-        await bgm.play();
-        musicBtn.textContent = '🔊 Music: On';
-      } else {
-        bgm.pause();
-        musicBtn.textContent = '🔇 Music: Off';
-      }
-    } catch {
-      alert('برای فعال‌سازی صدا یک‌بار دیگر روی دکمه کلیک کنید.');
+  musicBtn.addEventListener('click', () => {
+    if (bgm.paused) {
+      bgm.play();
+      musicBtn.textContent = '🔊 Music: On';
+    } else {
+      bgm.pause();
+      musicBtn.textContent = '🔇 Music: Off';
     }
   });
-
   function startGame(key) {
     subjectKey = key;
     const dict = subjects[key];
@@ -287,14 +274,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const fa = subjects[subjectKey][correct];
 
     if (user === correct) {
-      score += 10; sndGood.currentTime = 0; sndGood.play(); /* تشویق */
+      score += 10; sndGood.currentTime = 0; sndGood.play();
       addGood(correct, fa);
       showPill('good', correct, fa);
       setTimeout(next, 3000);
     } else {
       attempts++; const left = Math.max(0, 3 - attempts);
       triesEl.textContent = `Remaining Attempts: ${left}`;
-      sndBad.currentTime = 0; sndBad.play(); /* buzz */
+      sndBad.currentTime = 0; sndBad.play();
       lettersEl.classList.add('shake'); setTimeout(()=>lettersEl.classList.remove('shake'), 420);
 
       if (attempts >= 3) {
@@ -313,7 +300,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const correct = words[index];
     const fa = subjects[subjectKey][correct];
     score -= 5; scoreEl.textContent = `Score: ${score}`;
-    sndBad.currentTime = 0; sndBad.play(); /* buzz */
+    sndBad.currentTime = 0; sndBad.play();
     addBad(correct, (inputEl.value || '').trim(), fa);
     showPill('neutral', correct, fa);
     setTimeout(next, 3000);
@@ -330,14 +317,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const pass = (total * 10) / 2;
     if (score >= pass) {
       feedbackEl.textContent = '🎉 Great job! Game finished.';
-      sndGood.currentTime = 0; sndGood.play(); /* تشویق دوباره به عنوان پایان */
+      sndGood.currentTime = 0; sndGood.play();
     } else {
       feedbackEl.textContent = 'Game finished. Try again!';
     }
   }
 
   // Events
-  document.querySelectorAll('.subjects .btn').forEach(b => {
+  document.querySelectorAll('.subject-buttons button').forEach(b => {
     b.addEventListener('click', () => startGame(b.dataset.subject));
   });
   submitEl.addEventListener('click', check);
@@ -354,4 +341,5 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 </script>
+</body>
 </html>
