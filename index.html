@@ -4,129 +4,195 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Word Puzzle Game for Prospect 3</title>
+
+  <!-- زیباسازی فونت‌ها -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&family=Orbitron:wght@500;700&family=Rubik:wght@400;600;700&display=swap" rel="stylesheet">
+
   <style>
-    body {
-      margin: 0;
-      font-family: 'Trebuchet MS', sans-serif;
-      background: radial-gradient(circle at top left, #e3f2fd, #bbdefb, #90caf9);
-      color: #0d47a1;
+    :root{
+      --brand1:#ff4081; --brand2:#7c4dff; --brand3:#448aff;
+      --blue:#1565c0; --accent:#ef6c00;
+      --green:#2e7d32; --red:#c62828;
     }
-    .container {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 24px;
-      text-align: center;
+    body{
+      margin:0;
+      font-family:'Rubik', system-ui, sans-serif;
+      background: radial-gradient(1200px 600px at 10% 10%, #e3f2fd 0%, #bbdefb 40%, #90caf9 100%);
+      color:#0d47a1;
     }
-    h1 {
-      font-size: 56px;
-      background: linear-gradient(90deg, #ff4081, #7c4dff, #448aff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 0;
+    .container{
+      max-width:1000px; margin:0 auto; padding:24px;
+      text-align:center;
     }
-    h2 {
-      font-size: 42px;
-      color: #1565c0;
-      margin-top: 6px;
-      margin-bottom: 36px;
+
+    /* عنوان‌ها با فونت و افکت نور */
+    .title-main{
+      font-family:'Bungee Shade','Orbitron',sans-serif;
+      font-size:58px; margin:0;
+      letter-spacing:1px;
+      background:linear-gradient(90deg,var(--brand1),var(--brand2),var(--brand3));
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+      filter:drop-shadow(0 2px 6px rgba(68,138,255,0.45));
+      animation:glowTitle 3.5s ease-in-out infinite;
     }
-    h3 {
-      font-size: 26px;
-      color: #ef6c00;
-      margin-top: 34px;
-      font-weight: bold;
+    .title-sub{
+      font-family:'Orbitron',sans-serif;
+      font-size:40px; margin:8px 0 28px; color:var(--blue);
+      text-shadow:0 1px 0 #fff, 0 3px 10px rgba(21,101,192,0.2);
     }
-    .subject-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 12px;
-      margin-top: 20px;
+    @keyframes glowTitle{
+      0% {filter:drop-shadow(0 2px 6px rgba(68,138,255,0.35));}
+      50% {filter:drop-shadow(0 2px 12px rgba(124,77,255,0.55));}
+      100% {filter:drop-shadow(0 2px 6px rgba(68,138,255,0.35));}
     }
-    .subject-buttons button {
-      padding: 12px 18px;
-      border: none;
-      border-radius: 12px;
-      color: #fff;
-      font-weight: bold;
-      font-size: 16px;
-      cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s;
+
+    /* دکمه‌های موضوع با افکت‌های متفاوت و وسط‌چین */
+    .subject-area{ display:flex; flex-direction:column; align-items:center; gap:18px; }
+    .subject-title{ font-size:24px; color:var(--accent); font-weight:700; }
+    .subject-buttons{
+      display:flex; flex-wrap:wrap; justify-content:center; gap:12px;
     }
-    .subject-buttons button:hover {
-      transform: scale(1.08);
-      box-shadow: 0 6px 14px rgba(0,0,0,0.2);
+    .btn{
+      border:none; cursor:pointer; border-radius:12px;
+      padding:12px 18px; color:#fff; font-weight:bold; font-size:16px;
+      transition:transform .18s ease, box-shadow .18s ease, filter .18s ease;
     }
-    .btn-green { background: linear-gradient(135deg,#43a047,#66bb6a); }
-    .btn-purple { background: linear-gradient(135deg,#7e57c2,#ab47bc); }
-    .btn-orange { background: linear-gradient(135deg,#fb8c00,#ffa726); }
-    .btn-blue { background: linear-gradient(135deg,#1e88e5,#42a5f5); }
-    .btn-teal { background: linear-gradient(135deg,#00897b,#26a69a); }
-    .btn-red { background: linear-gradient(135deg,#e53935,#ef5350); }
-    .designer {
-      margin-top: 30px;
-      padding: 16px;
-      border-radius: 14px;
-      background: linear-gradient(135deg,#f7f9ff,#eaf3ff);
-      box-shadow: 0 10px 26px rgba(68,138,255,0.25);
+    .btn:hover{ transform:translateY(-2px) scale(1.03); filter:brightness(1.06);
+      box-shadow:0 8px 16px rgba(0,0,0,0.22); }
+    .btn-green{ background:linear-gradient(135deg,#43a047,#66bb6a); }
+    .btn-purple{ background:linear-gradient(135deg,#7e57c2,#ab47bc); }
+    .btn-orange{ background:linear-gradient(135deg,#fb8c00,#ffa726); }
+    .btn-blue{ background:linear-gradient(135deg,#1e88e5,#42a5f5); }
+    .btn-teal{ background:linear-gradient(135deg,#00897b,#26a69a); }
+    .btn-red{ background:linear-gradient(135deg,#e53935,#ef5350); }
+
+    /* کنترل موسیقی: ظاهر جدید و وسط‌چین زیر دکمه‌ها */
+    .controls{
+      display:flex; justify-content:center; align-items:center; gap:14px; flex-wrap:wrap;
+      margin-top:6px; margin-bottom:24px;
     }
-    .designer-text { font-weight: bold; color: #1565c0; margin-bottom: 10px; }
-    .profile { width:64px; height:64px; border-radius:50%; border:2px solid #2196f3; object-fit:cover; filter:contrast(1.08) saturate(1.06) brightness(1.03); }
-    .stats { display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-bottom:10px; }
-    .progress { height:12px; background:#e0e0e0; border-radius:8px; overflow:hidden; margin:10px 0; }
-    .progress-fill { height:100%; width:0%; background:linear-gradient(90deg,#4caf50,#81c784,#2196f3); transition:width .3s ease; }
-    #letters { font-size:34px; font-weight:800; letter-spacing:1px; margin:10px 0; }
-    #feedback { min-height:38px; font-weight:bold; }
-    .pill { display:inline-block; padding:10px 18px; border-radius:999px; color:#fff; font-weight:bold; box-shadow:0 10px 22px rgba(0,0,0,0.2); }
+    .btn-music{
+      display:inline-flex; align-items:center; gap:8px;
+      background:linear-gradient(90deg,#ff9800,#f57c00);
+      border:none; padding:10px 16px; border-radius:12px; color:#fff; font-weight:bold; cursor:pointer;
+      box-shadow:0 6px 14px rgba(245,124,0,0.35);
+    }
+    .btn-music:hover{ transform:translateY(-1px) scale(1.03); filter:brightness(1.06); }
+    .range{ width:220px; accent-color:#f57c00; }
+
+    /* کارت طراح با افکت نور چرخان و فاصله بیشتر از دکمه‌ها */
+    .designer{
+      margin-top:34px; padding:16px; border-radius:14px; position:relative; overflow:hidden;
+      background:linear-gradient(135deg,#f7f9ff,#eaf3ff);
+      box-shadow:0 10px 26px rgba(68,138,255,0.25);
+    }
+    .designer::before{
+      content:""; position:absolute; inset:-4px; border-radius:16px; pointer-events:none;
+      background:conic-gradient(from 180deg at 50% 50%, #7c4dff, #448aff, #00bcd4, #7c4dff);
+      filter:blur(16px); opacity:.18; animation:spin 6s linear infinite;
+    }
+    .designer-content{ position:relative; display:flex; flex-direction:column; align-items:center; gap:12px; }
+    .designer-text{ font-weight:800; color:#1565c0; letter-spacing:.3px; }
+    .profile{
+      width:72px; height:72px; border-radius:50%; border:2px solid #2196f3; object-fit:cover;
+      image-rendering:auto; filter:contrast(1.08) saturate(1.06) brightness(1.03);
+    }
+    @keyframes spin{ 0%{transform:rotate(0deg);} 100%{transform:rotate(360deg);} }
+
+    /* نوار وضعیت در صفحه بازی با افکت و رنگ‌های مجزا */
+    .stats{ display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin-bottom:10px; }
+    .stat{
+      font-weight:800; border-radius:12px; padding:8px 12px;
+      text-shadow:0 1px 0 #fff;
+      animation:fadeIn .5s ease;
+    }
+    #score.stat{ background:#e8f5e9; color:#2e7d32; box-shadow:0 6px 16px rgba(46,125,50,0.22); }
+    #remain.stat{ background:#e3f2fd; color:#1565c0; box-shadow:0 6px 16px rgba(21,101,192,0.22); }
+    #tries.stat{ background:#fff3e0; color:#ef6c00; box-shadow:0 6px 16px rgba(239,108,0,0.22); }
+    #clock.stat{ background:#ffebee; color:#c62828; box-shadow:0 6px 16px rgba(198,40,40,0.22); }
+
+    .progress{ height:12px; background:#e0e0e0; border-radius:8px; overflow:hidden; margin:10px 0; }
+    .progress-fill{ height:100%; width:0%; background:linear-gradient(90deg,#4caf50,#81c784,#2196f3); transition:width .3s ease; }
+
+    /* حروف درهم‌ریخته: فاصله کمتر و لرزش هنگام خطا */
+    #letters{ font-size:34px; font-weight:800; letter-spacing:1px; margin:10px 0; }
+    .shake{ animation:shake .42s; }
+    @keyframes shake{
+      0%{transform:translateX(0);} 25%{transform:translateX(-5px);} 50%{transform:translateX(5px);}
+      75%{transform:translateX(-5px);} 100%{transform:translateX(0);}
+    }
+
+    /* بازخورد پاسخ با کپسول رنگی */
+    #feedback{ min-height:38px; font-weight:800; }
+    .pill{ display:inline-block; padding:10px 18px; border-radius:999px; color:#fff; box-shadow:0 10px 22px rgba(0,0,0,0.2); animation:fadeIn .35s ease; }
     .pill-good{ background:linear-gradient(90deg,#4caf50,#81c784); }
     .pill-bad{ background:linear-gradient(90deg,#ef5350,#e57373); }
     .pill-neutral{ background:linear-gradient(90deg,#ffa000,#ffcc80); }
-    .answer-box { display:flex; justify-content:center; gap:10px; margin-top:10px; flex-wrap:wrap; }
-    .input { padding:8px 10px; border:1px solid #90caf9; border-radius:10px; font-size:15px; width:220px; }
-    .btn-action { background:linear-gradient(90deg,#1565c0,#0d47a1); border:none; color:#fff; padding:10px 16px; border-radius:10px; font-weight:bold; cursor:pointer; }
-    .lists { display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:12px; margin-top:20px; }
-    .list { border-radius:12px; padding:10px; max-height:180px; overflow:auto; }
-    .list.good { background:#f1f8e9; border:1px solid #c5e1a5; }
-    .list.bad { background:#fff3f0; border:1px solid #ffccbc; }
-    .item { display:flex; align-items:center; gap:8px; margin:6px 0; }
-    .label-good{ color:#2e7d32; font-weight:bold; }
-    .label-bad{ color:#c62828; font-weight:bold; }
-    .speaker { border:none; background:#fff; color:#1565c0; border-radius:8px; padding:5px 9px; cursor:pointer; }
-    @keyframes shake { 0%{transform:translateX(0);} 25%{transform:translateX(-5px);} 50%{transform:translateX(5px);} 75%{transform:translateX(-5px);} 100%{transform:translateX(0);} }
+    @keyframes fadeIn{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);} }
+
+    /* بخش پاسخ و دکمه‌های اکشن */
+    .answer-box{ display:flex; justify-content:center; gap:10px; margin-top:10px; flex-wrap:wrap; }
+    .input{ padding:8px 10px; border:1px solid #90caf9; border-radius:10px; font-size:15px; width:220px; }
+    .btn-action{
+      background:linear-gradient(90deg,#1565c0,#0d47a1); border:none; color:#fff; padding:10px 16px; border-radius:10px; font-weight:bold; cursor:pointer;
+      box-shadow:0 6px 16px rgba(13,71,161,0.28);
+    }
+    .btn-action:hover{ transform:translateY(-1px) scale(1.03); filter:brightness(1.06); }
+
+    /* لیست‌ها چندستونه با ارتفاع محدود */
+    .lists{ display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:12px; margin-top:20px; }
+    .list{ border-radius:12px; padding:10px; max-height:180px; overflow:auto; }
+    .list.good{ background:#f1f8e9; border:1px solid #c5e1a5; }
+    .list.bad{ background:#fff3f0; border:1px solid #ffccbc; }
+    .item{ display:flex; align-items:center; gap:8px; margin:6px 0; }
+    .label-good{ color:#2e7d32; font-weight:800; }
+    .label-bad{ color:#c62828; font-weight:800; }
+    .speaker{ border:none; background:#fff; color:#1565c0; border-radius:8px; padding:5px 9px; cursor:pointer; }
   </style>
 </head>
 <body>
 <div class="container" id="start">
-  <h1>Word Puzzle Game</h1>
-  <h2>for Prospect 3</h2>
-  <h3>Choose a subject</h3>
-  <div class="subject-buttons">
-    <button class="btn-green" data-subject="Health">Health</button>
-    <button class="btn-purple" data-subject="Media">Media</button>
-    <button class="btn-orange" data-subject="Services">Services</button>
-    <button class="btn-blue" data-subject="Festivals">Festivals</button>
-    <button class="btn-teal" data-subject="Travel">Travel</button>
-    <button class="btn-red" data-subject="Personality">Personality</button>
+  <h1 class="title-main">Word Puzzle Game</h1>
+  <h2 class="title-sub">for Prospect 3</h2>
+
+  <div class="subject-area">
+    <div class="subject-title">Choose a subject</div>
+    <div class="subject-buttons">
+      <button class="btn-green" data-subject="Health">Health</button>
+      <button class="btn-purple" data-subject="Media">Media</button>
+      <button class="btn-orange" data-subject="Services">Services</button>
+      <button class="btn-blue" data-subject="Festivals">Festivals</button>
+      <button class="btn-teal" data-subject="Travel">Travel</button>
+      <button class="btn-red" data-subject="Personality">Personality</button>
+    </div>
   </div>
+
   <div class="controls">
     <button id="music" class="btn-music">🔇 Music: Off</button>
     <input id="volume" class="range" type="range" min="0" max="1" step="0.01" value="0.6">
   </div>
+
   <div class="designer">
-    <div class="designer-text">Designer: A.R. Yousefzadeh</div>
-    <img class="profile" src="https://s34.picofile.com/file/8488183492/2.png" alt="Designer">
+    <div class="designer-content">
+      <div class="designer-text">Designer: A.R. Yousefzadeh</div>
+      <img class="profile" src="https://s34.picofile.com/file/8488183492/2.png" alt="Designer">
+    </div>
   </div>
 </div>
 <div class="container" id="game" style="display:none;">
   <div class="stats">
-    <div id="score">Score: 0</div>
-    <div id="remain">Remaining Words: 0</div>
-    <div id="tries">Remaining Attempts: 3</div>
-    <div id="clock">⏱ 30</div>
+    <div id="score" class="stat">Score: 0</div>
+    <div id="remain" class="stat">Remaining Words: 0</div>
+    <div id="tries" class="stat">Remaining Attempts: 3</div>
+    <div id="clock" class="stat">⏱ 30</div>
   </div>
+
   <div class="progress">
     <div id="bar" class="progress-fill"></div>
   </div>
+
   <div id="letters"></div>
   <div id="feedback"></div>
 
@@ -146,11 +212,24 @@
       <div id="listBad" class="list bad"></div>
     </div>
   </div>
+
+  <!-- کارت طراح در صفحه بازی -->
+  <div class="designer">
+    <div class="designer-content">
+      <div class="designer-text">Designer: A.R. Yousefzadeh</div>
+      <img class="profile" src="https://s34.picofile.com/file/8488183492/2.png" alt="Designer">
+    </div>
+  </div>
 </div>
 <!-- Audio -->
-<audio id="bgm" preload="auto" loop src="https://files.freemusicarchive.org/storage-freemusicarchive-org/music/WFMU/Crowander/Crowander_-_Spring/Crowander_-_Spring_-_03_Spring.mp3"></audio>
-<audio id="sndGood" preload="auto" src="https://www.soundjay.com/human/sounds/applause-8.mp3"></audio>
-<audio id="sndBad" preload="auto" src="https://www.soundjay.com/button/sounds/button-10.mp3"></audio>
+<audio id="bgm" preload="auto" loop 
+  src="https://files.freemusicarchive.org/storage-freemusicarchive-org/music/WFMU/Crowander/Crowander_-_Spring/Crowander_-_Spring_-_03_Spring.mp3"></audio>
+<!-- صدای تأیید پاسخ درست -->
+<audio id="sndGood" preload="auto" 
+  src="https://www.soundjay.com/button/sounds/button-3.mp3"></audio>
+<!-- صدای خطا یا buzz -->
+<audio id="sndBad" preload="auto" 
+  src="https://www.soundjay.com/button/sounds/button-10.mp3"></audio>
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
@@ -196,7 +275,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const shuffle = w => w.split('').sort(() => Math.random()-0.5).join('');
   const speak = w => { const a = new Audio(`https://dict.youdao.com/dictvoice?audio=${encodeURIComponent(w)}&type=2`); a.play().catch(()=>{}); };
 
-  // موسیقی با فرم ساده و قابل اعتماد
+  // کنترل موسیقی
   bgm.volume = parseFloat(volume.value || '0.6');
   volume.addEventListener('input', () => { bgm.volume = parseFloat(volume.value || '0.6'); });
   musicBtn.addEventListener('click', () => {
