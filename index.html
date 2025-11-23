@@ -24,31 +24,58 @@
     }
     .title-sub { font-family: 'Orbitron', sans-serif; font-size: 36px; margin: 8px 0 40px; color: #1565c0; }
 
-    /* موسیقی و ولوم */
+    /* دکمه موسیقی */
     .music-top {
       position: fixed;
       top: 12px;
       left: 12px;
       z-index: 999;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 6px;
-      background: rgba(255,255,255,0.85);
-      padding: 8px;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     }
     .btn-music {
       font-size: 13px; padding: 6px 10px; border-radius: 10px;
       background: linear-gradient(135deg,#ff9800,#f57c00); color: #fff; font-weight: bold; cursor: pointer;
     }
-    .range {
-      writing-mode: bt-lr; -webkit-appearance: slider-vertical;
-      width: 30px; height: 100px; accent-color: #f57c00;
+
+    /* دکمه راهنما */
+    .help-icon {
+      position: fixed;
+      top: 12px;
+      right: 12px;
+      font-size: 28px;
+      cursor: pointer;
+      color: #1565c0;
     }
-    @media (max-width:640px) {
-      .range { height: 80px; width: 24px; }
+    .help-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+    }
+    .help-content {
+      background: #fff;
+      border-radius: 16px;
+      padding: 24px;
+      max-width: 640px;
+      text-align: left;
+    }
+    .help-content h2 {
+      text-align: center;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 24px;
+      color: #1565c0;
+    }
+    .help-close {
+      display: block;
+      margin: 20px auto 0;
+      padding: 10px 24px;
+      border-radius: 12px;
+      background: linear-gradient(135deg,#e53935,#ef5350);
+      color: #fff;
+      font-weight: bold;
+      cursor: pointer;
     }
     /* کارت طراح */
     .designer {
@@ -61,8 +88,9 @@
       border-radius: 16px;
       padding: 16px 24px;
       display: flex;
+      flex-direction: column;
       align-items: center;
-      gap: 14px;
+      gap: 10px;
       box-shadow: 0 6px 16px rgba(0,0,0,0.25);
       transition: transform .3s ease, box-shadow .3s ease;
     }
@@ -71,17 +99,24 @@
       box-shadow: 0 10px 22px rgba(0,0,0,0.35);
     }
     .profile {
-      width: 70px; height: 70px; border-radius: 50%; border: 3px solid #1565c0;
+      width: 80px; height: 80px; border-radius: 50%; border: 3px solid #1565c0;
       box-shadow: 0 4px 10px rgba(21,101,192,0.4);
     }
     .designer-text {
       font-family: 'Orbitron', sans-serif;
-      font-size: 20px;
+      font-size: 22px;
       font-weight: bold;
       color: #0d47a1;
     }
 
     /* دکمه‌های موضوعات */
+    .subject-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 28px;
+      font-weight: bold;
+      color: #ef6c00;
+      margin-bottom: 20px;
+    }
     .subject-buttons button {
       border: none; cursor: pointer; border-radius: 14px; padding: 14px 22px;
       color: #fff; font-weight: bold; font-size: 18px; font-family: 'Orbitron', sans-serif;
@@ -107,7 +142,17 @@
   <!-- کنترل موسیقی -->
   <div class="music-top">
     <button id="musicToggle" class="btn-music">🎶 Play Music</button>
-    <input id="volume" class="range" type="range" min="0" max="1" step="0.01" value="0.3">
+  </div>
+
+  <!-- دکمه راهنما -->
+  <div class="help-icon" id="helpIcon">❓</div>
+  <div class="help-modal" id="helpModal">
+    <div class="help-content">
+      <h2>Game Instructions / دستورالعمل بازی</h2>
+      <p><span>🅴</span> Unscramble the letters to form the correct English word. You have 3 attempts and 30 seconds.</p>
+      <p><span>🅵</span> حروف بهم‌ریخته را مرتب کنید تا کلمه‌ی انگلیسی درست ساخته شود. برای هر کلمه ۳ بار فرصت و ۳۰ ثانیه زمان دارید.</p>
+      <button class="help-close" id="helpClose">✖ Close / بستن</button>
+    </div>
   </div>
 
   <!-- صفحه شروع -->
@@ -181,7 +226,6 @@
     const game    = document.getElementById('game');
 
     const musicBtn = document.getElementById('musicToggle');
-    const volume   = document.getElementById('volume');
     const bgm      = document.getElementById('bgm');
     const sndGood  = document.getElementById('sndGood');
     const sndBad   = document.getElementById('sndBad');
@@ -197,6 +241,10 @@
     const homeEl    = document.getElementById('home');
     const listGood  = document.getElementById('listGood');
     const listBad   = document.getElementById('listBad');
+
+    const helpIcon = document.getElementById('helpIcon');
+    const helpModal= document.getElementById('helpModal');
+    const helpClose= document.getElementById('helpClose');
 
     let subjectKey = null;
     let words = [];
@@ -215,15 +263,18 @@
       a.play().catch(()=>{});
     };
 
-    // کنترل موسیقی و ولوم
-    bgm.volume = parseFloat(volume.value || '0.3');
-    volume.addEventListener('input', () => { bgm.volume = parseFloat(volume.value || '0.3'); });
+    // کنترل موسیقی (پیش‌فرض صدای کم)
+    bgm.volume = 0.2;
     musicBtn.addEventListener('click', () => {
       try {
         if (bgm.paused) { bgm.play(); musicBtn.textContent = '🔊 Stop Music'; }
         else { bgm.pause(); musicBtn.textContent = '🎶 Play Music'; }
       } catch(e){}
     });
+
+    // راهنما
+    helpIcon.addEventListener('click', () => { helpModal.style.display = 'flex'; });
+    helpClose.addEventListener('click', () => { helpModal.style.display = 'none'; });
     // شروع بازی
     function startGame(key) {
       subjectKey = key;
