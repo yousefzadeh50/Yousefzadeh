@@ -16,47 +16,25 @@
 
     .title-main {
       font-family: 'Bungee Shade', 'Orbitron', sans-serif;
-      font-size: 46px;
-      margin: 0;
+      font-size: 46px; margin: 0;
       background: linear-gradient(90deg, #ff4081, #7c4dff, #448aff);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
     .title-sub { font-family: 'Orbitron', sans-serif; font-size: 30px; margin: 8px 0 30px; color: #1565c0; }
 
-    /* Music & Help buttons */
-    .top-buttons { position: fixed; top: 12px; left: 12px; right: 12px; display:flex; justify-content:space-between; z-index:999; }
-    .btn-music, .btn-help {
-      font-size: 14px;
-      padding: 6px 12px;
-      border-radius: 8px;
-      background: linear-gradient(135deg,#ff9800,#f57c00);
-      color: #fff;
-      font-weight: 600;
-      cursor: pointer;
-      box-shadow: 0 2px 6px rgba(245,124,0,0.3);
-      border:none;
-    }
-    .btn-help { background: linear-gradient(135deg,#42a5f5,#1e88e5); }
+    /* Top buttons */
+    .top-bar { position: fixed; top: 12px; left: 12px; right: 12px; display:flex; justify-content:space-between; z-index:999; }
+    .btn { border: none; cursor: pointer; border-radius: 10px; padding: 8px 14px; color: #fff; font-weight: 700; font-size: 14px; font-family: 'Poppins', sans-serif; }
+    #musicToggle { background: linear-gradient(135deg,#ff9800,#f57c00); box-shadow: 0 2px 6px rgba(245,124,0,0.3); }
+    #helpToggle  { background: linear-gradient(135deg,#42a5f5,#1e88e5); box-shadow: 0 2px 6px rgba(30,136,229,0.3); }
+
     /* Subject buttons */
     .subject-area { display:flex; flex-direction:column; align-items:center; gap:16px; }
-    .subject-title {
-      font-family: 'Poppins', sans-serif;
-      font-size: 26px; font-weight: 700;
-      color: #ef6c00;
-      text-shadow: 0 2px 6px rgba(239,108,0,0.25);
-    }
-
+    .subject-title { font-family: 'Poppins', sans-serif; font-size: 26px; font-weight: 700; color: #ef6c00; text-shadow: 0 2px 6px rgba(239,108,0,0.25); }
     .subject-buttons { display:flex; flex-wrap:wrap; justify-content:center; gap:12px; }
-    .subject-buttons button {
-      border: none; cursor: pointer; border-radius: 14px; padding: 12px 18px;
-      color: #fff; font-weight: 700; font-size: 16px; font-family: 'Poppins', sans-serif;
-      transition: transform .18s ease, box-shadow .18s ease;
-    }
-    .subject-buttons button:hover {
-      transform: translateY(-1px) scale(1.04);
-      box-shadow: 0 8px 16px rgba(0,0,0,0.22);
-    }
+    .subject-buttons button { border: none; cursor: pointer; border-radius: 14px; padding: 12px 18px; color: #fff; font-weight: 700; font-size: 16px; font-family: 'Poppins', sans-serif; transition: transform .18s ease, box-shadow .18s ease; }
+    .subject-buttons button:hover { transform: translateY(-1px) scale(1.04); box-shadow: 0 8px 16px rgba(0,0,0,0.22); }
     .btn-green  { background: linear-gradient(135deg, #43a047, #66bb6a); }
     .btn-teal   { background: linear-gradient(135deg, #00897b, #26a69a); }
     .btn-blue   { background: linear-gradient(135deg, #1e88e5, #42a5f5); }
@@ -64,44 +42,58 @@
     .btn-purple { background: linear-gradient(135deg, #7e57c2, #ab47bc); }
     .btn-red    { background: linear-gradient(135deg, #e53935, #ef5350); }
 
+    /* Stats boxes */
+    .stats { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-bottom: 20px; }
+    .stats div { background: #fff; border-radius: 12px; padding: 10px 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); font-family: 'Poppins', sans-serif; font-weight: 600; color: #1565c0; min-width: 140px; text-align: center; }
+
+    /* Scrambled word */
+    #letters {
+      font-size: 44px; font-weight: 800; color: #d81b60;
+      background: #ffe0e0; /* pink refined */
+      padding: 14px 22px; border-radius: 18px;
+      box-shadow: 0 6px 18px rgba(216,27,96,0.3);
+      display: inline-block; margin-bottom: 18px; letter-spacing: 4px;
+    }
+
+    /* Answer box */
+    .answer-box { display: flex; gap: 10px; justify-content: center; align-items: center; margin-bottom: 16px; }
+    #input { font-size: 18px; padding: 10px 14px; border: 2px solid #90caf9; border-radius: 14px; outline: none; max-width: 320px; box-shadow: 0 4px 10px rgba(144,202,249,0.3); }
+    .btn-action { font-size: 15px; padding: 8px 14px; border-radius: 12px; font-weight: 700; border: none; cursor: pointer; }
+    #submit { background: linear-gradient(135deg, #43a047, #66bb6a); color:#fff; }
+    #home   { background: linear-gradient(135deg, #e53935, #ef5350); color:#fff; }
+
+    /* Lists */
+    .lists { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 20px; }
+    .lists .panel { background: linear-gradient(135deg,#e1bee7,#f3e5f5); border-radius: 14px; padding: 12px; box-shadow: 0 6px 16px rgba(0,0,0,0.08); }
+    .lists h4 { font-family: 'Poppins', sans-serif; font-size: 15px; margin-bottom: 8px; color: #4a148c; }
+    #listGood, #listBad { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+    .item { font-size: 13px; font-weight: 600; padding: 6px; border-radius: 8px; background: #ede7f6; color: #311b92; display: flex; justify-content: space-between; align-items: center; }
+    .item button { border: none; background: #7e57c2; color: #fff; border-radius: 6px; padding: 4px 8px; cursor: pointer; font-size: 12px; }
+
     /* Designer card */
-    .designer {
-      margin-top: 26px;
-      display: flex;
-      justify-content: center;
-    }
-    .designer-content {
-      background: rgba(255,255,255,0.75);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(124,77,255,0.25);
-      border-radius: 18px;
-      padding: 14px 18px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      box-shadow: 0 12px 28px rgba(124,77,255,0.18), 0 6px 18px rgba(0,0,0,0.12);
-    }
-    .profile {
-      width: 70px;
-      height: 70px;
-      border-radius: 50%;
-      border: 3px solid #1565c0;
-    }
-    .designer-text {
-      display: flex;
-      flex-direction: column;
-      font-family: 'Poppins', sans-serif;
-      color: #0d47a1;
-    }
-    .designer-text .label {
-      font-size: 12px;
-      font-weight: 600;
-      opacity: 0.8;
-    }
-    .designer-text .name {
-      font-size: 15px;
-      font-weight: 700;
-    }
+    .designer { margin-top: 26px; display: flex; justify-content: center; }
+    .designer-content { background: rgba(255,255,255,0.75); backdrop-filter: blur(10px); border: 1px solid rgba(124,77,255,0.25); border-radius: 18px; padding: 14px 18px; display: flex; align-items: center; gap: 12px; box-shadow: 0 12px 28px rgba(124,77,255,0.18), 0 6px 18px rgba(0,0,0,0.12); }
+    .profile { width: 70px; height: 70px; border-radius: 50%; border: 3px solid #1565c0; }
+    .designer-text { display:flex; flex-direction:column; font-family: 'Poppins', sans-serif; color: #0d47a1; }
+    .designer-text .label { font-size: 12px; font-weight: 600; opacity: 0.8; }
+    .designer-text .name  { font-size: 15px; font-weight: 700; }
+
+    /* Help modal */
+    .modal-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.35); display: none; align-items: center; justify-content: center; z-index: 1000; }
+    .modal { background:#fff; border-radius:16px; max-width:520px; width:90%; padding:18px; box-shadow:0 10px 28px rgba(0,0,0,0.25); text-align: left; }
+    .modal h3 { margin:0 0 8px; font-family:'Poppins',sans-serif; color:#1565c0; }
+    .modal p  { margin:6px 0; color:#333; font-size:14px; }
+    .modal .close { margin-top: 12px; background: linear-gradient(135deg, #1e88e5, #42a5f5); color:#fff; border:none; border-radius:10px; padding:8px 12px; font-weight:700; cursor:pointer; }
+  </style>
+</head>
+<body>
+
+  <!-- Top buttons -->
+  <div class="top-bar">
+    <button id="musicToggle" class="btn">🎶 Music</button>
+    <button id="helpToggle" class="btn">❔ Help</button>
+  </div>
+
   <!-- Start page -->
   <div class="container" id="start">
     <h1 class="title-main">WORD PUZZLE GAME</h1>
@@ -149,17 +141,16 @@
     </div>
 
     <div class="lists">
-      <div>
+      <div class="panel">
         <h4>Correct answers</h4>
         <div id="listGood"></div>
       </div>
-      <div>
+      <div class="panel">
         <h4>Wrong answers</h4>
         <div id="listBad"></div>
       </div>
     </div>
 
-    <!-- Designer card bottom -->
     <div class="designer">
       <div class="designer-content">
         <img class="profile" src="https://s34.picofile.com/file/8488183492/2.png" alt="Designer">
@@ -170,6 +161,19 @@
       </div>
     </div>
   </div>
+
+  <!-- Help modal -->
+  <div class="modal-backdrop" id="helpModal">
+    <div class="modal">
+      <h3>Game help</h3>
+      <p>• یک کلمه انگلیسی به‌صورت بهم‌ریخته نمایش داده می‌شود.</p>
+      <p>• کلمه صحیح را تایپ کنید و دکمه Submit را بزنید.</p>
+      <p>• هر پاسخ درست 10 امتیاز دارد و پاسخ غلط 5 امتیاز کم می‌کند.</p>
+      <p>• برای هر کلمه 3 تلاش و 30 ثانیه زمان دارید.</p>
+      <button class="close" id="helpClose">باشه</button>
+    </div>
+  </div>
+
   <!-- Audio -->
   <audio id="bgm" preload="auto" loop src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
   <audio id="sndGood" preload="auto" src="https://cdn.freesound.org/previews/398/398284_5121236-lq.mp3"></audio>
@@ -179,11 +183,14 @@
   document.addEventListener('DOMContentLoaded', () => {
     const start   = document.getElementById('start');
     const game    = document.getElementById('game');
-    const musicBtn = document.getElementById('musicToggle');
-    const helpBtn  = document.getElementById('helpToggle');
+    const musicBtn= document.getElementById('musicToggle');
+    const helpBtn = document.getElementById('helpToggle');
+    const helpModal = document.getElementById('helpModal');
+    const helpClose = document.getElementById('helpClose');
     const bgm      = document.getElementById('bgm');
     const sndGood  = document.getElementById('sndGood');
     const sndBad   = document.getElementById('sndBad');
+
     const scoreEl   = document.getElementById('score');
     const remainEl  = document.getElementById('remain');
     const triesEl   = document.getElementById('tries');
@@ -201,7 +208,7 @@
     const shuffle = w => w.split('').sort(() => Math.random() - 0.5).join('');
     const speak = w => { new Audio(`https://dict.youdao.com/dictvoice?audio=${encodeURIComponent(w)}&type=2`).play().catch(()=>{}); };
 
-    // Subjects dictionary (from PDF file, with replacements)
+    // Subjects dictionary
     const subjects = {
       Personality: {
         angry:"عصبانی", brave:"شجاع", careless:"بی‌دقت", cruel:"بی‌رحم", funny:"خنده‌دار",
@@ -245,12 +252,13 @@
         cut:"بریدن", childcare:"مراقبت از کودک", headache:"سردرد"
       }
     };
+
     // State
     let subjectKey = null;
     let words = []; let total = 0; let score = 0; let index = 0; let attempts = 0;
     let timerId = null; let timeLeft = 30;
 
-    // شروع بازی
+    // Start game
     function startGame(key) {
       subjectKey = key;
       const dict = subjects[key];
@@ -345,7 +353,7 @@
     }
 
     function finish() {
-      const pass = (total * 10) / 2;
+      const pass = (total * 10) / 2; // 50% of max score
       if (score >= pass) {
         feedbackEl.textContent = '🎉 Great job! Game finished.';
         sndGood.currentTime = 0; sndGood.play();
@@ -368,17 +376,24 @@
     });
 
     // Music toggle
-    musicBtn.addEventListener('click', () => {
-      if (bgm.paused) { bgm.play(); musicBtn.textContent = '🔇 Stop'; }
-      else { bgm.pause(); musicBtn.textContent = '🎶 Music'; }
+    let musicOn = false;
+    musicBtn.addEventListener('click', async () => {
+      try {
+        if (!musicOn) { await bgm.play(); musicOn = true; musicBtn.textContent = '🔇 Stop'; }
+        else { bgm.pause(); musicOn = false; musicBtn.textContent = '🎶 Music'; }
+      } catch (e) { /* autoplay may be blocked; no crash */ }
     });
 
-    // Help button
-    if (helpBtn) {
-      helpBtn.addEventListener('click', () => {
-        alert("📖 راهنمای بازی:\n\nیک کلمه بهم‌ریخته نمایش داده می‌شود.\nشما باید کلمه صحیح انگلیسی را تایپ کنید.\nهر پاسخ درست 10 امتیاز دارد.\nهر پاسخ غلط 5 امتیاز کم می‌کند.\n3 بار فرصت دارید.\nزمان هر کلمه 30 ثانیه است.");
-      });
-    }
+    // Help modal
+    helpBtn.addEventListener('click', () => {
+      helpModal.style.display = 'flex';
+    });
+    helpClose.addEventListener('click', () => {
+      helpModal.style.display = 'none';
+    });
+    helpModal.addEventListener('click', (e) => {
+      if (e.target === helpModal) helpModal.style.display = 'none';
+    });
   });
   </script>
 </body>
