@@ -13,6 +13,7 @@
       color: #0d47a1;
     }
     .container { max-width: 1000px; margin: 0 auto; padding: 24px; text-align: center; }
+
     .title-main {
       font-family: 'Bungee Shade', 'Orbitron', sans-serif;
       font-size: 48px;
@@ -20,40 +21,73 @@
       background: linear-gradient(90deg, #ff4081, #7c4dff, #448aff);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      filter: drop-shadow(0 2px 6px rgba(68,138,255,0.45));
     }
     .title-sub { font-family: 'Orbitron', sans-serif; font-size: 36px; margin: 8px 0 40px; color: #1565c0; }
 
-    .music-top { position: fixed; top: 12px; left: 12px; z-index: 999; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+    /* موسیقی و ولوم */
+    .music-top {
+      position: fixed;
+      top: 12px;
+      left: 12px;
+      z-index: 999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,255,255,0.85);
+      padding: 8px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
     .btn-music {
       font-size: 13px; padding: 6px 10px; border-radius: 10px;
       background: linear-gradient(135deg,#ff9800,#f57c00); color: #fff; font-weight: bold; cursor: pointer;
-      box-shadow: 0 4px 10px rgba(245,124,0,0.4); transition: transform .25s ease, box-shadow .25s ease;
     }
-    .btn-music:hover { transform: scale(1.08); box-shadow: 0 6px 14px rgba(245,124,0,0.6); }
     .range {
-      writing-mode: bt-lr; -webkit-appearance: slider-vertical; width: 30px; height: 100px;
-      accent-color: #f57c00; box-shadow: 0 4px 10px rgba(255,152,0,0.4);
+      writing-mode: bt-lr; -webkit-appearance: slider-vertical;
+      width: 30px; height: 100px; accent-color: #f57c00;
+    }
+    @media (max-width:640px) {
+      .range { height: 80px; width: 24px; }
+    }
+    /* کارت طراح */
+    .designer {
+      margin-top: 30px;
+      display: flex;
+      justify-content: center;
+    }
+    .designer-content {
+      background: linear-gradient(135deg,#bbdefb,#90caf9);
+      border-radius: 16px;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+      transition: transform .3s ease, box-shadow .3s ease;
+    }
+    .designer-content:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 22px rgba(0,0,0,0.35);
+    }
+    .profile {
+      width: 70px; height: 70px; border-radius: 50%; border: 3px solid #1565c0;
+      box-shadow: 0 4px 10px rgba(21,101,192,0.4);
+    }
+    .designer-text {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 20px;
+      font-weight: bold;
+      color: #0d47a1;
     }
 
-    .help-icon { position: fixed; top: 12px; right: 12px; font-size: 28px; cursor: pointer; color: #1565c0; }
-    .help-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); justify-content: center; align-items: center; z-index: 2000; }
-    .help-content { background: #fff; border-radius: 16px; padding: 24px; max-width: 640px; text-align: left; }
-    .help-content h2 { text-align: center; font-family: 'Orbitron', sans-serif; font-size: 24px; color: #1565c0; }
-    .help-close {
-      display: block; margin: 20px auto 0; padding: 10px 24px; border-radius: 12px;
-      background: linear-gradient(135deg,#e53935,#ef5350); color: #fff; font-weight: bold; cursor: pointer;
-    }
-
-    .subject-area { display:flex; flex-direction:column; align-items:center; gap:18px; margin-bottom: 30px; }
-    .subject-title { font-size: 24px; color: #ef6c00; font-weight: 700; }
-    .subject-buttons { display:flex; flex-wrap:wrap; justify-content:center; gap:12px; }
+    /* دکمه‌های موضوعات */
     .subject-buttons button {
       border: none; cursor: pointer; border-radius: 14px; padding: 14px 22px;
       color: #fff; font-weight: bold; font-size: 18px; font-family: 'Orbitron', sans-serif;
       margin: 6px; transition: transform .18s ease, box-shadow .18s ease;
     }
-    .subject-buttons button:hover { transform: translateY(-2px) scale(1.05); box-shadow: 0 8px 16px rgba(0,0,0,0.22); }
+    .subject-buttons button:hover { transform: scale(1.05); box-shadow: 0 8px 16px rgba(0,0,0,0.22); }
     .btn-green { background: linear-gradient(135deg, #43a047, #66bb6a); }
     .btn-teal  { background: linear-gradient(135deg, #00897b, #26a69a); }
     .btn-blue  { background: linear-gradient(135deg, #1e88e5, #42a5f5); }
@@ -61,42 +95,11 @@
     .btn-purple{ background: linear-gradient(135deg, #7e57c2, #ab47bc); }
     .btn-red   { background: linear-gradient(135deg, #e53935, #ef5350); }
 
-    .stats { display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-bottom: 16px; }
-    .stat { background:#fff; border-radius:12px; padding:10px 16px; box-shadow: 0 4px 10px rgba(0,0,0,0.08); }
-
-    #letters { font-size: 40px; font-weight: 700; color:#1565c0; margin: 18px 0; }
-    #feedback { min-height: 28px; font-size: 18px; color:#d32f2f; margin-bottom: 10px; }
-
-    .answer-box { display:flex; flex-wrap: wrap; gap:10px; justify-content:center; align-items:center; margin-bottom: 16px; }
-    .answer-box input {
-      font-size: 20px; padding: 10px 14px; border: 2px solid #90caf9; border-radius: 12px; outline: none; max-width: 320px;
-    }
     .btn-action {
       font-size: 22px; padding: 14px 24px; border-radius: 14px; border: none;
       background: linear-gradient(135deg, #43a047, #66bb6a); color:#fff; font-weight: bold; cursor:pointer;
-      transition: transform .25s ease, box-shadow .25s ease;
     }
-    .btn-action:hover { transform: scale(1.08); box-shadow: 0 8px 18px rgba(67,160,71,0.45); }
     #home { background: linear-gradient(135deg, #e53935, #ef5350); }
-
-    .lists { display:grid; grid-template-columns: 1fr 1fr; gap:16px; }
-    .list { background:#fff; border-radius:12px; padding:12px; text-align:left; box-shadow: 0 4px 10px rgba(0,0,0,0.06); min-height: 80px; }
-    .item { display:flex; justify-content:space-between; align-items:center; padding:6px 0; border-bottom:1px dashed #e0e0e0; }
-    .item:last-child { border-bottom:none; }
-    .speaker { border:none; background:#1565c0; color:#fff; border-radius:8px; padding:6px 10px; cursor:pointer; }
-    .label-good { color:#2e7d32; font-weight:600; }
-    .label-bad  { color:#c62828; font-weight:600; }
-
-    .correct-box {
-      display:inline-block; background:#e8f5e9; color:#2e7d32; padding:8px 12px; border-radius:10px; font-weight:700;
-      box-shadow: 0 4px 10px rgba(46,125,50,0.15);
-    }
-
-    @media (max-width: 640px) {
-      .stats { flex-direction: column; align-items: center; }
-      .stat { width: 90%; font-size: 18px; }
-      .lists { grid-template-columns: 1fr; }
-    }
   </style>
 </head>
 <body>
@@ -105,19 +108,6 @@
   <div class="music-top">
     <button id="musicToggle" class="btn-music">🎶 Play Music</button>
     <input id="volume" class="range" type="range" min="0" max="1" step="0.01" value="0.3">
-  </div>
-
-  <!-- آیکن راهنما -->
-  <div class="help-icon" id="helpIcon">❓</div>
-  <div class="help-modal" id="helpModal">
-    <div class="help-content">
-      <h2>Game Instructions / دستورالعمل بازی</h2>
-      <p><span style="font-weight:bold;">🅴</span> Unscramble the letters to form the correct English word. You have 3 attempts and 30 seconds.</p>
-      <p><span style="font-weight:bold;">🅵</span> حروف بهم‌ریخته را مرتب کنید تا کلمه‌ی انگلیسی درست ساخته شود. برای هر کلمه ۳ بار فرصت و ۳۰ ثانیه زمان دارید.</p>
-      <p><span style="font-weight:bold;">🅴</span> Scoring: +10 for correct, -5 for wrong or timeout.</p>
-      <p><span style="font-weight:bold;">🅵</span> امتیازدهی: +۱۰ برای پاسخ درست، -۵ برای پاسخ غلط یا پایان زمان.</p>
-      <button class="help-close" id="helpClose">✖ Close / بستن</button>
-    </div>
   </div>
 
   <!-- صفحه شروع -->
@@ -135,15 +125,21 @@
         <button class="btn-red"    data-subject="Health">Health</button>
       </div>
     </div>
+    <!-- کارت طراح -->
+    <div class="designer">
+      <div class="designer-content">
+        <img class="profile" src="https://s34.picofile.com/file/8488183492/2.png" alt="Designer">
+        <div class="designer-text">Designer: A.R. Yousefzadeh</div>
+      </div>
+    </div>
   </div>
-
   <!-- صفحه بازی -->
   <div class="container" id="game" style="display:none;">
     <div class="stats">
-      <div id="score" class="stat">Score: 0</div>
-      <div id="remain" class="stat">Remaining Words: 0</div>
-      <div id="tries" class="stat">Remaining Attempts: 3</div>
-      <div id="clock" class="stat">⏱ 30</div>
+      <div id="score">Score: 0</div>
+      <div id="remain">Remaining Words: 0</div>
+      <div id="tries">Remaining Attempts: 3</div>
+      <div id="clock">⏱ 30</div>
     </div>
 
     <div id="letters"></div>
@@ -158,15 +154,22 @@
     <div class="lists">
       <div>
         <h4>Correct answers</h4>
-        <div id="listGood" class="list"></div>
+        <div id="listGood"></div>
       </div>
       <div>
         <h4>Wrong answers</h4>
-        <div id="listBad" class="list"></div>
+        <div id="listBad"></div>
+      </div>
+    </div>
+
+    <!-- کارت طراح پایین -->
+    <div class="designer">
+      <div class="designer-content">
+        <img class="profile" src="https://s34.picofile.com/file/8488183492/2.png" alt="Designer">
+        <div class="designer-text">Designer: A.R. Yousefzadeh</div>
       </div>
     </div>
   </div>
-
   <!-- موسیقی و افکت‌ها -->
   <audio id="bgm" preload="auto" loop src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
   <audio id="sndGood" preload="auto" src="https://cdn.freesound.org/previews/398/398284_5121236-lq.mp3"></audio>
@@ -195,10 +198,6 @@
     const listGood  = document.getElementById('listGood');
     const listBad   = document.getElementById('listBad');
 
-    const helpIcon = document.getElementById('helpIcon');
-    const helpModal= document.getElementById('helpModal');
-    const helpClose= document.getElementById('helpClose');
-
     let subjectKey = null;
     let words = [];
     let total = 0;
@@ -208,12 +207,15 @@
     let timerId = null;
     let timeLeft = 30;
 
-    // کمک‌ها
+    // توابع کمکی
     const normalize = w => w.toLowerCase().replace(/\s+/g,'');
     const shuffle = w => w.split('').sort(() => Math.random() - 0.5).join('');
-    const speak = w => { new Audio(`https://dict.youdao.com/dictvoice?audio=${encodeURIComponent(w)}&type=2`).play().catch(()=>{}); };
+    const speak = w => {
+      const a = new Audio(`https://dict.youdao.com/dictvoice?audio=${encodeURIComponent(w)}&type=2`);
+      a.play().catch(()=>{});
+    };
 
-    // موسیقی
+    // کنترل موسیقی و ولوم
     bgm.volume = parseFloat(volume.value || '0.3');
     volume.addEventListener('input', () => { bgm.volume = parseFloat(volume.value || '0.3'); });
     musicBtn.addEventListener('click', () => {
@@ -222,58 +224,6 @@
         else { bgm.pause(); musicBtn.textContent = '🎶 Play Music'; }
       } catch(e){}
     });
-
-    // راهنما
-    helpIcon.addEventListener('click', () => { helpModal.style.display = 'flex'; });
-    helpClose.addEventListener('click', () => { helpModal.style.display = 'none'; });
-
-    // واژگان
-    const subjects = {
-      Personality: {
-        angry:"عصبانی", brave:"شجاع", careless:"بی‌دقت", cruel:"بی‌رحم", funny:"خنده‌دار",
-        neat:"مرتب", nervous:"عصبی", quiet:"ساکت", rude:"بی‌ادب", selfish:"خودخواه",
-        lazy:"تنبل", shy:"خجالتی", generous:"سخاوتمند", patient:"صبور", creative:"خلاق",
-        curious:"کنجکاو", unique:"منحصر به فرد", wise:"خردمند", serious:"جدی", friendly:"دوستانه"
-      },
-      Travel: {
-        ticket:"بلیط", passport:"گذرنامه", timetable:"برنامه‌زمانی", hotel:"هتل", baggage:"بار",
-        plane:"هواپیما", voyage:"سفر دریایی", train:"قطار سریع‌السیر", toll:"عوارض", form:"فرم",
-        receptionist:"مسئول پذیرش", exchange:"تبدیل ارز", checkin:"پذیرش", reclaim:"تحویل بار",
-        pack:"جمع‌کردن وسایل", weigh:"وزن‌کردن", board:"سوار شدن", express:"سریع‌السیر",
-        itinerary:"مسیر سفر", customs:"گمرک"
-      },
-      Festivals: {
-        ceremony:"مراسم", anthem:"سرود ملی", fireworks:"آتش‌بازی", poems:"اشعار حافظ",
-        parade:"رژه", celebrate:"جشن گرفتن", clothes:"لباس‌های ویژه", table:"چیدن میز",
-        bake:"پخت کیک", clear:"جمع‌کردن میز", nature:"سیزده‌بدر", lunch:"ناهار", dinner:"شام",
-        tradition:"سنت", holiday:"تعطیلات مذهبی", national:"ملی", commemorate:"گرامیداشت",
-        culture:"فرهنگ", anniversary:"سالگرد"
-      },
-      Services: {
-        account:"حساب", recharge:"شارژ مجدد", putout:"خاموش کردن آتش",
-        emergency:"اورژانس", donate:"اهدای خون", voluntary:"داوطلبانه", charity:"خیریه",
-        information:"اطلاعات", eticket:"بلیط الکترونیک", open:"باز کردن حساب",
-        ambulance:"آمبولانس", ER:"اورژانس", ATM:"خودپرداز", taxi:"تاکسی",
-        clean:"پاکیزه نگه‌داشتن", bring:"بردن به اورژانس", help:"کمک به خیریه",
-        desk:"پیشخوان", call:"تماس اضطراری", service:"خدمت‌رسانی"
-      },
-      Media: {
-        interview:"مصاحبه", message:"پیامک", email:"ایمیل", blog:"بلاگ", internet:"اینترنت",
-        course:"دوره آنلاین", tv:"تلویزیون", quiz:"مسابقه تلویزیونی", movie:"فیلم",
-        channels:"تعویض کانال‌ها", update:"به‌روزرسانی", download:"دانلود",
-        antivirus:"ضدویروس", install:"نصب", participate:"شرکت کردن",
-        receive:"دریافت", newsstand:"دکه روزنامه", program:"برنامه تلویزیونی",
-        connect:"اتصال", attend:"حضور"
-      },
-      Health: {
-        burned:"سوختگی", hit:"برخورد", broke:"شکستگی", bleeding:"خونریزی",
-        plaster:"چسب‌زخم", knee:"زانو", finger:"انگشت", bruise:"کبودی", blackeye:"سیاهی چشم",
-        crash:"تصادف", scar:"جای زخم", heart:"حمله قلبی", cast:"گچ", wound:"زخم",
-        hurts:"خیلی درد می‌کند", care:"مراقبت", stick:"چسباندن",
-        cut:"بریدن", childcare:"مراقبت از کودک", headache:"سردرد"
-      }
-    };
-
     // شروع بازی
     function startGame(key) {
       subjectKey = key;
@@ -313,14 +263,14 @@
     }
 
     function showCorrectWord(en, fa, type) {
-      feedbackEl.innerHTML = `<div class="correct-box">✔ ${en} — ${fa}</div>`;
+      feedbackEl.innerHTML = `<span class="correct-box">✔ ${en} — ${fa}</span>`;
       const audio = new Audio(`https://dict.youdao.com/dictvoice?audio=${encodeURIComponent(en)}&type=2`);
       audio.play().catch(()=>{});
       audio.onended = () => {
         feedbackEl.textContent = '';
         if(type==='good') addGood(en,fa);
         else addBad(en,(inputEl.value||'').trim(),fa);
-        setTimeout(next, 500);
+        setTimeout(next, 400);
       };
     }
 
@@ -354,7 +304,6 @@
         attempts++; const left = Math.max(0, 3 - attempts);
         triesEl.textContent = `Remaining Attempts: ${left}`;
         sndBad.currentTime = 0; sndBad.play();
-
         if (attempts >= 3) {
           score -= 5;
           showCorrectWord(en, fa, 'bad');
