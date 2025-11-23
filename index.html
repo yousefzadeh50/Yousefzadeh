@@ -33,50 +33,15 @@
 
     .music-top { position: fixed; top: 12px; left: 12px; z-index: 999; }
     .btn-music {
-      font-size: 10px; padding: 3px 7px; border-radius: 7px;
-      background: linear-gradient(135deg,#ff9800,#f57c00); color: #fff; font-weight: 600; cursor: pointer;
-      box-shadow: 0 2px 5px rgba(245,124,0,0.3);
+      font-size: 12px;
+      padding: 5px 10px;
+      border-radius: 8px;
+      background: linear-gradient(135deg,#ff9800,#f57c00);
+      color: #fff;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(245,124,0,0.3);
     }
-
-    .help-icon { position: fixed; top: 12px; right: 12px; font-size: 26px; cursor: pointer; color: var(--blue-700); }
-    .help-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); justify-content: center; align-items: center; z-index: 2000; }
-    .help-content {
-      background: rgba(255,255,255,0.9);
-      backdrop-filter: blur(10px);
-      border-radius: 16px; padding: 20px; max-width: 680px; text-align: left;
-      box-shadow: 0 10px 26px rgba(0,0,0,0.25);
-      border: 1px solid rgba(124,77,255,0.25);
-    }
-    .help-content h2 { text-align: center; font-family: 'Orbitron', sans-serif; font-size: 22px; color: var(--blue-700); margin: 0 0 10px; }
-    .help-content p { font-family: 'Poppins','Rubik',sans-serif; font-size: 14px; line-height:1.6; margin: 6px 0; }
-    .help-content p b { color: var(--orange); }
-    .help-content .fa { font-family:'Rubik',sans-serif; color: var(--blue-900); }
-    .help-close {
-      display: block; margin: 14px auto 0; padding: 8px 18px; border-radius: 10px;
-      background: linear-gradient(135deg,#e53935,#ef5350); color: #fff; font-weight: 700; cursor: pointer;
-    }
-
-    .subject-area { display:flex; flex-direction:column; align-items:center; gap:16px; }
-    .subject-title {
-      font-family: 'Poppins', sans-serif;
-      font-size: 28px; font-weight: 700; letter-spacing: 0.5px;
-      color: var(--orange);
-      text-shadow: 0 2px 6px rgba(239,108,0,0.25);
-    }
-
-    .subject-buttons { display:flex; flex-wrap:wrap; justify-content:center; gap:10px; }
-    .subject-buttons button {
-      border: none; cursor: pointer; border-radius: 14px; padding: 12px 18px;
-      color: #fff; font-weight: 700; font-size: 16px; font-family: 'Poppins', sans-serif;
-      transition: transform .18s ease, box-shadow .18s ease;
-    }
-    .subject-buttons button:hover { transform: translateY(-1px) scale(1.04); box-shadow: 0 8px 16px rgba(0,0,0,0.22); }
-    .btn-green { background: linear-gradient(135deg, #43a047, #66bb6a); }
-    .btn-teal  { background: linear-gradient(135deg, #00897b, #26a69a); }
-    .btn-blue  { background: linear-gradient(135deg, #1e88e5, #42a5f5); }
-    .btn-orange{ background: linear-gradient(135deg, #fb8c00, #ffa726); }
-    .btn-purple{ background: linear-gradient(135deg, #7e57c2, #ab47bc); }
-    .btn-red   { background: linear-gradient(135deg, #e53935, #ef5350); }
     .btn-action {
       font-size: 15px;
       padding: 8px 14px;
@@ -99,22 +64,14 @@
       padding: 14px 18px;
       display: flex; align-items: center; gap: 12px;
       box-shadow: 0 12px 28px rgba(124,77,255,0.18), 0 6px 18px rgba(0,0,0,0.12);
-      transition: transform .25s ease, box-shadow .25s ease;
     }
-    .designer-content:hover{ transform: rotate(-0.5deg) scale(1.03); }
     .profile { width: 70px; height: 70px; border-radius: 50%; border: 3px solid var(--blue-700); }
     .designer-text { display:flex; flex-direction:column; font-family: 'Poppins', sans-serif; color: var(--blue-900); }
     .designer-text .label { font-size: 12px; font-weight: 600; opacity: 0.8; }
     .designer-text .name  { font-size: 15px; font-weight: 700; }
 
     /* Stats boxes */
-    .stats {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 12px;
-      margin-bottom: 20px;
-    }
+    .stats { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-bottom: 20px; }
     .stats div {
       background: #fff;
       border-radius: 12px;
@@ -129,79 +86,40 @@
 
     /* Scrambled word */
     #letters {
-      font-size: 42px;
+      font-size: 44px;
       font-weight: 800;
-      color: #1e88e5;
-      background: linear-gradient(90deg,#42a5f5,#7c4dff);
-      padding: 12px 20px;
-      border-radius: 16px;
-      box-shadow: 0 6px 18px rgba(68,138,255,0.3);
+      color: #d81b60;
+      background: #f8bbd0;
+      padding: 14px 22px;
+      border-radius: 18px;
+      box-shadow: 0 6px 18px rgba(216,27,96,0.3);
       display: inline-block;
-      margin-bottom: 16px;
+      margin-bottom: 18px;
       letter-spacing: 4px;
     }
-
     /* Lists */
-    .lists {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      margin-top: 20px;
-    }
+    .lists { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 20px; }
     .lists div {
-      background: #fff;
+      background: linear-gradient(135deg,#e1bee7,#f3e5f5);
       border-radius: 14px;
       padding: 12px;
-      box-shadow: 0 6px 16px rgba(0,0,0,0.06);
-      min-height: 120px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.08);
     }
-    .lists h4 { font-family: 'Poppins', sans-serif; font-size: 16px; margin-bottom: 8px; color: #0d47a1; }
+    .lists h4 { font-family: 'Poppins', sans-serif; font-size: 15px; margin-bottom: 8px; color: #4a148c; }
     #listGood, #listBad { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
-    .item { font-size: 14px; font-weight: 600; padding: 6px; border-radius: 8px; background: #e3f2fd; color: #1565c0; }
-    .label-good { color: #2e7d32; }
-    .label-bad  { color: #c62828; }
+    .item { font-size: 13px; font-weight: 600; padding: 6px; border-radius: 8px; background: #ede7f6; color: #311b92; display: flex; justify-content: space-between; align-items: center; }
+    .item button { border: none; background: #7e57c2; color: #fff; border-radius: 6px; padding: 4px 8px; cursor: pointer; font-size: 12px; }
 
     .answer-box { display: flex; gap: 10px; justify-content: center; align-items: center; margin-bottom: 16px; }
-    #input {
-      font-size: 18px;
-      padding: 10px 14px;
-      border: 2px solid #90caf9;
-      border-radius: 14px;
-      outline: none;
-      max-width: 320px;
-      box-shadow: 0 4px 10px rgba(144,202,249,0.3);
-    }
+    #input { font-size: 18px; padding: 10px 14px; border: 2px solid #90caf9; border-radius: 14px; outline: none; max-width: 320px; box-shadow: 0 4px 10px rgba(144,202,249,0.3); }
   </style>
 </head>
 <body>
-
-  <!-- Music button -->
-  <div class="music-top">
-    <button id="musicToggle" class="btn-music">🎶</button>
-  </div>
-
-  <!-- Help -->
-  <div class="help-icon" id="helpIcon">❓</div>
-  <div class="help-modal" id="helpModal">
-    <div class="help-content">
-      <h2>Game Instructions / دستورالعمل بازی</h2>
-      <p><b>🅴 Rules:</b> You have 30 seconds and 3 attempts for each word.</p>
-      <p class="fa"><b>🅵 قانون:</b> برای هر کلمه ۳۰ ثانیه و ۳ تلاش دارید.</p>
-      <p><b>🅴 Task:</b> Unscramble the letters to form the correct English word.</p>
-      <p class="fa"><b>🅵 وظیفه:</b> حروف بهم‌ریخته را مرتب کنید تا کلمهٔ درست ساخته شود.</p>
-      <p><b>🅴 Scoring:</b> +10 for correct, -5 for wrong or timeout.</p>
-      <p class="fa"><b>🅵 امتیاز:</b> +۱۰ برای پاسخ درست، -۵ برای پاسخ غلط یا پایان زمان.</p>
-      <p><b>🅴 Tips:</b> Press Enter to submit quickly. Use the speaker buttons to hear pronunciation.</p>
-      <p class="fa"><b>🅵 نکته:</b> برای ثبت سریع Enter را بزنید. از دکمه‌های بلندگو برای تلفظ استفاده کنید.</p>
-      <button class="help-close" id="helpClose">✖ Close / بستن</button>
-    </div>
-  </div>
 
   <!-- Start page -->
   <div class="container" id="start">
     <h1 class="title-main">WORD PUZZLE GAME</h1>
     <h2 class="title-sub">for Prospect 3</h2>
-
     <div class="subject-area">
       <div class="subject-title">Choose a subject</div>
       <div class="subject-buttons">
@@ -213,8 +131,6 @@
         <button class="btn-red"    data-subject="Health">Health</button>
       </div>
     </div>
-
-    <!-- Designer card -->
     <div class="designer">
       <div class="designer-content">
         <img class="profile" src="https://s34.picofile.com/file/8488183492/2.png" alt="Designer">
@@ -240,7 +156,7 @@
     <div class="answer-box">
       <input id="input" type="text" placeholder="Type the English word">
       <button id="submit" class="btn-action">Submit</button>
-      <button id="home" class="btn-action">Home</button>
+      <button id="home" class="btn-action">🏠 Home</button>
     </div>
 
     <div class="lists">
@@ -270,16 +186,15 @@
   <audio id="bgm" preload="auto" loop src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
   <audio id="sndGood" preload="auto" src="https://cdn.freesound.org/previews/398/398284_5121236-lq.mp3"></audio>
   <audio id="sndBad" preload="auto" src="https://www.soundjay.com/button/sounds/button-10.mp3"></audio>
+
   <script>
   document.addEventListener('DOMContentLoaded', () => {
     const start   = document.getElementById('start');
     const game    = document.getElementById('game');
-
     const musicBtn = document.getElementById('musicToggle');
     const bgm      = document.getElementById('bgm');
     const sndGood  = document.getElementById('sndGood');
     const sndBad   = document.getElementById('sndBad');
-
     const scoreEl   = document.getElementById('score');
     const remainEl  = document.getElementById('remain');
     const triesEl   = document.getElementById('tries');
@@ -292,35 +207,17 @@
     const listGood  = document.getElementById('listGood');
     const listBad   = document.getElementById('listBad');
 
-    const helpIcon = document.getElementById('helpIcon');
-    const helpModal= document.getElementById('helpModal');
-    const helpClose= document.getElementById('helpClose');
-
-    // Music default lower volume
-    bgm.volume = 0.15;
-    musicBtn.addEventListener('click', () => {
-      try {
-        if (bgm.paused) { bgm.play(); musicBtn.textContent = '🔊'; }
-        else { bgm.pause(); musicBtn.textContent = '🎶'; }
-      } catch(e){}
-    });
-
-    // Help modal
-    helpIcon.addEventListener('click', () => { helpModal.style.display = 'flex'; });
-    helpClose.addEventListener('click', () => { helpModal.style.display = 'none'; });
-
     // Utils
     const normalize = w => w.toLowerCase().replace(/\s+/g,'');
     const shuffle = w => w.split('').sort(() => Math.random() - 0.5).join('');
     const speak = w => { new Audio(`https://dict.youdao.com/dictvoice?audio=${encodeURIComponent(w)}&type=2`).play().catch(()=>{}); };
 
-    // Subjects dictionary (from PDF file)
+    // Subjects dictionary (from PDF file, with replacements)
     const subjects = {
       Personality: {
         angry:"عصبانی", brave:"شجاع", careless:"بی‌دقت", cruel:"بی‌رحم", funny:"خنده‌دار",
         neat:"مرتب", nervous:"عصبی", quiet:"ساکت", rude:"بی‌ادب", selfish:"خودخواه",
-        lazy:"تنبل", shy:"خجالتی", generous:"سخاوتمند", patient:"صبور", creative:"خلاق",
-        curious:"کنجکاو", unique:"منحصر به فرد", wise:"خردمند", serious:"جدی", friendly:"دوستانه"
+        lazy:"تنبل", shy:"خجالتی", generous:"سخاوتمند", patient:"صبور", serious:"جدی", friendly:"دوستانه"
       },
       Travel: {
         ticket:"بلیط", passport:"گذرنامه", timetable:"برنامه‌زمانی", hotel:"هتل", baggage:"بار",
@@ -359,11 +256,11 @@
         cut:"بریدن", childcare:"مراقبت از کودک", headache:"سردرد"
       }
     };
-
     // State
     let subjectKey = null;
     let words = []; let total = 0; let score = 0; let index = 0; let attempts = 0;
     let timerId = null; let timeLeft = 30;
+
     // شروع بازی
     function startGame(key) {
       subjectKey = key;
@@ -402,30 +299,19 @@
       }, 1000);
     }
 
-    function showCorrectWord(en, fa, type) {
-      feedbackEl.innerHTML = `<span style="display:inline-block;background:#e8f5e9;color:#2e7d32;padding:6px 10px;border-radius:10px;font-weight:700;box-shadow:0 4px 10px rgba(46,125,50,0.15);">✔ ${en} — ${fa}</span>`;
-      const audio = new Audio(`https://dict.youdao.com/dictvoice?audio=${encodeURIComponent(en)}&type=2`);
-      audio.play().catch(()=>{});
-      audio.onended = () => {
-        feedbackEl.textContent = '';
-        if(type==='good') addGood(en,fa);
-        else addBad(en,(inputEl.value||'').trim(),fa);
-        setTimeout(next, 400);
-      };
-    }
-
     function addGood(en, fa) {
       const el = document.createElement('div');
-      el.className = 'item label-good';
-      el.textContent = `${en} — ${fa}`;
+      el.className = 'item';
+      el.innerHTML = `<span>✔ ${en} — ${fa}</span>
+                      <button onclick="speak('${en}')">🔊</button>`;
       listGood.appendChild(el);
     }
 
-    function addBad(correct, user, fa) {
+    function addBad(correct, fa) {
       const el = document.createElement('div');
-      el.className = 'item label-bad';
-      const shown = user ? user : '(empty)';
-      el.textContent = `${shown} | Correct: ${correct} — ${fa}`;
+      el.className = 'item';
+      el.innerHTML = `<span>✖ ${correct} — ${fa}</span>
+                      <button onclick="speak('${correct}')">🔊</button>`;
       listBad.appendChild(el);
     }
 
@@ -437,14 +323,16 @@
 
       if (user === correct) {
         score += 10; sndGood.currentTime = 0; sndGood.play();
-        showCorrectWord(en, fa, 'good');
+        addGood(en, fa);
+        next();
       } else {
         attempts++; const left = Math.max(0, 3 - attempts);
         triesEl.textContent = `Remaining Attempts: ${left}`;
         sndBad.currentTime = 0; sndBad.play();
         if (attempts >= 3) {
           score -= 5;
-          showCorrectWord(en, fa, 'bad');
+          addBad(en, fa);
+          next();
         } else {
           feedbackEl.textContent = '❌ Wrong. Try again.';
         }
@@ -457,7 +345,8 @@
       const fa = subjects[subjectKey][en];
       score -= 5; scoreEl.textContent = `Score: ${score}`;
       sndBad.currentTime = 0; sndBad.play();
-      showCorrectWord(en, fa, 'bad');
+      addBad(en, fa);
+      next();
     }
 
     function next() {
