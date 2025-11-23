@@ -12,13 +12,7 @@
       background: radial-gradient(circle at top left, #e3f2fd, #bbdefb, #90caf9);
       color: #0d47a1;
     }
-    .container {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 24px;
-      text-align: center;
-    }
-
+    .container { max-width: 1000px; margin: 0 auto; padding: 24px; text-align: center; }
     .title-main {
       font-family: 'Bungee Shade', 'Orbitron', sans-serif;
       font-size: 48px;
@@ -27,177 +21,122 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       filter: drop-shadow(0 2px 6px rgba(68,138,255,0.45));
-      animation: glowTitle 3.5s ease-in-out infinite;
     }
-    .title-sub {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 36px;
-      margin: 8px 0 40px;
-      color: #1565c0;
-      text-shadow: 0 1px 0 #fff, 0 3px 10px rgba(21,101,192,0.2);
-    }
-    @keyframes glowTitle {
-      0% { filter: drop-shadow(0 2px 6px rgba(68,138,255,0.35)); }
-      50% { filter: drop-shadow(0 2px 12px rgba(124,77,255,0.55)); }
-      100% { filter: drop-shadow(0 2px 6px rgba(68,138,255,0.35)); }
-    }
+    .title-sub { font-family: 'Orbitron', sans-serif; font-size: 36px; margin: 8px 0 40px; color: #1565c0; }
 
-    .music-top {
-      position: fixed;
-      top: 12px;
-      left: 12px;
-      z-index: 999;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 6px;
-    }
+    .music-top { position: fixed; top: 12px; left: 12px; z-index: 999; display: flex; flex-direction: column; align-items: center; gap: 6px; }
     .btn-music {
-      font-size: 13px;
-      padding: 6px 10px;
-      border-radius: 10px;
-      background: linear-gradient(135deg,#ff9800,#f57c00);
-      color: #fff;
-      font-weight: bold;
-      cursor: pointer;
-      box-shadow: 0 4px 10px rgba(245,124,0,0.4);
-      transition: transform .25s ease, box-shadow .25s ease;
+      font-size: 13px; padding: 6px 10px; border-radius: 10px;
+      background: linear-gradient(135deg,#ff9800,#f57c00); color: #fff; font-weight: bold; cursor: pointer;
+      box-shadow: 0 4px 10px rgba(245,124,0,0.4); transition: transform .25s ease, box-shadow .25s ease;
     }
-    .btn-music:hover {
-      transform: scale(1.08);
-      box-shadow: 0 6px 14px rgba(245,124,0,0.6);
-    }
+    .btn-music:hover { transform: scale(1.08); box-shadow: 0 6px 14px rgba(245,124,0,0.6); }
     .range {
-      writing-mode: bt-lr;
-      -webkit-appearance: slider-vertical;
-      width: 30px;
-      height: 100px;
-      accent-color: #f57c00;
-      box-shadow: 0 4px 10px rgba(255,152,0,0.4);
+      writing-mode: bt-lr; -webkit-appearance: slider-vertical; width: 30px; height: 100px;
+      accent-color: #f57c00; box-shadow: 0 4px 10px rgba(255,152,0,0.4);
     }
 
-    @media (max-width: 640px) {
-      .stats {
-        flex-direction: column;
-        align-items: center;
-        gap: 8px;
-      }
-      .stat {
-        width: 90%;
-        font-size: 18px;
-        padding: 10px;
-      }
-    }
-
-    .help-icon {
-      position: fixed;
-      top: 12px;
-      right: 12px;
-      font-size: 28px;
-      cursor: pointer;
-      color: #1565c0;
-      z-index: 1000;
-      transition: transform .3s ease, color .3s ease;
-    }
-    .help-icon:hover { transform: scale(1.2); color: #ef6c00; }
-
-    .help-modal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.6);
-      backdrop-filter: blur(6px);
-      justify-content: center;
-      align-items: center;
-      z-index: 2000;
-    }
-    .help-content {
-      background: #fff;
-      border-radius: 16px;
-      padding: 24px;
-      max-width: 640px;
-      text-align: left;
-      font-family: 'Rubik', sans-serif;
-      animation: pop .45s ease;
-      box-shadow: 0 10px 24px rgba(0,0,0,0.25);
-    }
-    .help-content h2 {
-      text-align: center;
-      font-family: 'Orbitron', sans-serif;
-      font-size: 24px;
-      color: #1565c0;
-    }
-    .help-content p {
-      margin: 10px 0;
-      font-size: 18px;
-      line-height: 1.7;
-    }
+    .help-icon { position: fixed; top: 12px; right: 12px; font-size: 28px; cursor: pointer; color: #1565c0; }
+    .help-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); justify-content: center; align-items: center; z-index: 2000; }
+    .help-content { background: #fff; border-radius: 16px; padding: 24px; max-width: 640px; text-align: left; }
+    .help-content h2 { text-align: center; font-family: 'Orbitron', sans-serif; font-size: 24px; color: #1565c0; }
     .help-close {
-      display: block;
-      margin: 20px auto 0;
-      padding: 10px 24px;
-      border-radius: 12px;
-      background: linear-gradient(135deg,#e53935,#ef5350);
-      color: #fff;
-      font-weight: bold;
-      cursor: pointer;
-      transition: transform .25s ease, box-shadow .25s ease;
+      display: block; margin: 20px auto 0; padding: 10px 24px; border-radius: 12px;
+      background: linear-gradient(135deg,#e53935,#ef5350); color: #fff; font-weight: bold; cursor: pointer;
     }
-    .help-close:hover {
-      transform: scale(1.1);
-      box-shadow: 0 6px 14px rgba(229,57,53,0.5);
-    }
-    @keyframes pop { 0% { transform: scale(.85); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
-    /* دکمه‌های موضوعات با طراحی قبلی */
+
     .subject-area { display:flex; flex-direction:column; align-items:center; gap:18px; margin-bottom: 30px; }
     .subject-title { font-size: 24px; color: #ef6c00; font-weight: 700; }
     .subject-buttons { display:flex; flex-wrap:wrap; justify-content:center; gap:12px; }
     .subject-buttons button {
-      border: none;
-      cursor: pointer;
-      border-radius: 14px;
-      padding: 14px 22px;
-      color: #fff;
-      font-weight: bold;
-      font-size: 18px;
-      font-family: 'Orbitron', sans-serif;
-      margin: 6px;
-      transition: transform .18s ease, box-shadow .18s ease;
+      border: none; cursor: pointer; border-radius: 14px; padding: 14px 22px;
+      color: #fff; font-weight: bold; font-size: 18px; font-family: 'Orbitron', sans-serif;
+      margin: 6px; transition: transform .18s ease, box-shadow .18s ease;
     }
-    .subject-buttons button:hover {
-      transform: translateY(-2px) scale(1.05);
-      box-shadow: 0 8px 16px rgba(0,0,0,0.22);
-    }
+    .subject-buttons button:hover { transform: translateY(-2px) scale(1.05); box-shadow: 0 8px 16px rgba(0,0,0,0.22); }
     .btn-green { background: linear-gradient(135deg, #43a047, #66bb6a); }
-    .btn-teal { background: linear-gradient(135deg, #00897b, #26a69a); }
-    .btn-blue { background: linear-gradient(135deg, #1e88e5, #42a5f5); }
-    .btn-orange { background: linear-gradient(135deg, #fb8c00, #ffa726); }
-    .btn-purple { background: linear-gradient(135deg, #7e57c2, #ab47bc); }
-    .btn-red { background: linear-gradient(135deg, #e53935, #ef5350); }
+    .btn-teal  { background: linear-gradient(135deg, #00897b, #26a69a); }
+    .btn-blue  { background: linear-gradient(135deg, #1e88e5, #42a5f5); }
+    .btn-orange{ background: linear-gradient(135deg, #fb8c00, #ffa726); }
+    .btn-purple{ background: linear-gradient(135deg, #7e57c2, #ab47bc); }
+    .btn-red   { background: linear-gradient(135deg, #e53935, #ef5350); }
 
-    /* دکمه‌های Submit و Back to Home */
+    .stats { display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-bottom: 16px; }
+    .stat { background:#fff; border-radius:12px; padding:10px 16px; box-shadow: 0 4px 10px rgba(0,0,0,0.08); }
+
+    #letters { font-size: 40px; font-weight: 700; color:#1565c0; margin: 18px 0; }
+    #feedback { min-height: 28px; font-size: 18px; color:#d32f2f; margin-bottom: 10px; }
+
+    .answer-box { display:flex; flex-wrap: wrap; gap:10px; justify-content:center; align-items:center; margin-bottom: 16px; }
+    .answer-box input {
+      font-size: 20px; padding: 10px 14px; border: 2px solid #90caf9; border-radius: 12px; outline: none; max-width: 320px;
+    }
     .btn-action {
-      font-size: 22px;
-      padding: 14px 24px;
-      margin: 10px;
-      border-radius: 14px;
-      border: none;
-      background: linear-gradient(135deg, #43a047, #66bb6a);
-      color: #fff;
-      font-weight: bold;
-      cursor: pointer;
+      font-size: 22px; padding: 14px 24px; border-radius: 14px; border: none;
+      background: linear-gradient(135deg, #43a047, #66bb6a); color:#fff; font-weight: bold; cursor:pointer;
       transition: transform .25s ease, box-shadow .25s ease;
     }
-    .btn-action:hover {
-      transform: scale(1.1);
-      box-shadow: 0 8px 18px rgba(67,160,71,0.45);
+    .btn-action:hover { transform: scale(1.08); box-shadow: 0 8px 18px rgba(67,160,71,0.45); }
+    #home { background: linear-gradient(135deg, #e53935, #ef5350); }
+
+    .lists { display:grid; grid-template-columns: 1fr 1fr; gap:16px; }
+    .list { background:#fff; border-radius:12px; padding:12px; text-align:left; box-shadow: 0 4px 10px rgba(0,0,0,0.06); min-height: 80px; }
+    .item { display:flex; justify-content:space-between; align-items:center; padding:6px 0; border-bottom:1px dashed #e0e0e0; }
+    .item:last-child { border-bottom:none; }
+    .speaker { border:none; background:#1565c0; color:#fff; border-radius:8px; padding:6px 10px; cursor:pointer; }
+    .label-good { color:#2e7d32; font-weight:600; }
+    .label-bad  { color:#c62828; font-weight:600; }
+
+    .correct-box {
+      display:inline-block; background:#e8f5e9; color:#2e7d32; padding:8px 12px; border-radius:10px; font-weight:700;
+      box-shadow: 0 4px 10px rgba(46,125,50,0.15);
     }
-    #home {
-      background: linear-gradient(135deg, #e53935, #ef5350);
+
+    @media (max-width: 640px) {
+      .stats { flex-direction: column; align-items: center; }
+      .stat { width: 90%; font-size: 18px; }
+      .lists { grid-template-columns: 1fr; }
     }
-    #home:hover {
-      box-shadow: 0 8px 18px rgba(229,57,53,0.45);
-    }
+  </style>
+</head>
+<body>
+
+  <!-- کنترل موسیقی -->
+  <div class="music-top">
+    <button id="musicToggle" class="btn-music">🎶 Play Music</button>
+    <input id="volume" class="range" type="range" min="0" max="1" step="0.01" value="0.3">
+  </div>
+
+  <!-- آیکن راهنما -->
+  <div class="help-icon" id="helpIcon">❓</div>
+  <div class="help-modal" id="helpModal">
+    <div class="help-content">
+      <h2>Game Instructions / دستورالعمل بازی</h2>
+      <p><span style="font-weight:bold;">🅴</span> Unscramble the letters to form the correct English word. You have 3 attempts and 30 seconds.</p>
+      <p><span style="font-weight:bold;">🅵</span> حروف بهم‌ریخته را مرتب کنید تا کلمه‌ی انگلیسی درست ساخته شود. برای هر کلمه ۳ بار فرصت و ۳۰ ثانیه زمان دارید.</p>
+      <p><span style="font-weight:bold;">🅴</span> Scoring: +10 for correct, -5 for wrong or timeout.</p>
+      <p><span style="font-weight:bold;">🅵</span> امتیازدهی: +۱۰ برای پاسخ درست، -۵ برای پاسخ غلط یا پایان زمان.</p>
+      <button class="help-close" id="helpClose">✖ Close / بستن</button>
+    </div>
+  </div>
+
+  <!-- صفحه شروع -->
+  <div class="container" id="start">
+    <h1 class="title-main">Word Puzzle Game</h1>
+    <h2 class="title-sub">for Prospect 3</h2>
+    <div class="subject-area">
+      <div class="subject-title">Choose a subject</div>
+      <div class="subject-buttons">
+        <button class="btn-green"  data-subject="Personality">Personality</button>
+        <button class="btn-teal"   data-subject="Travel">Travel</button>
+        <button class="btn-blue"   data-subject="Festivals">Festivals</button>
+        <button class="btn-orange" data-subject="Services">Services</button>
+        <button class="btn-purple" data-subject="Media">Media</button>
+        <button class="btn-red"    data-subject="Health">Health</button>
+      </div>
+    </div>
+  </div>
+
   <!-- صفحه بازی -->
   <div class="container" id="game" style="display:none;">
     <div class="stats">
@@ -207,41 +146,27 @@
       <div id="clock" class="stat">⏱ 30</div>
     </div>
 
-    <div class="progress">
-      <div id="bar" class="progress-fill"></div>
-    </div>
-
-    <!-- کلمه بهم‌ریخته و بازخورد -->
     <div id="letters"></div>
     <div id="feedback"></div>
 
-    <!-- کادر پاسخ -->
     <div class="answer-box">
-      <input id="input" class="input" type="text" placeholder="Type the English word">
+      <input id="input" type="text" placeholder="Type the English word">
       <button id="submit" class="btn-action">Submit</button>
       <button id="home" class="btn-action">🏠 Back to Home</button>
     </div>
 
-    <!-- لیست پاسخ‌ها -->
     <div class="lists">
       <div>
         <h4>Correct answers</h4>
-        <div id="listGood" class="list good"></div>
+        <div id="listGood" class="list"></div>
       </div>
       <div>
         <h4>Wrong answers</h4>
-        <div id="listBad" class="list bad"></div>
-      </div>
-    </div>
-
-    <!-- کارت طراح پایین صفحه -->
-    <div class="designer" style="margin-top:30px;">
-      <div class="designer-content">
-        <div class="designer-text">Designer: A.R. Yousefzadeh</div>
-        <img class="profile" src="https://s34.picofile.com/file/8488183492/2.png" alt="Designer">
+        <div id="listBad" class="list"></div>
       </div>
     </div>
   </div>
+
   <!-- موسیقی و افکت‌ها -->
   <audio id="bgm" preload="auto" loop src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
   <audio id="sndGood" preload="auto" src="https://cdn.freesound.org/previews/398/398284_5121236-lq.mp3"></audio>
@@ -249,31 +174,30 @@
 
   <script>
   document.addEventListener('DOMContentLoaded', () => {
-    const start = document.getElementById('start');
-    const game = document.getElementById('game');
+    const start   = document.getElementById('start');
+    const game    = document.getElementById('game');
 
     const musicBtn = document.getElementById('musicToggle');
-    const volume = document.getElementById('volume');
-    const bgm = document.getElementById('bgm');
-    const sndGood = document.getElementById('sndGood');
-    const sndBad = document.getElementById('sndBad');
+    const volume   = document.getElementById('volume');
+    const bgm      = document.getElementById('bgm');
+    const sndGood  = document.getElementById('sndGood');
+    const sndBad   = document.getElementById('sndBad');
 
-    const scoreEl = document.getElementById('score');
-    const remainEl = document.getElementById('remain');
-    const triesEl = document.getElementById('tries');
-    const clockEl = document.getElementById('clock');
+    const scoreEl   = document.getElementById('score');
+    const remainEl  = document.getElementById('remain');
+    const triesEl   = document.getElementById('tries');
+    const clockEl   = document.getElementById('clock');
     const lettersEl = document.getElementById('letters');
-    const feedbackEl = document.getElementById('feedback');
-    const inputEl = document.getElementById('input');
-    const submitEl = document.getElementById('submit');
-    const homeEl = document.getElementById('home');
-    const barEl = document.getElementById('bar');
-    const listGood = document.getElementById('listGood');
-    const listBad = document.getElementById('listBad');
+    const feedbackEl= document.getElementById('feedback');
+    const inputEl   = document.getElementById('input');
+    const submitEl  = document.getElementById('submit');
+    const homeEl    = document.getElementById('home');
+    const listGood  = document.getElementById('listGood');
+    const listBad   = document.getElementById('listBad');
 
     const helpIcon = document.getElementById('helpIcon');
-    const helpModal = document.getElementById('helpModal');
-    const helpClose = document.getElementById('helpClose');
+    const helpModal= document.getElementById('helpModal');
+    const helpClose= document.getElementById('helpClose');
 
     let subjectKey = null;
     let words = [];
@@ -284,29 +208,26 @@
     let timerId = null;
     let timeLeft = 30;
 
-    /* ابزارهای کمکی */
+    // کمک‌ها
     const normalize = w => w.toLowerCase().replace(/\s+/g,'');
-    const shuffle = w => w.split('').sort(() => Math.random()-0.5).join('');
-    const speak = w => {
-      const a = new Audio(`https://dict.youdao.com/dictvoice?audio=${encodeURIComponent(w)}&type=2`);
-      a.play().catch(()=>{});
-    };
+    const shuffle = w => w.split('').sort(() => Math.random() - 0.5).join('');
+    const speak = w => { new Audio(`https://dict.youdao.com/dictvoice?audio=${encodeURIComponent(w)}&type=2`).play().catch(()=>{}); };
 
-    /* کنترل موسیقی با ولوم پیش‌فرض کم */
+    // موسیقی
     bgm.volume = parseFloat(volume.value || '0.3');
     volume.addEventListener('input', () => { bgm.volume = parseFloat(volume.value || '0.3'); });
     musicBtn.addEventListener('click', () => {
       try {
         if (bgm.paused) { bgm.play(); musicBtn.textContent = '🔊 Stop Music'; }
         else { bgm.pause(); musicBtn.textContent = '🎶 Play Music'; }
-      } catch(e){ /* نادیده گرفتن خطاهای پخش */ }
+      } catch(e){}
     });
 
-    /* راهنما */
+    // راهنما
     helpIcon.addEventListener('click', () => { helpModal.style.display = 'flex'; });
     helpClose.addEventListener('click', () => { helpModal.style.display = 'none'; });
 
-    /* مجموعه کلمات با معانی فارسی */
+    // واژگان
     const subjects = {
       Personality: {
         angry:"عصبانی", brave:"شجاع", careless:"بی‌دقت", cruel:"بی‌رحم", funny:"خنده‌دار",
@@ -352,7 +273,8 @@
         cut:"بریدن", childcare:"مراقبت از کودک", headache:"سردرد"
       }
     };
-    /* شروع بازی */
+
+    // شروع بازی
     function startGame(key) {
       subjectKey = key;
       const dict = subjects[key];
@@ -363,7 +285,6 @@
       scoreEl.textContent = 'Score: 0';
       remainEl.textContent = `Remaining Words: ${total}`;
       triesEl.textContent = 'Remaining Attempts: 3';
-      barEl.style.width = '0%';
       lettersEl.textContent = ''; feedbackEl.textContent = '';
       listGood.innerHTML = ''; listBad.innerHTML = '';
       inputEl.value = '';
@@ -391,7 +312,6 @@
       }, 1000);
     }
 
-    /* نمایش کلمه صحیح تا پایان تلفظ */
     function showCorrectWord(en, fa, type) {
       feedbackEl.innerHTML = `<div class="correct-box">✔ ${en} — ${fa}</div>`;
       const audio = new Audio(`https://dict.youdao.com/dictvoice?audio=${encodeURIComponent(en)}&type=2`);
@@ -434,7 +354,6 @@
         attempts++; const left = Math.max(0, 3 - attempts);
         triesEl.textContent = `Remaining Attempts: ${left}`;
         sndBad.currentTime = 0; sndBad.play();
-        lettersEl.classList.add('shake'); setTimeout(()=>lettersEl.classList.remove('shake'), 420);
 
         if (attempts >= 3) {
           score -= 5;
@@ -456,7 +375,6 @@
 
     function next() {
       clearInterval(timerId); index++;
-      barEl.style.width = `${(index/total)*100}%`;
       remainEl.textContent = `Remaining Words: ${Math.max(0, total - index)}`;
       if (index < total) { showWord(); } else { finish(); }
     }
@@ -471,7 +389,7 @@
       }
     }
 
-    /* رویدادها */
+    // رویدادها
     document.querySelectorAll('.subject-buttons button').forEach(b => {
       b.addEventListener('click', () => startGame(b.dataset.subject));
     });
