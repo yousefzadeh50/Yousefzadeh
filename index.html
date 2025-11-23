@@ -4,10 +4,7 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Word Puzzle Game for Prospect 3</title>
-
-  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&family=Orbitron:wght@500;700&family=Poppins:wght@400;600;700&family=Rubik:wght@400;600&display=swap" rel="stylesheet">
-
   <style>
     :root{
       --blue-900:#0d47a1;
@@ -34,7 +31,6 @@
     }
     .title-sub { font-family: 'Orbitron', sans-serif; font-size: 30px; margin: 8px 0 30px; color: var(--blue-700); }
 
-    /* Music button smaller */
     .music-top { position: fixed; top: 12px; left: 12px; z-index: 999; }
     .btn-music {
       font-size: 10px; padding: 3px 7px; border-radius: 7px;
@@ -42,7 +38,6 @@
       box-shadow: 0 2px 5px rgba(245,124,0,0.3);
     }
 
-    /* Help button + modal */
     .help-icon { position: fixed; top: 12px; right: 12px; font-size: 26px; cursor: pointer; color: var(--blue-700); }
     .help-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); justify-content: center; align-items: center; z-index: 2000; }
     .help-content {
@@ -61,7 +56,6 @@
       background: linear-gradient(135deg,#e53935,#ef5350); color: #fff; font-weight: 700; cursor: pointer;
     }
 
-    /* Subject area */
     .subject-area { display:flex; flex-direction:column; align-items:center; gap:16px; }
     .subject-title {
       font-family: 'Poppins', sans-serif;
@@ -69,7 +63,7 @@
       color: var(--orange);
       text-shadow: 0 2px 6px rgba(239,108,0,0.25);
     }
-    /* Subject buttons */
+
     .subject-buttons { display:flex; flex-wrap:wrap; justify-content:center; gap:10px; }
     .subject-buttons button {
       border: none; cursor: pointer; border-radius: 14px; padding: 12px 18px;
@@ -83,12 +77,16 @@
     .btn-orange{ background: linear-gradient(135deg, #fb8c00, #ffa726); }
     .btn-purple{ background: linear-gradient(135deg, #7e57c2, #ab47bc); }
     .btn-red   { background: linear-gradient(135deg, #e53935, #ef5350); }
-
     .btn-action {
-      font-size: 18px; padding: 10px 18px; border-radius: 14px; border: none;
-      background: linear-gradient(135deg, #43a047, #66bb6a); color:#fff; font-weight: 700; cursor:pointer;
+      font-size: 15px;
+      padding: 8px 14px;
+      border-radius: 12px;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
     }
     #home { background: linear-gradient(135deg, #e53935, #ef5350); }
+    #submit { background: linear-gradient(135deg, #43a047, #66bb6a); }
 
     /* Designer card */
     .designer { margin-top: 26px; display: flex; justify-content: center; }
@@ -103,28 +101,75 @@
       box-shadow: 0 12px 28px rgba(124,77,255,0.18), 0 6px 18px rgba(0,0,0,0.12);
       transition: transform .25s ease, box-shadow .25s ease;
     }
-    .designer-content::after{
-      content:"";
-      position:absolute; inset:-2px;
-      border-radius: 20px;
-      background: linear-gradient(90deg, rgba(124,77,255,0.25), rgba(68,138,255,0.25));
-      z-index:-1; filter: blur(8px);
-    }
-    .designer-content:hover{ transform: rotate(-0.5deg) scale(1.03); box-shadow: 0 16px 34px rgba(124,77,255,0.25), 0 8px 22px rgba(0,0,0,0.16); }
-    .profile { width: 70px; height: 70px; border-radius: 50%; border: 3px solid var(--blue-700); box-shadow: 0 6px 12px rgba(21,101,192,0.35); }
-    .designer-text {
-      display:flex; flex-direction:column; align-items:flex-start;
-      font-family: 'Poppins', sans-serif; color: var(--blue-900);
-    }
+    .designer-content:hover{ transform: rotate(-0.5deg) scale(1.03); }
+    .profile { width: 70px; height: 70px; border-radius: 50%; border: 3px solid var(--blue-700); }
+    .designer-text { display:flex; flex-direction:column; font-family: 'Poppins', sans-serif; color: var(--blue-900); }
     .designer-text .label { font-size: 12px; font-weight: 600; opacity: 0.8; }
     .designer-text .name  { font-size: 15px; font-weight: 700; }
 
-    @media (max-width:640px){
-      .title-main{ font-size: 38px; }
-      .title-sub{ font-size: 26px; }
-      .subject-title{ font-size: 26px; }
-      .profile{ width: 64px; height: 64px; }
-      .designer-text .name{ font-size: 14px; }
+    /* Stats boxes */
+    .stats {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .stats div {
+      background: #fff;
+      border-radius: 12px;
+      padding: 10px 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      color: #1565c0;
+      min-width: 140px;
+      text-align: center;
+    }
+
+    /* Scrambled word */
+    #letters {
+      font-size: 42px;
+      font-weight: 800;
+      color: #1e88e5;
+      background: linear-gradient(90deg,#42a5f5,#7c4dff);
+      padding: 12px 20px;
+      border-radius: 16px;
+      box-shadow: 0 6px 18px rgba(68,138,255,0.3);
+      display: inline-block;
+      margin-bottom: 16px;
+      letter-spacing: 4px;
+    }
+
+    /* Lists */
+    .lists {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 20px;
+    }
+    .lists div {
+      background: #fff;
+      border-radius: 14px;
+      padding: 12px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+      min-height: 120px;
+    }
+    .lists h4 { font-family: 'Poppins', sans-serif; font-size: 16px; margin-bottom: 8px; color: #0d47a1; }
+    #listGood, #listBad { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+    .item { font-size: 14px; font-weight: 600; padding: 6px; border-radius: 8px; background: #e3f2fd; color: #1565c0; }
+    .label-good { color: #2e7d32; }
+    .label-bad  { color: #c62828; }
+
+    .answer-box { display: flex; gap: 10px; justify-content: center; align-items: center; margin-bottom: 16px; }
+    #input {
+      font-size: 18px;
+      padding: 10px 14px;
+      border: 2px solid #90caf9;
+      border-radius: 14px;
+      outline: none;
+      max-width: 320px;
+      box-shadow: 0 4px 10px rgba(144,202,249,0.3);
     }
   </style>
 </head>
@@ -132,7 +177,7 @@
 
   <!-- Music button -->
   <div class="music-top">
-    <button id="musicToggle" class="btn-music">🎶 Play Music</button>
+    <button id="musicToggle" class="btn-music">🎶</button>
   </div>
 
   <!-- Help -->
@@ -195,7 +240,7 @@
     <div class="answer-box">
       <input id="input" type="text" placeholder="Type the English word">
       <button id="submit" class="btn-action">Submit</button>
-      <button id="home" class="btn-action">🏠 Back to Home</button>
+      <button id="home" class="btn-action">Home</button>
     </div>
 
     <div class="lists">
@@ -255,8 +300,8 @@
     bgm.volume = 0.15;
     musicBtn.addEventListener('click', () => {
       try {
-        if (bgm.paused) { bgm.play(); musicBtn.textContent = '🔊 Stop Music'; }
-        else { bgm.pause(); musicBtn.textContent = '🎶 Play Music'; }
+        if (bgm.paused) { bgm.play(); musicBtn.textContent = '🔊'; }
+        else { bgm.pause(); musicBtn.textContent = '🎶'; }
       } catch(e){}
     });
 
@@ -371,18 +416,16 @@
 
     function addGood(en, fa) {
       const el = document.createElement('div');
-      el.style = 'display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px dashed #e0e0e0;';
-      el.innerHTML = `<span style="color:#2e7d32;font-weight:700;">✔ ${en} — ${fa}</span>
-                      <button class="speaker" data-word="${en}" style="border:none;background:#1565c0;color:#fff;border-radius:8px;padding:6px 10px;cursor:pointer;">🔊</button>`;
+      el.className = 'item label-good';
+      el.textContent = `${en} — ${fa}`;
       listGood.appendChild(el);
     }
 
     function addBad(correct, user, fa) {
       const el = document.createElement('div');
-      el.style = 'display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px dashed #e0e0e0;';
+      el.className = 'item label-bad';
       const shown = user ? user : '(empty)';
-      el.innerHTML = `<span style="color:#c62828;font-weight:700;">✖ ${shown} | Correct: ${correct} — ${fa}</span>
-                      <button class="speaker" data-word="${correct}" style="border:none;background:#1565c0;color:#fff;border-radius:8px;padding:6px 10px;cursor:pointer;">🔊</button>`;
+      el.textContent = `${shown} | Correct: ${correct} — ${fa}`;
       listBad.appendChild(el);
     }
 
@@ -444,10 +487,6 @@
       game.style.display = 'none';
       start.style.display = 'block';
       inputEl.value = ''; feedbackEl.textContent = '';
-    });
-    document.addEventListener('click', e => {
-      const sp = e.target.closest('.speaker');
-      if (sp && sp.dataset.word) speak(sp.dataset.word);
     });
   });
   </script>
