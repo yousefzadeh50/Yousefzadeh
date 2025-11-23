@@ -48,10 +48,10 @@
 
     /* Scrambled word */
     #letters {
-      font-size: 44px; font-weight: 800; color: #d81b60;
-      background: #ffe0e0; /* pink refined */
+      font-size: 44px; font-weight: 800; color: #1565c0;
+      background: #e3f2fd; /* no pink */
       padding: 14px 22px; border-radius: 18px;
-      box-shadow: 0 6px 18px rgba(216,27,96,0.3);
+      box-shadow: 0 6px 18px rgba(21,101,192,0.3);
       display: inline-block; margin-bottom: 18px; letter-spacing: 4px;
     }
 
@@ -70,9 +70,10 @@
     .item { font-size: 13px; font-weight: 600; padding: 6px; border-radius: 8px; background: #ede7f6; color: #311b92; display: flex; justify-content: space-between; align-items: center; }
     .item button { border: none; background: #7e57c2; color: #fff; border-radius: 6px; padding: 4px 8px; cursor: pointer; font-size: 12px; }
 
-    /* Designer card */
+    /* Designer card with glow effect */
     .designer { margin-top: 26px; display: flex; justify-content: center; }
-    .designer-content { background: rgba(255,255,255,0.75); backdrop-filter: blur(10px); border: 1px solid rgba(124,77,255,0.25); border-radius: 18px; padding: 14px 18px; display: flex; align-items: center; gap: 12px; box-shadow: 0 12px 28px rgba(124,77,255,0.18), 0 6px 18px rgba(0,0,0,0.12); }
+    .designer-content { background: rgba(255,255,255,0.85); backdrop-filter: blur(12px); border: 2px solid rgba(124,77,255,0.35); border-radius: 20px; padding: 16px 20px; display: flex; align-items: center; gap: 12px; box-shadow: 0 0 20px rgba(124,77,255,0.4), 0 0 40px rgba(124,77,255,0.2); animation: glow 3s infinite alternate; }
+    @keyframes glow { from { box-shadow: 0 0 20px rgba(124,77,255,0.4); } to { box-shadow: 0 0 40px rgba(124,77,255,0.6); } }
     .profile { width: 70px; height: 70px; border-radius: 50%; border: 3px solid #1565c0; }
     .designer-text { display:flex; flex-direction:column; font-family: 'Poppins', sans-serif; color: #0d47a1; }
     .designer-text .label { font-size: 12px; font-weight: 600; opacity: 0.8; }
@@ -162,15 +163,16 @@
     </div>
   </div>
 
-  <!-- Help modal -->
+  <!-- Help modal bilingual -->
   <div class="modal-backdrop" id="helpModal">
     <div class="modal">
-      <h3>Game help</h3>
-      <p>• یک کلمه انگلیسی به‌صورت بهم‌ریخته نمایش داده می‌شود.</p>
-      <p>• کلمه صحیح را تایپ کنید و دکمه Submit را بزنید.</p>
-      <p>• هر پاسخ درست 10 امتیاز دارد و پاسخ غلط 5 امتیاز کم می‌کند.</p>
-      <p>• برای هر کلمه 3 تلاش و 30 ثانیه زمان دارید.</p>
-      <button class="close" id="helpClose">باشه</button>
+      <h3>Game Help / راهنمای بازی</h3>
+      <p>• A scrambled English word is shown. / یک کلمه انگلیسی بهم‌ریخته نمایش داده می‌شود.</p>
+      <p>• Type the correct word and press Submit. / کلمه صحیح را تایپ کنید و دکمه Submit را بزنید.</p>
+      <p>• Each correct answer = +10 points. / هر پاسخ درست ۱۰ امتیاز دارد.</p>
+      <p>• Each wrong answer = -5 points. / هر پاسخ غلط ۵ امتیاز کم می‌کند.</p>
+      <p>• 3 attempts and 30 seconds per word. / برای هر کلمه ۳ تلاش و ۳۰ ثانیه زمان دارید.</p>
+      <button class="close" id="helpClose">OK / باشه</button>
     </div>
   </div>
 
@@ -208,40 +210,41 @@
     const shuffle = w => w.split('').sort(() => Math.random() - 0.5).join('');
     const speak = w => { new Audio(`https://dict.youdao.com/dictvoice?audio=${encodeURIComponent(w)}&type=2`).play().catch(()=>{}); };
 
-    // Subjects dictionary
+    // Vocabulary (20 words per subject via slice)
     const subjects = {
       Personality: {
         angry:"عصبانی", brave:"شجاع", careless:"بی‌دقت", cruel:"بی‌رحم", funny:"خنده‌دار",
         neat:"مرتب", nervous:"عصبی", quiet:"ساکت", rude:"بی‌ادب", selfish:"خودخواه",
-        lazy:"تنبل", shy:"خجالتی", generous:"سخاوتمند", patient:"صبور", serious:"جدی", friendly:"دوستانه"
+        lazy:"تنبل", shy:"خجالتی", generous:"سخاوتمند", patient:"صبور", serious:"جدی",
+        friendly:"دوستانه", honest:"صادق", polite:"مودب", clever:"باهوش", calm:"آرام"
       },
       Travel: {
         ticket:"بلیط", passport:"گذرنامه", timetable:"برنامه‌زمانی", hotel:"هتل", baggage:"بار",
-        voyage:"سفر دریایی", train:"قطار سریع‌السیر", toll:"عوارض", form:"فرم",
-        receptionist:"مسئول پذیرش", exchange:"تبدیل ارز", checkin:"پذیرش", reclaim:"تحویل بار",
-        pack:"جمع‌کردن وسایل", weigh:"وزن‌کردن", board:"سوار شدن", express:"سریع‌السیر",
-        itinerary:"مسیر سفر", customs:"گمرک"
+        voyage:"سفر دریایی", train:"قطار", toll:"عوارض", form:"فرم", receptionist:"مسئول پذیرش",
+        exchange:"تبدیل ارز", checkin:"پذیرش", reclaim:"تحویل بار", pack:"جمع‌کردن وسایل",
+        weigh:"وزن‌کردن", board:"سوار شدن", express:"سریع‌السیر", itinerary:"مسیر سفر",
+        customs:"گمرک", airport:"فرودگاه"
       },
       Festivals: {
-        ceremony:"مراسم", anthem:"سرود ملی", fireworks:"آتش‌بازی", poems:"اشعار حافظ",
-        parade:"رژه", celebrate:"جشن گرفتن", clothes:"لباس‌های ویژه", table:"چیدن/جمع‌کردن میز",
-        bake:"پخت کیک", nature:"سیزده‌بدر", lunch:"ناهار", dinner:"شام",
-        tradition:"سنت", holiday:"تعطیلات مذهبی/ملی", commemorate:"گرامیداشت",
-        culture:"فرهنگ", anniversary:"سالگرد"
+        ceremony:"مراسم", anthem:"سرود ملی", fireworks:"آتش‌بازی", poems:"اشعار",
+        parade:"رژه", celebrate:"جشن گرفتن", clothes:"لباس‌های ویژه", table:"چیدن میز",
+        bake:"پخت کیک", nature:"طبیعت", lunch:"ناهار", dinner:"شام",
+        tradition:"سنت", holiday:"تعطیلات", commemorate:"گرامیداشت",
+        culture:"فرهنگ", anniversary:"سالگرد", music:"موسیقی", dance:"رقص", gift:"هدیه"
       },
       Services: {
-        account:"حساب", recharge:"شارژ مجدد", putout:"خاموش کردن آتش",
-        emergency:"اورژانس", donate:"اهدای خون", voluntary:"داوطلبانه", charity:"خیریه",
-        information:"اطلاعات", eticket:"بلیط الکترونیک", ambulance:"آمبولانس",
-        ER:"اورژانس", ATM:"خودپرداز", taxi:"تاکسی", clean:"پاکیزه نگه‌داشتن",
-        bring:"بردن به اورژانس", service:"خدمت‌رسانی"
+        account:"حساب", recharge:"شارژ مجدد", putout:"خاموش کردن آتش", emergency:"اورژانس",
+        donate:"اهدای خون", voluntary:"داوطلبانه", charity:"خیریه", information:"اطلاعات",
+        eticket:"بلیط الکترونیک", ambulance:"آمبولانس", ER:"اورژانس", ATM:"خودپرداز",
+        taxi:"تاکسی", clean:"پاکیزه نگه‌داشتن", bring:"بردن", service:"خدمت‌رسانی",
+        police:"پلیس", fire:"آتش‌نشانی", repair:"تعمیر", guide:"راهنما"
       },
       Media: {
         interview:"مصاحبه", message:"پیامک", email:"ایمیل", blog:"بلاگ", internet:"اینترنت",
-        course:"دوره آنلاین", tv:"تلویزیون", quiz:"مسابقه تلویزیونی", movie:"فیلم",
-        channels:"تعویض کانال‌ها", update:"به‌روزرسانی", download:"دانلود",
+        course:"دوره آنلاین", tv:"تلویزیون", quiz:"مسابقه", movie:"فیلم",
+        channels:"کانال‌ها", update:"به‌روزرسانی", download:"دانلود",
         antivirus:"ضدویروس", install:"نصب", participate:"شرکت کردن",
-        receive:"دریافت", newsstand:"دکه روزنامه", program:"برنامه تلویزیونی",
+        receive:"دریافت", newsstand:"دکه روزنامه", program:"برنامه",
         connect:"اتصال", attend:"حضور"
       },
       Health: {
@@ -258,11 +261,14 @@
     let words = []; let total = 0; let score = 0; let index = 0; let attempts = 0;
     let timerId = null; let timeLeft = 30;
 
+    // Init audio
+    bgm.volume = 0.3; // lower default music volume
+
     // Start game
     function startGame(key) {
       subjectKey = key;
       const dict = subjects[key];
-      words = Object.keys(dict).slice(0, 20);
+      words = Object.keys(dict).slice(0, 20); // exactly 20 words
       total = words.length;
       score = 0; index = 0; attempts = 0;
 
@@ -289,9 +295,9 @@
 
     function resetTimer() {
       clearInterval(timerId);
-      timeLeft = 30; clockEl.textContent = `⏱ ${timeLeft}`;
+      timeLeft = 30; clockEl.textContent = `⏱ ${String(timeLeft).padStart(2,'0')}`;
       timerId = setInterval(() => {
-        timeLeft--; clockEl.textContent = `⏱ ${timeLeft}`;
+        timeLeft--; clockEl.textContent = `⏱ ${String(timeLeft).padStart(2,'0')}`;
         if (timeLeft <= 0) { clearInterval(timerId); onTimeout(); }
       }, 1000);
     }
@@ -300,7 +306,7 @@
       const el = document.createElement('div');
       el.className = 'item';
       el.innerHTML = `<span>✔ ${en} — ${fa}</span>
-                      <button onclick="speak('${en}')">🔊</button>`;
+                      <button aria-label="Pronounce" onclick="window._speak('${en}')">🔊</button>`;
       listGood.appendChild(el);
     }
 
@@ -308,9 +314,12 @@
       const el = document.createElement('div');
       el.className = 'item';
       el.innerHTML = `<span>✖ ${correct} — ${fa}</span>
-                      <button onclick="speak('${correct}')">🔊</button>`;
+                      <button aria-label="Pronounce" onclick="window._speak('${correct}')">🔊</button>`;
       listBad.appendChild(el);
     }
+
+    // expose speak so inline buttons work everywhere
+    window._speak = function(word) { speak(word); };
 
     function check() {
       const user = (inputEl.value || '').trim().toLowerCase().replace(/\s+/g,'');
@@ -320,14 +329,19 @@
 
       if (user === correct) {
         score += 10; sndGood.currentTime = 0; sndGood.play();
+        feedbackEl.textContent = `✔ Correct: ${en} — ${fa}`;
+        speak(en);
         addGood(en, fa);
         next();
       } else {
-        attempts++; const left = Math.max(0, 3 - attempts);
+        attempts++;
+        const left = Math.max(0, 3 - attempts);
         triesEl.textContent = `Remaining Attempts: ${left}`;
         sndBad.currentTime = 0; sndBad.play();
         if (attempts >= 3) {
           score -= 5;
+          feedbackEl.textContent = `✖ Correct word: ${en} — ${fa}`;
+          speak(en);
           addBad(en, fa);
           next();
         } else {
@@ -342,6 +356,8 @@
       const fa = subjects[subjectKey][en];
       score -= 5; scoreEl.textContent = `Score: ${score}`;
       sndBad.currentTime = 0; sndBad.play();
+      feedbackEl.textContent = `⏱ Time’s up! Correct word: ${en} — ${fa}`;
+      speak(en);
       addBad(en, fa);
       next();
     }
@@ -375,13 +391,13 @@
       inputEl.value = ''; feedbackEl.textContent = '';
     });
 
-    // Music toggle
+    // Music toggle (lower default volume already set)
     let musicOn = false;
     musicBtn.addEventListener('click', async () => {
       try {
         if (!musicOn) { await bgm.play(); musicOn = true; musicBtn.textContent = '🔇 Stop'; }
         else { bgm.pause(); musicOn = false; musicBtn.textContent = '🎶 Music'; }
-      } catch (e) { /* autoplay may be blocked; no crash */ }
+      } catch (e) { /* autoplay may be blocked; safe no-op */ }
     });
 
     // Help modal
